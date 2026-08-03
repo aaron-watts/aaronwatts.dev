@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it."/>
+    <meta name="keywords" content="webdev, php, html, xml"/>
+
+    <title>AWD - PHP Static Site Generator</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+
+    <link rel="canonical" href="/guides/php-static-site-generator"/>
+    <link href="https://aaronwatts.dev/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - All" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
+
+    <meta property="og:title" content="PHP Static Site Generator"/>
+    <meta property="og:site_name" content="aaronwatts@dev"/>
+    <meta property="og:description" content="I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it."/>
+    <meta property="og:url" content="https://aaronwatts.dev/guides/php-static-site-generator"/>
+    <meta property="og:image" content="/images/guides/php-static-site-generator.webp"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:article:published_time" content="2026-07-23"/>
+
+    <link rel="preload" href="/assets/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/styles/prism.css">
+    <link rel="stylesheet" href="/assets/styles/style.css">
+
+        <script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronwatts.dev/guides/php-static-site-generator/"
+  },
+  "headline": "PHP Static Site Generator"
+  "datePublished": "2026-07-23",
+  "description": "I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it.",
+  "image": [
+      https://aaronwatts.dev/images/guides/php-static-site-generator.webp
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "aaronwatts@dev"
+  }
+}</script>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Breadcrumb">
+        <ol>
+          <li><a 
+              href="/">aaronwatts@dev</a></li><span
+              aria-hidden="true" class="term-dir"></span><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a 
+              href="/guides/">guides</a></li><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a
+              href="" aria-current="page">php-static-site-generator</a></li><span
+              aria-hidden="true" class="term-priv"></span>
+        </ol>
+      </nav>
+      <div class="rss-container">
+        <a href="/rss">
+          <svg class="rss">
+            <use href="/assets/svg/svg-map.svg#rss-feed" />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <nav aria-labelledby="page-nav">
+      <header>
+        <h2 id="page-nav">On This Page</h2>
+      </header>
+      <ol>
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#simple-server">Setting Up A Simple Server</a></li>
+        <li><a href="#blog-post">Serving a Blog Post</a></li>
+        <li><a href="#blog">Serving a Blog</a></li>
+        <li><a href="#rss-feed">Serving and RSS Feed</a></li>
+        <li><a href="#build">Building the Site</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <article>
+        <header>
+  <ul class="topic-container">
+    <li class="topic">webdev</li>
+    <li class="topic">php</li>
+    <li class="topic">html</li>
+    <li class="topic">xml</li>
+  </ul>
+
+  <h1>PHP Static Site Generator</h1>
+
+  <time datetime="2026-07-23">23rd July, 2026</time>
+
+  <figure>
+    <img src="/images/guides/php-static-site-generator.webp" alt="A plushy toy of the PHP mascot ElePHPant on a laptop keyboard">
+    <figcaption>Photo by <a href="https://unsplash.com/@benofthenorth?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ben Griffiths</a> on <a href="https://unsplash.com/photos/blue-elephant-plush-toy-on-black-laptop-computer-gAe1pHGc6ms?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></figcaption>
+  </figure>
+</header>
+
+<section id="intro" title="Intro">
+  <p id="description">I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it.</p>
+
+  <p>It's something I've always been curious about, but the bar to entry appeared quite high previously. You need a server to run it, you need to know some system administration to run a server, you will probably need to learn Docker too. I've had a little exposure to PHP since setting up a NextCloud instance, and I recently set up a Coolify instance on a Raspberry Pi 4 so now I have somewhere cheap to play around with it and hopefully learn this language to a useful degree.</p>
+
+  <p>Now that I have begun learning it, and I should stress I have only <em>just</em> started - this is literally the first project I've done and I haven't even learned PHP Classes yet - I regret not having started sooner. You don't need a server to start learning PHP. This project generates a static HTML website (this website!) that at the time of writing is hosted on Github Pages. Sure, I had already done this in Python, but PHP has been designed <em>for the web</em>, and it is certainly evident in as much that as a total newb I have completed this entire project in a relatively short space of time, and in such a way that it is far more portable and customisable than it's Python counterpart.</p>
+</section>
+
+<section id="getting-started" title="Getting Started">
+  <h2>Getting Started</h2>
+
+  <p>If like me, you're running Linux, you've already taken the first step towards a LAMP stack without even trying. Windows and Mac users, I'm not in that world anymore, you'll need Google - my apologies. One thing I'm really enjoying about PHP is I don't have to install yet another package manager. I mean, there is Composer, but for this project at least, I haven't even had to give it a look yet. All the required dependencies were in the Debian Trixie apt repository.</p>
+
+  <pre class="language-none command-line" data-user="aaronwatts" data-host="dev"><code>sudo apt install php php-cli php-xml</code></pre>
+
+  <p>That's it! <code>php</code> itself, <code>php-cli</code> to run the PHP from the command line as a script (this will be <em>very</em> useful in this project), and <code>php-xml</code> to parse and manipulate XML and HTML.</p>
+
+  <p>If you're using VS Code/Codium then the live-server plugin should run PHP fine (or at least it did last time I used it), and I imagine any sensible IDE or editor should be just as easy to get set up. I, however, and on Vim, and had to dig up some Vim script to get a working PHP server. Just put the following somewhere in your <code>.vimrc</code> if you are in the same same boat as me. Just use <code>leader StartPHPServer</code> to get a live PHP server going quickly in Vim.</p>
+
+  <pre class="language-none"><code>" PHP LiveServer Start
+function! StartPHPServer()
+  let cmd = "php -S 127.0.0.1:8080 &amp; firefox 127.0.01:8080 &amp;"
+  call system(cmd)
+  echo "PHP server started in the background: 127.0.0.1:8080"
+endfunction
+
+function! StartPHPServerOnPort(port)
+  let port_num = a:port + 0
+  let cmd = "php -S 127.0.0.1:" . port_num . " &amp; firefox 127.0.0.1:" . port_num . " &amp;"
+  call system(cmd)
+  echo "PHP server started in the background on port " . port_num . ": 127.0.0.1" . port_num
+endfunction
+
+function! KillPHPServer()
+  let cmd = "pkill -f 'php'"
+  call system(cmd)
+endfunction
+
+augroup PHPServerKill
+  autocmd!
+  autocmd VimLeave * call KillPHPServer()
+augroup END
+
+command! StartPHPServer call StartPHPServer()
+command! -nargs=1 StartPHPServerOnPort call StartPHPServerOnPort(&lt;f-args&gt;)
+command! KillPHPServer call KillPHPServer()
+" PHP LiveServer End</code></pre>
+</section>
+
+<section id="simple-server" title="Setting Up A Simple Server">
+  <h2>Setting Up A Simple Server</h2>
+
+  <p>If you have used anything like Express in NodeJS or Flask in Python, this should all feel pretty familar. We don't need anything particularly secure or rugged, the server will be primarily to have a live environment to work in while working on the website. The magic will happen when we call the same <code>index.php</code> script in the command line without a server running. Doing that will allow us to pipe the output (HTML) into files in a <code>dist</code> folder. I still use the Github Pages default <code>docs</code> folder for sake of simplicity, but I will use <code>dist</code> here for clarity.</p>
+
+  <p>Folder structure will loosely follow a MVC (Model View Controller) paradigm for organisation, but as I haven't learned PHP Classes yet I'm just throwing the whole thing together procedurally. Folder structure will have a <code>public</code> directory - this is where PHP looks by default for an <code>index.php</code> file. I'll also dump all my static content and root files in here too. An <code>app</code> folder will have anything functional such as controllers and helpers and a <code>config</code> folder for any settings, with a <code>views</code> folder for templates. Finally a <code>src</code> folder instead of models - since I'm generating a static site I will just be keeping my articles as stripped down HTML files, to be placed into a template as a HTML string.</p>
+
+  <pre><code class="language-treeview">project_root/
+├── app/
+├── config/
+├── dist/
+├── public/
+|   ├── assets/
+|   ├── images/
+|   ├── CNAME
+|   ├── robots.txt
+|   └── index.php
+├── src/
+└── views/</code></pre></section>
+
+  <p>In <code>index.php</code> we first need to define our paths. As we will be working on a live server, and building from command line, the script needs to be able to identify in which enviroment it is being run. We can do this with the <code>php_sapi_name</code> function. If the script is running from command line, url params will be swapped out for command line arguments, otherwise we can use the <code>$_SERVER['PATH_INFO']</code> from the server to determine the route.</p>
+
+  <pre class="language-php"><code>&lt;?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__) . DIRECTORY_SEPARATOR;
+
+define('CONFIG_PATH', $root . 'config' . DIRECTORY_SEPARATOR);
+define('APP_PATH', $root . 'app' . DIRECTORY_SEPARATOR);
+define('SRC_PATH', $root . 'src' . DIRECTORY_SEPARATOR);
+define('VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR);
+
+require APP_PATH . 'App.php';
+
+if (php_sapi_name() === 'cli') {
+  $path = sizeof($argv) &gt; 1 ? $argv[1] : null;
+  $url = resolveUrl($path);
+} else {
+  $url = resolveUrl($_SERVER['PATH_INFO']);
+}
+
+if ($url['isFeed']) {
+  feedController($url);
+} else if ($url['isPost']) {
+  postController($url);
+} else if ($url['isBlog']) {
+  blogController($url);
+} else if ($url['path'] === '/') {
+  homePageController();
+} else {
+  pageNotFoundController();
+}</code></pre>
+
+  <p><code>resolveUrl</code> and the various route controllers are coming from <code>app/App.php</code>. <code>resolveUrl</code> is simply working out what route should be applied - a framework would parse url params for you usually, but I'm working from scratch here.</p>
+
+  <pre class="language-php"><code>function getPath(string $uri): string
+{
+  $path = preg_replace('/\/+/', '/', $uri);
+  $path = trim($path, '/');
+
+  return $path;
+}
+
+function resolveUrl(string|null $uri): array
+{
+  $configs = include CONFIG_PATH . 'config.php';
+  $url = array();
+
+  if ($uri !== null) {
+    $url['path'] = getPath($uri);
+    $url['params'] = explode('/', $url['path']);
+  } else {
+    $url['path'] = '/';
+    $url['params'] = array();
+  }
+
+  $url['isFeed'] = $url['params'] !== null
+    &amp;&amp; in_array('feed', $url['params']);
+
+  $url['isBlog'] = $url['params'] !== null
+    &amp;&amp; in_array($url['params'][0], array_keys($configs['blogs']));
+
+  $url['isPost'] = $url['isBlog']
+    &amp;&amp; $url['params'] !== null
+    &amp;&amp; sizeof($url['params']) > 1;
+
+  return $url;
+}</code></pre>
+  
+  <p>My website has a few different blogs: guides and tech. I am planning on adding my other actual blog into this site too. Each blog has it's own folder with an <code>index.html</code> file and the articles (previously HTML files but now folders containting <code>index.html</code> files in each). I explode the uri and check its parameters, to see if that is an existing blog - the list of blogs is stored in a config file. If it's a blog with no following params, it will go to it's index, if it has an existing param after the blog, then that param will be assumed to be a post, and a check is done to check if that post exists. I can also check if it is looking for a feed path, or assign it the home path. If it is not the home path, and all other checks fail, the router will respond with the 404 page.</p>
+
+  <p>For now, we only need <code>config/config.php</code> to return an array of valid blogs. But I want to preserve the blog order, and use a consistent blog description in various places across my website so I have included those too.</p>
+
+  <pre class="language-php"><code>&lt;?php
+
+$guidesDesc = fn (): string =&gt; "A description for Guides blog";
+$techDesc = fn (): string =&gt; "A description for Tech blog";
+
+return array(
+  'blogs' =&gt; [
+    'guides' =&gt; $guidesDesc(),
+    'tech' =&gt; $techDesc()
+  ],
+  'blogOrder' =&gt; [
+    'guides',
+    'tech'
+  ],
+);</code></pre>
+</section>
+
+<section id="blog-post" title="Serving a Blog Post">
+  <h2>Serving a Blog Post</h2>
+
+  <p>Now the server is routing requests, we need to handle the routes themselves using the controllers. The controllers are all in the <code>App.php</code> file in the <code>app</code> directory. Each one will collect and organise the required data before passing that data into the relevant template located in the <code>views</code> directory.</p>
+
+  <pre class="language-php"><code>function postController(array $url): void
+{
+  require APP_PATH . 'helpers.php';
+  $blog = $url['params'][0];
+  $post = $url['params'][1];
+  $src = SRC_PATH . $blog . DIRECTORY_SEPARATOR . $post . '.html';
+  $content = getPost($blog, $post);
+  $dom = Dom\HTMLDocument::createFromString($content);
+  $postInfo = getPostInfo($dom);
+  [
+    'title' =&gt; $title,
+    'description' =&gt; $description,
+    'imgUrl' =&gt; $imgUrl,
+    'date' =&gt; $date,
+    'topics' =&gt; $topics,
+    'sections' =&gt; $sections,
+    'prismRequired' =&gt; $prismRequired
+  ] = $postInfo;
+  $jsonLd = getJsonLd($postInfo);
+
+  require VIEWS_PATH . 'post.php';
+}</code></pre>
+
+  <p>The simplest task may be the displaying a single post page, so let's start with that one. In my <code>postController</code> function, I will first require <code>helpers.php</code>, where I am keeping code to help retreive, organise and manipulate data. A <code>$blog</code> and a <code>$post</code> variable are defined using the url parameters, and then the relevant post is fetched using a <code>getPost</code> function defined in <code>helpers.php</code>. <code>getPost</code> simply returns the HTML file contents as a string, which is then used to create an instance of the <code>Dom\HTMLDocument</code> class, which we can then send to the <code>getPostInfo</code> in <code>helpers.php</code> in order to cherry pick any information we might want to use later on. The function returns an associative array, so we simply unpack only the keys and values we require by destructuring the return value - we are handling a request for a blog post here, so unsurprisingly we are using all of the return values in this case. However, most of this data will be used to generate meta data, such as descriptions, the schema, and JSON Linked Data. Finally, once processed, the data will be passed into the views template <code>post.php</code></p>
+
+  <pre class="language-php"><code>function getPost(string $blog, string $post): string
+{
+  $src = SRC_PATH . $blog . DIRECTORY_SEPARATOR .$post . '.html';
+
+  if (file_exists($src)) {
+    $file = fopen($src, 'r') or die("Unable to open file");
+    $content = fread($file, filesize($src));
+    fclose($file);
+    return $content;
+  } else {
+    return 'Error loading ' . $src;
+  }
+}
+
+function getPostInfo(object $dom): array
+{
+  $title = $dom-&gt;querySelector('h1')-&gt;textContent;
+  $description = $dom-&gt;querySelector('p#description')-&gt;textContent;
+  $imgUrl = $dom-&gt;querySelector('img')-&gt;getAttribute('src');
+  $date = $dom-&gt;querySelector('time')-&gt;getAttribute('datetime');
+  $topics = $dom-&gt;querySelectorAll('li.topic');
+  $sections = $dom-&gt;querySelectorAll('section');
+  $prismRequired = preIsUsed($dom);
+
+  return array(
+    'title' =&gt; $title,
+    'description' =&gt; $description,
+    'imgUrl' =&gt; $imgUrl,
+    'date' =&gt; $date,
+    'topics' =&gt; $topics,
+    'sections' =&gt; $sections,
+    'prismRequired' =&gt; $prismRequired
+  );
+}</code></pre>
+
+  <p>In only a handful of function calls form start to finish, we are ready to assemble our blog post's HTML using the relevant template php file in the <code>views</code> directory. In the interest of readability, I'm going to leave most stuff out. But here you will be able to see how simple it is to include the article inside of an <code>article</code> element just using the <code>$content</code> string. As mentioned, most of the additional data collected from the DOM is being used to populate meta data, but you can see here that I am using it to generate a page navigation if the article is split into sections. Sometimes I split articles up into parts, and sometimes I don't. Using PHP I don't have to consciously worry about how a page will be laid out, and all blog posts can use the same template regradless of their individual structure.</p>
+
+  <pre class="language-php"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+&lt;?php if ($sections-&gt;length &gt; 0): ?&gt;
+  &lt;nav aria-labelledby="page-nav"&gt;
+    &lt;header&gt;
+      &lt;h2 id="page-nav"&gt;On This Page&lt;/h2&gt;
+    &lt;/header&gt;
+    &lt;ol&gt;
+  &lt;?php foreach ($sections as $section): ?&gt;
+    &lt;li&gt;&lt;a href="#&lt;?= $section-&gt;getAttribute('id') ?&gt;"&gt;&lt;?= $section-&gt;getAttribute('title') ?&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;?php endforeach; ?&gt;
+    &lt;/ol&gt;
+    &lt;/nav&gt;
+&lt;?php endif; ?&gt;
+
+    &lt;main&gt;
+      &lt;article&gt;
+        &lt;?= $content; ?&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</section>
+
+<section id="blog" title="Serving a Blog">
+  <h2>Serving a Blog</h2>
+
+  <p>Now we are serving our blog posts, we can take a look at serving the blog reel itself. Exactly how you do this will depend on a bit on preference and taste, but I like to have a separate blog reel for each of my blogs. I can use a single template to generate any of my blogs using PHP. The blogs in <code>config.php</code> will be of great help here, as it can provide the description for each blog so that I can use it in page, as well as including the descriptions on the home page, in page meta, as well as in the RSS feeds. Let's start by taking a look at the <code>blogController</code> function in <code>App.php</code>.</p>
+
+  <pre class="language-php"><code>function blogController(array $url): void
+{
+  $configs = include CONFIG_PATH . 'config.php';
+  require APP_PATH . 'helpers.php';
+  $blog = $url['params'][0];
+  $blogDesc = $configs['blogs'][$blog];
+  $posts = getBlogPosts($blog);
+  uasort($posts, "newestPost");
+
+  require VIEWS_PATH . 'blog.php';
+}</code></pre>
+
+  <p>This one looks a little simpler than the <code>postController</code> function, if only because it doesn't have to destructure anything. Blogs will still need to be destructured, but to reduce the work load I will take care of that within the template while iterating over the relevant blog posts. For now, the function simply determines which blog it is looking for using the url parameter, collects the required blog description from the config file, collects the relevant blogs by calling a <code>getBlogPosts</code> function, and then uses PHP's built in <code>uasort</code> function to sort the posts using the callback <code>newestPost</code> function. <code>getBlogPosts</code> and <code>newestPost</code> are both defined in <code>helpers.php</code></p>
+
+  <pre class="language-php"><code>function getBlogPosts(string $blog): array
+{
+  $dir = SRC_PATH . $blog . DIRECTORY_SEPARATOR; 
+  $files = scandir($dir);
+  $posts = array();
+
+  foreach ($files as $file) {
+    $path = $dir . $file;
+
+    if (is_file($path) &amp;&amp; substr($file, -5) === '.html') {
+      $dom = Dom\HTMLDocument::createFromFile($path);
+      $postName = str_replace('.html', '', $file);
+      $posts[$postName] = [
+        'dom' =&gt; $dom,
+        'blog' =&gt; $blog
+      ];
+    }
+  }
+
+  return $posts;
+}
+  
+function newestPost(array $a, array $b): int
+{
+  $ad = $a['dom']-&gt;querySelector('time')-&gt;getAttribute('datetime');
+  $bd = $b['dom']-&gt;querySelector('time')-&gt;getAttribute('datetime');
+
+  if ($ad === $bd) {
+    return 0;
+  }
+
+  return ($ad &gt; $bd) ? -1 : 1;
+}</code></pre>
+
+  <p>The <code>getBlogPosts</code> function is passed a <code>blog</code> sting which it uses to set the correct directory, then checks each file is valid and adds it to an associated array using the extension-stripped filename as it's key and a dom object and the blog string as key value pairs, and finally returns the array. By checking that the file ends in <em>".html"</em> we can prevent picking up invalid filetypes such as the swap files that editors like vim might generate when a file has a buffer active. The blog key value pair is not important in this particular workflow, but will prove helpful when working with more than one blog at a time, such as on the home page or in the main RSS feed.</p>
+
+  <p>The <code>newestPost</code> callback used in the uasort simply picks the date out of the articles <code>time</code> element and compares it to it's neighbour in the array.</p>
+
+  <pre class="language-php"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+      &lt;header&gt;
+        &lt;h1&gt;&lt;?= ucfirst($blog) ?&gt;&lt;/h1&gt;
+        &lt;p&gt;&lt;?= $blogDesc ?&gt;&lt;/p&gt;
+      &lt;/header&gt;
+    
+      &lt;nav id="articles"&gt;
+&lt;?php foreach($posts as $postName =&gt; $post):
+
+  $postInfo = getPostInfo($post['dom']);
+  [
+  'title' =&gt; $title,
+  'description' =&gt; $description,
+  'date' =&gt; $date,
+  'topics' =&gt; $topics
+  ] = $postInfo;
+
+  $url = '/' . $blog . '/' . $postName;
+?&gt;
+
+        &lt;article&gt;
+          &lt;header&gt;
+            &lt;h3&gt;&lt;a href="&lt;?= $url ?&gt;"&gt;&lt;?= $title ?&gt;&lt;/a&gt;&lt;/h3&gt;
+            &lt;time datetime="&lt;?= $date ?&gt;"&gt;&lt;?= formatDate($date); ?&gt;&lt;/time&gt;
+            &lt;ul class="topic-container"&gt;
+  &lt;?php foreach($topics as $topic): ?&gt;
+              &lt;li class="topic"&gt;&lt;?= $topic-&gt;textContent ?&gt;&lt;/li&gt;
+  &lt;?php endforeach ?&gt;
+            &lt;/ul&gt;
+          &lt;/header&gt;
+          &lt;p class="description"&gt;&lt;?= $description ?&gt;&lt;/p&gt;
+          &lt;a href="&lt;?= $url ?&gt;"&gt;Read More&lt;/a&gt;
+        &lt;/article&gt;
+&lt;?php endforeach ?&gt;
+      &lt;/nav&gt;
+    &lt;/main&gt;
+
+    &lt;script src="/assets/scripts/filter.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+  <p>Once again, I've stripped out a lot of the stuff that doesn't matter. What happens here, is first we simply populate a title and description for the particular blog - I use the PHP built in function <code>ucfirst</code> to uppercase the first letter of the blog title. Then we iterate over each post in the associative array, which has already been sorted by newest first, and use the <code>getPostInfo</code> function we used in for the blog post earlier, to destructure what we need for each post - we don't need a lot here, only the title, description, date and topics. We also use the <code>$blog</code> and <code>postName</code> strings to generate the url - <code>$blog</code> was defined mwithin our controller function, and <code>$postName</code> is the key for the particular post. Once that is done, we have everything we need to create a link for each post with a date and description, as well is a list of topics, which I use with JavaScript to automatically generate a filter search for each blog based on the topics pinned to each article.</p>
+
+</section>
+
+<section id="rss-feed" title="Serving and RSS Feed">
+  <h2>Serving an RSS Feed</h2>
+
+  <p>Next, we will look at how to serve an RSS feed. There are, of course, other pages that I will be serving and generating within my site, but there isn't really anything new to gain from looking at those. However, when serving XML, I encountered a few caveats and gotchas, so I thought I would share the solution I ended up going with. When researching solutions, I came across a few different ones. There may be bettter solutions than mine, and I haven't had mine in production long enough to find bugs yet, but for me this method felt fasat and familiar, and didn't deviate too much from what I had already been doing elsewhere in the code. Let's begin by taking a look at what the <code>feedController</code> functtion is doing.</p>
+
+  <pre class="language-php"><code>function feedController(array $url): void
+{
+  $configs = include CONFIG_PATH . 'config.php';
+  require APP_PATH . 'helpers.php';
+  $posts = array();
+
+  if ($url['isBlog']) {
+    $blog = $url['params'][0];
+    $posts = [...getBlogPosts($blog)];
+  } else {
+    foreach ($configs['blogs'] as $blog =&gt; $blogDesc) {
+      $posts += [...getBlogPosts($blog)];
+    }
+  }
+
+  uasort($posts, "newestPost");
+
+  require VIEWS_PATH . 'feed.php';
+}</code></pre>
+
+  <p>Again, not drastically different from what we've seen before - unsurprising, as we are once again dealing with blog posts in some fashion. The simply checks if a blog has been specified, if one has it will add all the posts from that blog to an associative array and then sort the array usinng he <code>newestPost</code> callback function. If a blog has not been specified, and we have been routed to the feedd controller, then it stands to reason that we need to serve the main feed that includes posts from all of the blogs. There isn't anything new to look at in here, so next we can move straight into the feed template.</p>
+
+  <pre class="language-php"><code>&lt;?php
+header('Content-Type: application/xml; charset=utf-8');
+echo '&lt;?xml version="1.0" encoding="utf-8"?&gt;' . PHP_EOL;
+?&gt;
+&lt;rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"&gt;
+  &lt;channel&gt;
+  &lt;atom:link href="https://aaronwatts.dev/&lt;?= $url['isBlog'] ? $blog . '/' : '' ?&gt;feed.xml" rel="self" type="applications/rss+xml" /&gt;
+    &lt;title&gt;AaronWattsDev &lt;?= $url['isBlog'] ? ucfirst($blog) : 'Latest'  ?&gt;&lt;/title&gt;
+    &lt;link&gt;https://aaronwatts.dev&lt;?= $url['isBlog'] ? '/' . $blog : '' ?&gt;/&lt;/link&gt;
+    &lt;description&gt;&lt;?= $blogDesc ?&gt;&lt;/description&gt;
+    &lt;category&gt;Technology&lt;/category&gt;
+&lt;?php
+$x = 0;
+foreach($posts as $postName =&gt; $post):
+  $x++;
+  if ($x &gt; 10) {
+    break;
+  }
+
+  $postInfo = getPostInfo($post['dom']);
+  [
+    'title' =&gt; $title,
+    'description' =&gt; $description,
+    'imgUrl' =&gt; $imgUrl,
+    'date' =&gt; $date,
+    'topics' =&gt; $topics,
+    'sections' =&gt; $sections,
+    'prismRequired' =&gt; $prismRequired
+  ] = $postInfo;
+
+  $src = SRC_PATH . $post['blog'] . DIRECTORY_SEPARATOR .$postName . '.html';
+  
+  if (file_exists($src)) {
+    $file = fopen($src, 'r') or die("Unable to open file!");
+    $content = fread($file, filesize($src));
+    fclose($file);
+    $content = preg_replace('/&lt;header&gt;(.|\n)*?&lt;\/header&gt;/', '', $content);
+    $content = str_replace(['&lt;', '&gt;'], ['&amp;lt;', '&amp;gt;'], $content);
+  }
+  
+  $baseUrl = 'https://aaronwatts.dev';
+  $url = $baseUrl . '/' . $post['blog'] . '/' . $postName;
+?&gt;
+    &lt;item&gt;
+      &lt;title&gt;&lt;?= $title ?&gt;&lt;/title&gt;
+      &lt;link&gt;&lt;?= $url ?&gt;&lt;/link&gt;
+      &lt;pubDate&gt;&lt;?= date('r', strtotime($date)); ?&gt;&lt;/pubDate&gt;
+      &lt;description&gt;&lt;?= $description ?&gt;&lt;/description&gt;
+      &lt;guid&gt;&lt;?= $url ?&gt;&lt;/guid&gt;
+      &lt;content:encoded&gt;&lt;?= trim($content) ?&gt;&lt;/content:encoded&gt;
+      &lt;enclosure url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" length="0" /&gt;
+      &lt;media:thumbnail url="&lt;?= $imgUrl ?&gt;" width="1920" height="1080" /&gt;
+      &lt;media:content url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" /&gt;
+    &lt;/item&gt;
+&lt;?php endforeach; ?&gt;
+  &lt;/channel&gt;
+&lt;/rss&gt;</code></pre>
+
+  <p>Visually, there's a bit more going on here than in the previous templates. The first thing to note is the built-in PHP <code>header</code> function at the beginning. PHP expects to serve HTML by default. To serve an XML file, this needs to be included in the header of the HTTP response so that the browser knows what filetype it is working with. Next I had to <code>echo</code> the first line on the XML file. I'm not entirely sure why I could only get it to work this way, hopefully it will start to make sense the more PHP I learn. With those two gotcha's out of the way we can handle the rest of the file as though it were any other PHP template.</p>
+
+  <p>I'm using the same <code>feed.php</code> file for the RSS feed for each blog, as well as the aggregated <em>all</em> blog. So I need to include some ternary logic to handle all cases for the feeds information. Then I can iterate over the items in the blog array that I put together in the <code>feedController</code> function. I'm limiting my feeds to 10 articles each, and that is handled within the loop using a break statement, so if there were less than 10 posts then the loop would just end of it's own accord without breaking anything in the script.</p>
+
+
+</section>
+
+<section id="build" title="Building the Site">
+  <h2>Building the Site</h2>
+
+  <p>I have a few more pages on my website, but with what we have looked at, we have all the concepts required to make a home page, sitemap XML file, and whatever else we need. So with the bulk of the work out of the way, we can make a build script.</p>
+
+  <p>For the build script, I chose to use BASH. I like BASH, but I don't get to use it a whole lot, so I'm not particularly good at it. But we only need to run some sequential tasks fo the build process.</p>
+
+  <pre class="language-shell"><code>#!/bin/bash
+
+PROJECT_ROOT=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &amp;&gt; /dev/null &amp;&amp; pwd )
+PHP_PUBLIC="${PROJECT_ROOT}/public"
+PHP_RUN="${PHP_PUBLIC}/index.php"
+BLOGS_DIR="${PROJECT_ROOT}/src"
+BUILD_DIR="${PROJECT_ROOT}/dist"
+
+# Write home page to index.html
+php "$PHP_RUN" &gt; "${BUILD_DIR}/index.html"
+
+# Write collated feed
+php "$PHP_RUN" "feed" &gt; "${BUILD_DIR}/feed.xml"
+
+# Write blog pages, posts and blog feeds
+for blogDir in "${BLOGS_DIR}"/*;
+do
+  blog="$(basename "${blogDir}")"
+  php "$PHP_RUN" "$blog" &gt; "${BUILD_DIR}/${blog}/index.html"
+  php "$PHP_RUN" "${blog}/feed" &gt; "${BUILD_DIR}/${blog}/feed.xml"
+
+  for postFile in "${blogDir}"/*;
+  do
+    post="$(basename "${postFile}" .html)"
+    mkdir "${BUILD_DIR}/${blog}/${post}"
+    php "$PHP_RUN" "${blog}/${post}" &gt; "${BUILD_DIR}/${blog}/${post}/index.html"
+  done;
+done;
+
+# Copy root files and folders
+for name in "${PHP_PUBLIC}"/*;
+do
+  if [ "$name" != "${PHP_PUBLIC}/index.php" ]; then
+    if [ -d "$name" ]; then
+      cp -R "$name" "$BUILD_DIR";
+    elif [ -f "$name" ]; then
+      cp "$name" "$BUILD_DIR";
+    fi
+  fi;
+done;</code></pre>
+
+  <p>The script isn't very complicated, although I still managed to eat my RAM and freeze my laptop while writing it. After setting our directories we simply run the php script, using arguments in place or a URI. We use the BASH <code>&gt;</code> operator to write the PHP script's return value to a file, or replace the existing contents with the return value if the file already exists. We do this for each blog page, blog feed, and each post within their respective blogs. Finally, we just copy anything in our <code>public</code> directory directly into the root of the <code>dist</code> directory.</p>
+
+  <p>And with that, the static HTML files are ready to be served wherever you might choose to do so. There is certainly more that can be done here, but we have a working static site generator with PHP on our local machine and no need for a server. I hope that after reading this, anyone who might have been considering learning PHP but felt intimidated or overwhelmed by it, will feel a bit better about just diving into it.</p>
+
+</section>
+      </article>
+    </main>
+
+    <nav aria-labelledby="to-top">
+      <a href="#top" id="to-top">Back to Top</a>
+    </nav>
+
+    <footer>
+      <div>Made by Hand. Powered by</div>
+      <a href="https://pages.github.com/" target="_blank">
+        <img alt="https://pages.github.com/" src="/assets/svg/githubpages.svg"/>
+      </a>
+    </footer>
+
+    <script src="/assets/scripts/prism.js"></script>
+  </body>
+</html>
+

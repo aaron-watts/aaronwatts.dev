@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="<?= $description ?>"/>
+    <meta name="keywords" content="<?php
+    for ($x = 0; $x < sizeof($topics); $x++) {
+        if($x > 0) {
+            echo ', ';
+        }
+        echo $topics[$x]->textContent;
+    }
+    ?>"/>
+
+    <title>AWD - <?= $title ?></title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+
+    <link rel="canonical" href="<?= '/' . $blog . '/' . $post ?>"/>
+    <link href="https://aaronwatts.dev/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - All" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
+
+    <meta property="og:title" content="<?= $title ?>"/>
+    <meta property="og:site_name" content="aaronwatts@dev"/>
+    <meta property="og:description" content="<?= $description ?>"/>
+    <meta property="og:url" content="https://aaronwatts.dev/<?= $blog . '/' . $post ?>"/>
+    <meta property="og:image" content="<?= $imgUrl ?>"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:article:published_time" content="<?= $date ?>"/>
+
+    <link rel="preload" href="/assets/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin />
+    <?php
+        if ($prismRequired === true) {
+            echo '<link rel="stylesheet" href="/assets/styles/prism.css">';
+        }
+    ?>
+
+    <link rel="stylesheet" href="/assets/styles/style.css">
+
+        <script type="application/ld+json"><?= $jsonLd ?></script>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Breadcrumb">
+        <ol>
+          <li><a 
+              href="/">aaronwatts@dev</a></li><span
+              aria-hidden="true" class="term-dir"></span><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a 
+              href="/<?= $blog ?>/"><?= $blog ?></a></li><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a
+              href="" aria-current="page"><?= $post ?></a></li><span
+              aria-hidden="true" class="term-priv"></span>
+        </ol>
+      </nav>
+      <div class="rss-container">
+        <a href="/rss">
+          <svg class="rss">
+            <use href="/assets/svg/svg-map.svg#rss-feed" />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+<?php if ($sections->length > 0): ?>
+    <nav aria-labelledby="page-nav">
+      <header>
+        <h2 id="page-nav">On This Page</h2>
+      </header>
+      <ol>
+  <?php foreach ($sections as $section): ?>
+      <li><a href="#<?= $section->getAttribute('id') ?>"><?= $section->getAttribute('title') ?></a></li>
+  <?php endforeach; ?>
+    </ol>
+    </nav>
+<?php endif; ?>
+
+    <main>
+      <article>
+        <?= $content; ?>
+      </article>
+    </main>
+
+    <nav aria-labelledby="to-top">
+      <a href="#top" id="to-top">Back to Top</a>
+    </nav>
+
+    <footer>
+      <div>Made by Hand. Powered by</div>
+      <a href="https://pages.github.com/" target="_blank">
+        <img alt="https://pages.github.com/" src="/assets/svg/githubpages.svg"/>
+      </a>
+    </footer>
+
+    <script src="/assets/scripts/prism.js"></script>
+  </body>
+</html>
+

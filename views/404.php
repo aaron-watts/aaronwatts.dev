@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWD - Page Not Found</title>
+  <link href="/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+  <link href="/images/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+  <link href="/images/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+  <link href="/site.webmanifest" rel="manifest"/>
+  <link href="https://aaronwatts.dev/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - All" type="application/rss+xml"/>
+  <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
+  <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
+  <link href="/assets/styles/style.css" rel="stylesheet"/>
+  <style>
+    .bash::before {
+      content: ' $ ';
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Breadcrumb">
+      <ol>
+        <li><a 
+            href="/">aaronwatts@dev</a></li><span
+            aria-hidden="true" class="term-dir"></span><li><span
+            aria-hidden="true" class="breadcrumb--seperator"></span><a 
+            href="" aria-current="page"><span class=bash
+            aria-hidden="true">cd: no such file or directory:
+            </span><span id="pathname">404</span></a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Page Not Found</h1>
+    <img src="/images/404.jpg" alt="Missing Image">
+    <p>
+      It looks like the page you're looking for does not exist.
+      Return to the <a href="/">home page</a> to find what you
+      are looking for.
+    </p>
+    <nav aria-labelledby="home">
+      <a href="/" id="home">Go to home page</a>
+    </nav>
+  </main>
+
+  <footer>
+    <div>
+      Made by Hand. Powered by
+    </div>
+    <a href="https://pages.github.com/" target="_blank">
+      <img alt="https://pages.github.com/" src="/assets/svg/githubpages.svg"/>
+    </a>
+  </footer>
+
+  <script>
+    function getPath(){
+      const path = document.querySelector('#pathname');
+      path.innerText = location.pathname.substring(1);
+    }
+
+    document.addEventListener('DOMContentLoaded', getPath);
+  </script>
+</body>
+</html>
