@@ -124,7 +124,7 @@
 
   <p>That's it! <code>php</code> itself, <code>php-cli</code> to run the PHP from the command line as a script (this will be <em>very</em> useful in this project), and <code>php-xml</code> to parse and manipulate XML and HTML.</p>
 
-  <p>If you're using VS Code/Codium then the live-server plugin should run PHP fine (or at least it did last time I used it), and I imagine any sensible IDE or editor should be just as easy to get set up. I, however, and on Vim, and had to dig up some Vim script to get a working PHP server. Just put the following somewhere in your <code>.vimrc</code> if you are in the same same boat as me. Just use <code>leader StartPHPServer</code> to get a live PHP server going quickly in Vim.</p>
+  <p>If you're using VS Code/Codium then the live-server plugin should run PHP fine (or at least it did last time I used it), and I imagine any sensible IDE or editor should be just as easy to get set up. I, however, am using Vim, and had to dig up some Vim script to get a working PHP server. Just put the following somewhere in your <code>.vimrc</code> if you are in the same same boat as me. Just use <code>leader StartPHPServer</code> to get a live PHP server going quickly in Vim.</p>
 
   <pre class="language-none"><code>" PHP LiveServer Start
 function! StartPHPServer()
@@ -159,7 +159,7 @@ command! KillPHPServer call KillPHPServer()
 <section id="simple-server" title="Setting Up A Simple Server">
   <h2>Setting Up A Simple Server</h2>
 
-  <p>If you have used anything like Express in NodeJS or Flask in Python, this should all feel pretty familar. We don't need anything particularly secure or rugged, the server will be primarily to have a live environment to work in while working on the website. The magic will happen when we call the same <code>index.php</code> script in the command line without a server running. Doing that will allow us to pipe the output (HTML) into files in a <code>dist</code> folder. I still use the Github Pages default <code>docs</code> folder for sake of simplicity, but I will use <code>dist</code> here for clarity.</p>
+  <p>If you have used anything like Express in NodeJS or Flask in Python, this should all feel pretty familiar. We don't need anything particularly secure or rugged, the server will be primarily to have a live environment to work in while working on the website. The magic will happen when we call the same <code>index.php</code> script in the command line without a server running. Doing that will allow us to pipe the output (HTML) into files in a <code>dist</code> folder. I still use the Github Pages default <code>docs</code> folder for sake of simplicity, but I will use <code>dist</code> here for clarity.</p>
 
   <p>Folder structure will loosely follow a MVC (Model View Controller) paradigm for organisation, but as I haven't learned PHP Classes yet I'm just throwing the whole thing together procedurally. Folder structure will have a <code>public</code> directory - this is where PHP looks by default for an <code>index.php</code> file. I'll also dump all my static content and root files in here too. An <code>app</code> folder will have anything functional such as controllers and helpers and a <code>config</code> folder for any settings, with a <code>views</code> folder for templates. Finally a <code>src</code> folder instead of models - since I'm generating a static site I will just be keeping my articles as stripped down HTML files, to be placed into a template as a HTML string.</p>
 
@@ -246,7 +246,7 @@ function resolveUrl(string|null $uri): array
   return $url;
 }</code></pre>
   
-  <p>My website has a few different blogs: guides and tech. I am planning on adding my other actual blog into this site too. Each blog has it's own folder with an <code>index.html</code> file and the articles (previously HTML files but now folders containting <code>index.html</code> files in each). I explode the uri and check its parameters, to see if that is an existing blog - the list of blogs is stored in a config file. If it's a blog with no following params, it will go to it's index, if it has an existing param after the blog, then that param will be assumed to be a post, and a check is done to check if that post exists. I can also check if it is looking for a feed path, or assign it the home path. If it is not the home path, and all other checks fail, the router will respond with the 404 page.</p>
+  <p>My website has a few different blogs: guides and tech. I am planning on adding my other actual blog into this site too. Each blog has it's own folder with an <code>index.html</code> file and the articles (previously HTML files but now folders containing <code>index.html</code> files in each). I explode the uri and check its parameters, to see if that is an existing blog - the list of blogs is stored in a config file. If it's a blog with no following params, it will go to it's index, if it has an existing param after the blog, then that param will be assumed to be a post, and a check is done to make sure that post exists. I can also check if it is looking for a feed path, or assign it the home path. If it is not the home path, and all other checks fail, the router will respond with the 404 page.</p>
 
   <p>For now, we only need <code>config/config.php</code> to return an array of valid blogs. But I want to preserve the blog order, and use a consistent blog description in various places across my website so I have included those too.</p>
 
@@ -367,7 +367,7 @@ function getPostInfo(object $dom): array
 <section id="blog" title="Serving a Blog">
   <h2>Serving a Blog</h2>
 
-  <p>Now we are serving our blog posts, we can take a look at serving the blog reel itself. Exactly how you do this will depend on a bit on preference and taste, but I like to have a separate blog reel for each of my blogs. I can use a single template to generate any of my blogs using PHP. The blogs in <code>config.php</code> will be of great help here, as it can provide the description for each blog so that I can use it in page, as well as including the descriptions on the home page, in page meta, as well as in the RSS feeds. Let's start by taking a look at the <code>blogController</code> function in <code>App.php</code>.</p>
+  <p>Now we are serving our blog posts, we can take a look at serving the blog reel itself. Exactly how you do this will depend a bit on preference and taste, but I like to have a separate blog reel for each of my blogs. I can use a single template to generate any of my blogs using PHP. The blogs in <code>config.php</code> will be of great help here, as it can provide the description for each blog so that I can use it in page, as well as including the descriptions on the home page, in page meta, as well as in the RSS feeds. Let's start by taking a look at the <code>blogController</code> function in <code>App.php</code>.</p>
 
   <pre class="language-php"><code>function blogController(array $url): void
 {
@@ -417,7 +417,7 @@ function newestPost(array $a, array $b): int
   return ($ad &gt; $bd) ? -1 : 1;
 }</code></pre>
 
-  <p>The <code>getBlogPosts</code> function is passed a <code>blog</code> sting which it uses to set the correct directory, then checks each file is valid and adds it to an associated array using the extension-stripped filename as it's key and a dom object and the blog string as key value pairs, and finally returns the array. By checking that the file ends in <em>".html"</em> we can prevent picking up invalid filetypes such as the swap files that editors like vim might generate when a file has a buffer active. The blog key value pair is not important in this particular workflow, but will prove helpful when working with more than one blog at a time, such as on the home page or in the main RSS feed.</p>
+  <p>The <code>getBlogPosts</code> function is passed a <code>blog</code> string which it uses to set the correct directory, then checks each file is valid and adds it to an associated array using the extension-stripped filename as it's key and a dom object and the blog string as key value pairs, and finally returns the array. By checking that the file ends in <em>".html"</em> we can prevent picking up invalid filetypes such as the swap files that editors like vim might generate when a file has a buffer active. The blog key value pair is not important in this particular workflow, but will prove helpful when working with more than one blog at a time, such as on the home page or in the main RSS feed.</p>
 
   <p>The <code>newestPost</code> callback used in the uasort simply picks the date out of the articles <code>time</code> element and compares it to it's neighbour in the array.</p>
 
@@ -470,14 +470,14 @@ function newestPost(array $a, array $b): int
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 
-  <p>Once again, I've stripped out a lot of the stuff that doesn't matter. What happens here, is first we simply populate a title and description for the particular blog - I use the PHP built in function <code>ucfirst</code> to uppercase the first letter of the blog title. Then we iterate over each post in the associative array, which has already been sorted by newest first, and use the <code>getPostInfo</code> function we used in for the blog post earlier, to destructure what we need for each post - we don't need a lot here, only the title, description, date and topics. We also use the <code>$blog</code> and <code>postName</code> strings to generate the url - <code>$blog</code> was defined mwithin our controller function, and <code>$postName</code> is the key for the particular post. Once that is done, we have everything we need to create a link for each post with a date and description, as well is a list of topics, which I use with JavaScript to automatically generate a filter search for each blog based on the topics pinned to each article.</p>
+  <p>Once again, I've stripped out a lot of the stuff that doesn't matter. What happens here, is first we simply populate a title and description for the particular blog - I use the PHP built in function <code>ucfirst</code> to uppercase the first letter of the blog title. Then we iterate over each post in the associative array, which has already been sorted by newest first, and use the <code>getPostInfo</code> function we used for the blog post earlier, to destructure what we need for each post - we don't need a lot here, only the title, description, date and topics. We also use the <code>$blog</code> and <code>postName</code> strings to generate the url - <code>$blog</code> was defined within our controller function, and <code>$postName</code> is the key for the particular post. Once that is done, we have everything we need to create a link for each post with a date and description, as well is a list of topics, which I use with JavaScript to automatically generate a filter search for each blog based on the topics pinned to each article.</p>
 
 </section>
 
 <section id="rss-feed" title="Serving and RSS Feed">
   <h2>Serving an RSS Feed</h2>
 
-  <p>Next, we will look at how to serve an RSS feed. There are, of course, other pages that I will be serving and generating within my site, but there isn't really anything new to gain from looking at those. However, when serving XML, I encountered a few caveats and gotchas, so I thought I would share the solution I ended up going with. When researching solutions, I came across a few different ones. There may be bettter solutions than mine, and I haven't had mine in production long enough to find bugs yet, but for me this method felt fasat and familiar, and didn't deviate too much from what I had already been doing elsewhere in the code. Let's begin by taking a look at what the <code>feedController</code> functtion is doing.</p>
+  <p>Next, we will look at how to serve an RSS feed. There are, of course, other pages that I will be serving and generating within my site, but there isn't really anything new to gain from looking at those. However, when serving XML, I encountered a few caveats and gotchas, so I thought I would share the solution I ended up going with. When researching solutions, I came across a few different ones. There may be bettter solutions than mine, and I haven't had mine in production long enough to find bugs yet, but for me this method felt fast and familiar, and didn't deviate too much from what I had already been doing elsewhere in the code. Let's begin by taking a look at what the <code>feedController</code> function is doing.</p>
 
   <pre class="language-php"><code>function feedController(array $url): void
 {
@@ -499,7 +499,7 @@ function newestPost(array $a, array $b): int
   require VIEWS_PATH . 'feed.php';
 }</code></pre>
 
-  <p>Again, not drastically different from what we've seen before - unsurprising, as we are once again dealing with blog posts in some fashion. The simply checks if a blog has been specified, if one has it will add all the posts from that blog to an associative array and then sort the array usinng he <code>newestPost</code> callback function. If a blog has not been specified, and we have been routed to the feedd controller, then it stands to reason that we need to serve the main feed that includes posts from all of the blogs. There isn't anything new to look at in here, so next we can move straight into the feed template.</p>
+  <p>Again, not drastically different from what we've seen before - unsurprising, as we are once again dealing with blog posts in some fashion. This simply checks if a blog has been specified, if one has it will add all the posts from that blog to an associative array and then sort the array using he <code>newestPost</code> callback function. If a blog has not been specified, and we have been routed to the feed controller, then it stands to reason that we need to serve the main feed that includes posts from all of the blogs. There isn't anything new to look at in here, so next we can move straight into the feed template.</p>
 
   <pre class="language-php"><code>&lt;?php
 header('Content-Type: application/xml; charset=utf-8');
@@ -571,7 +571,7 @@ foreach($posts as $postName =&gt; $post):
 
   <p>I have a few more pages on my website, but with what we have looked at, we have all the concepts required to make a home page, sitemap XML file, and whatever else we need. So with the bulk of the work out of the way, we can make a build script.</p>
 
-  <p>For the build script, I chose to use BASH. I like BASH, but I don't get to use it a whole lot, so I'm not particularly good at it. But we only need to run some sequential tasks fo the build process.</p>
+  <p>For the build script, I chose to use BASH. I like BASH, but I don't get to use it a whole lot, so I'm not particularly good at it. But we only need to run some sequential tasks for the build process.</p>
 
   <pre class="language-shell"><code>#!/bin/bash
 
@@ -614,7 +614,7 @@ do
   fi;
 done;</code></pre>
 
-  <p>The script isn't very complicated, although I still managed to eat my RAM and freeze my laptop while writing it. After setting our directories we simply run the php script, using arguments in place or a URI. We use the BASH <code>&gt;</code> operator to write the PHP script's return value to a file, or replace the existing contents with the return value if the file already exists. We do this for each blog page, blog feed, and each post within their respective blogs. Finally, we just copy anything in our <code>public</code> directory directly into the root of the <code>dist</code> directory.</p>
+  <p>The script isn't very complicated, although I still managed to eat my RAM and freeze my laptop while writing it. After setting our directories we simply run the php script, using arguments in place of a URI. We use the BASH <code>&gt;</code> operator to write the PHP script's return value to a file, or replace the existing contents with the return value if the file already exists. We do this for each blog page, blog feed, and each post within their respective blogs. Finally, we just copy anything in our <code>public</code> directory directly into the root of the <code>dist</code> directory.</p>
 
   <p>And with that, the static HTML files are ready to be served wherever you might choose to do so. There is certainly more that can be done here, but we have a working static site generator with PHP on our local machine and no need for a server. I hope that after reading this, anyone who might have been considering learning PHP but felt intimidated or overwhelmed by it, will feel a bit better about just diving into it.</p>
 
