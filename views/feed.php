@@ -35,7 +35,6 @@ foreach($posts as $postName => $post):
         $content = fread($file, filesize($src));
         fclose($file);
         $content = preg_replace('/<header>(.|\n)*?<\/header>/', '', $content);
-        //$content = str_replace(['<', '>'], ['&lt;', '&gt;'], $content);
     }
     
     $baseUrl = 'https://aaronwatts.dev';
@@ -47,7 +46,7 @@ foreach($posts as $postName => $post):
       <pubDate><?= date('r', strtotime($date)); ?></pubDate>
       <description><?= $description ?></description>
       <guid><?= $url ?></guid>
-      <content:encoded><?= trim($content) ?></content:encoded>
+      <content:encoded><?= '<![CDATA[' . trim($content) . ']]>' ?></content:encoded>
       <enclosure url="<?= $imgUrl ?>" type="image/jpeg" length="0" />
       <media:thumbnail url="<?= $imgUrl ?>" width="1920" height="1080" />
       <media:content url="<?= $imgUrl ?>" type="image/jpeg" />
