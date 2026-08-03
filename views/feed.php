@@ -35,7 +35,7 @@ foreach($posts as $postName => $post):
         $content = fread($file, filesize($src));
         fclose($file);
         $content = preg_replace('/<header>(.|\n)*?<\/header>/', '', $content);
-        $content = str_replace(['<', '>'], ['&lt;', '&gt;'], $content);
+        //$content = str_replace(['<', '>'], ['&lt;', '&gt;'], $content);
     }
     
     $baseUrl = 'https://aaronwatts.dev';
