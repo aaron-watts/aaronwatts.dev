@@ -7,6 +7,13 @@
     <loc>https://aaronwatts.dev/rss/</loc>
   </url>
   <url>
+    <loc>https://aaronwatts.dev/blog/</loc>
+  </url>
+  <url>
+    <loc>https://aaronwatts.dev/blog/hello-world/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+    <url>
     <loc>https://aaronwatts.dev/guides/</loc>
   </url>
   <url>
