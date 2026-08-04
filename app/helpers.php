@@ -18,8 +18,8 @@ function getPostInfo(object $dom): array
 {
     $title = $dom->querySelector('h1')->textContent;
     $description = $dom->querySelector('p#description')->textContent;
-    $imgUrl = $dom->querySelector('img')->getAttribute('src');
-    $imgs = $dom->querySelectorAll('img');
+    $img = $dom->querySelector('img');
+    $imgUrl = $img !== null ? $img->getAttribute('src') : "";
     $date = $dom->querySelector('time')->getAttribute('datetime');
     $topics = $dom->querySelectorAll('li.topic');
     $sections = $dom->querySelectorAll('section');
@@ -28,8 +28,7 @@ function getPostInfo(object $dom): array
     return array(
         'title' => $title,
         'description' => $description,
-        'imgUrl' => $imgUrl,
-        'imgs' => $imgs,
+        'imgUrl' => $imgUrl !== null ? $imgUrl : "",
         'date' => $date,
         'topics' => $topics,
         'sections' => $sections,

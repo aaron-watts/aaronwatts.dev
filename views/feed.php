@@ -47,9 +47,11 @@ foreach($posts as $postName => $post):
       <description><?= $description ?></description>
       <guid><?= $url ?></guid>
       <content:encoded><?= '<![CDATA[' . trim($content) . ']]>' ?></content:encoded>
+<?php if (strlen($imgUrl) > 0): ?>
       <enclosure url="<?= $imgUrl ?>" type="image/jpeg" length="0" />
       <media:thumbnail url="<?= $imgUrl ?>" width="1920" height="1080" />
       <media:content url="<?= $imgUrl ?>" type="image/jpeg" />
+<?php endif; ?>
     </item>
 <?php endforeach; ?>
   </channel>
