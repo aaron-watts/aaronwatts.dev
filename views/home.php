@@ -112,12 +112,6 @@
 
     <main>
       <nav>
-<?php foreach($blogOrder as $blogName): ?>
-        <h2><a href="/<?= $blogName ?>"><?= ucfirst($blogName) ?></a></h2>
-        <p><?= $blogs[$blogName] ?></p>
-        <a href="/<?= $blogName ?>">Go to <?= $blogName ?></a>
-<?php endforeach ?>
-
         <h2>Latest</h2>
         <article>
           <header>
@@ -133,6 +127,13 @@
           <a href="/<?= $latest['blog'] ?>/<?= $name ?>">Read More</a>
         </article>
       </nav>
+
+<?php foreach($blogOrder as $blogName): ?>
+        <h2><a href="/<?= $blogName ?>"><?= ucfirst($blogName) ?></a></h2>
+        <p><?= $blogs[$blogName] ?></p>
+        <a href="/<?= $blogName ?>">Go to <?= $blogName ?></a>
+<?php endforeach ?>
+
     </main>
 
     <footer>
