@@ -55,10 +55,10 @@ function getJsonLd(string $post, string $blog, array $postInfo): string
   },
   "headline": "' . $title . '"
   "datePublished": "' . $date . '",
-  "description": "' . $description . '",
+  "description": "' . $description . '",' . ( $imgUrl !== "" ? '
   "image": [
       https://aaronwatts.dev' . $imgUrl . '
-  ],
+  ],' : "" ) .'
   "author": {
     "@type": "Person",
     "name": "aaronwatts@dev"
