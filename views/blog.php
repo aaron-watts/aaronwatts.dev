@@ -26,13 +26,7 @@
           <li><a href="/">aaronwatts@dev</a></li><span aria-hidden="true" class="term-dir"></span><li><span aria-hidden="true" class="breadcrumb--seperator"></span><a aria-current="page" href=""><?= $blog ?></a></li><span aria-hidden="true" class="term-priv"></span>
         </ol>
       </nav>
-      <div class="rss-container">
-        <a href="/rss">
-          <svg class="rss">
-            <use href="/assets/svg/svg-map.svg#rss-feed" />
-          </svg>
-        </a>
-      </div>
+<?php require PARTIALS_PATH . 'rss.php'; ?>
     </header>
 
     <main>
@@ -85,12 +79,7 @@
       </nav>
     </main>
 
-    <footer>
-      <div>Made by Hand. Powered by</div>
-      <a href="https://pages.github.com/" target="_blank">
-        <img alt="https://pages.github.com/" src="/assets/svg/githubpages.svg"/>
-      </a>
-    </footer>
+<?php require PARTIALS_PATH . 'footer.php'; ?>
 
     <script src="/assets/scripts/filter.js"></script>
   </body>

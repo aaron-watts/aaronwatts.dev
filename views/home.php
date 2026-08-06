@@ -95,13 +95,7 @@
   <body>
     <header>
       <nav>
-        <div class="svg-container">
-        <a href="/rss">
-          <svg class="rss">
-            <use href="/assets/svg/svg-map.svg#rss-feed" />
-          </svg>
-        </a>
-        </div>
+<?php require PARTIALS_PATH . 'rss.php'; ?>
         <a href="https://sites.aaronwatts.dev">More by aaronwatts@dev</a>
       </nav>
       <div class="hero">
@@ -109,7 +103,6 @@
           <h1><span class="host">aaronwatts@dev</span></h1><span aria-hidden="true" class="term-dir"></span></span><span aria-hidden="true" class="term-priv"></span><span aria-hidden="true" class="term-cursor"></span>
       </div>
     </header>
-
     <main>
       <nav>
         <h2>Latest</h2>
@@ -136,11 +129,6 @@
 
     </main>
 
-    <footer>
-      <div>Made by Hand. Powered by</div>
-      <a href="https://pages.github.com/" target="_blank">
-        <img alt="https://pages.github.com/" src="/assets/svg/githubpages.svg"/>
-      </a>
-    </footer>
+<?php require PARTIALS_PATH . 'footer.php'; ?>
   </body>
 </html>

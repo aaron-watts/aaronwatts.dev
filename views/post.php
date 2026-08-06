@@ -58,13 +58,7 @@
               aria-hidden="true" class="term-priv"></span>
         </ol>
       </nav>
-      <div class="rss-container">
-        <a href="/rss">
-          <svg class="rss">
-            <use href="/assets/svg/svg-map.svg#rss-feed" />
-          </svg>
-        </a>
-      </div>
+<?php require PARTIALS_PATH . 'rss.php'; ?>
     </header>
 
 <?php if ($sections->length > 0): ?>
@@ -90,12 +84,7 @@
       <a href="#top" id="to-top">Back to Top</a>
     </nav>
 
-    <footer>
-      <div>Made by Hand. Powered by</div>
-      <a href="https://pages.github.com/" target="_blank">
-        <img alt="https://pages.github.com/" src="/assets/svg/githubpages.svg"/>
-      </a>
-    </footer>
+<?php require PARTIALS_PATH . 'footer.php'; ?>
 
     <script src="/assets/scripts/prism.js"></script>
   </body>
