@@ -4,7 +4,7 @@ PROJECT_ROOT=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd 
 PHP_PUBLIC="${PROJECT_ROOT}/public"
 PHP_RUN="${PHP_PUBLIC}/index.php"
 BLOGS_DIR="${PROJECT_ROOT}/src"
-BUILD_DIR="${PROJECT_ROOT}/docs"
+BUILD_DIR="${PROJECT_ROOT}/dist"
 
 # Write home page to index.html
 php "$PHP_RUN" > "${BUILD_DIR}/index.html"
