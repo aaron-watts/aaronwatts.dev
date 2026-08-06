@@ -8,6 +8,7 @@ define('CONFIG_PATH', $root . 'config' . DIRECTORY_SEPARATOR);
 define('APP_PATH', $root . 'app' . DIRECTORY_SEPARATOR);
 define('SRC_PATH', $root . 'src' . DIRECTORY_SEPARATOR);
 define('VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR);
+define('PARTIALS_PATH', $root . 'partials' . DIRECTORY_SEPARATOR);
 
 require APP_PATH . 'App.php';
 
