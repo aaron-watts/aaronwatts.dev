@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+  <atom:link href="https://aaronwatts.dev/tech/feed.xml" rel="self" type="applications/rss+xml" />
+    <title>AaronWattsDev Tech</title>
+    <link>https://aaronwatts.dev/tech/</link>
+    <description>Technology that I consider to be <em>thoughtful</em>, where there are more meaningful priorities than exponential growth and high profit margins.</description>
+    <category>Technology</category>
+    <item>
+      <title>NextCloud</title>
+      <link>https://aaronwatts.dev/tech/nextcloud</link>
+      <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
+      <description>NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</description>
+      <guid>https://aaronwatts.dev/tech/nextcloud</guid>
+      <content:encoded><![CDATA[<p id="description">NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</p>
+
+<p><a href="https://nextcloud.com/" target="_blank">NextCloud</a> is an alternative to things like Google Drive and One Drive that doesn't hand your data and the control over to a conglomerate. Self hosting is not the simplest thing to do, but there are also providers available that do all the hard stuff for you so you can just get on with having a cloud.</p>
+
+<p>Originally, I was subscribed to <a href="https://murena.com/workspace/" target="_blank">Murena's</a> Workspace cloud plan. I didn't have a Murena phone, but the NextCloud offer looked quite good so I tried it. I was pleased, the WorkSpace is pretty good, and includes an OnlyOffice suite for online editing. A measly €1.99 per month gets you 20GB of storage, or you can get 64GB for just €3.99. However, they had some issues a while back when upgrading their infrastructure, and their cloud went down. It's back up now, and due to the way NextCloud syncs with devices, I had local backups on several devices so I didn't lose any files.</p>
+
+<p>But the downtime was a bit longer than anticipated, and during that time I thought I might try set up my own cloud on a VPS. And I did, successfully. I pay <em>a lot</em> more for my NextCloud on a VPS setup, but I get total control of what apps I have on my server. That said, I also have total responsibility when things stop working, which has happened.</p>
+
+<p>Installation is not simple, there are All-In-One installations which are supposed to make things easier, available as either a Snap package or a Docker image, but for me (a novice) the documentation didn't seem to match up and I couldn't get everything working.</p>
+
+<p>If you have some experience in the Linux terminal, then I highly suggest following along to the <a href="https://www.learnlinux.tv/self-host-nextcloud-on-debian-the-ultimate-step-by-step-build-guide/" target="_blank">Learn Linux guide</a>, which is also available as a YouTube walthrough (linked in article). Jay does a great job of explaining what he is doing and why, and if you've ever poked around in PHP applications it should feel quite familiar. I genuinely felt like I had learned quite a bit after working through the guide, as opposed to mindlessly following steps to acheive a goal.</p>
+
+<p>I wasn't able to apply a recent update, and had to reinstall the software, and some steps had changed, but I was able to figure them out on my own as I kind of understood what I was supposed to be doing. Nonetheless, I wouldn't describe the process as easy. And keeping your cloud maintained will also require some work. So if you want to try it, but don't have the time or patience to go through the set up and maintainence, then take a look for a provider.</p>
+
+<p>As an alternative to other cloud providers, NextCloud is actually really good. There is a huge community making stuff for it. At it's most basic it will back up files to the cloud and sync with any number of devices you want it to, giving you local backups if anything was to go wrong. There's a plethora of compatible software for it, and getting your phone sync'd to it is pretty easy too. I'm currently using it as my Documents folder on two computers, so everything I'm working on is accessible anywhere. I also have my git repositories on it, and have had no issues with those. I'm also using it as the directories for software like Publii CMS and Calibre Library, so my blogs and books are available at whatever computer I'm working at.</p>]]></content:encoded>
+      <enclosure url="/images/tech/nextcloud.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/tech/nextcloud.avif" width="1920" height="1080" />
+      <media:content url="/images/tech/nextcloud.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Raspberry Pi</title>
+      <link>https://aaronwatts.dev/tech/raspberry-pi</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</description>
+      <guid>https://aaronwatts.dev/tech/raspberry-pi</guid>
+      <content:encoded><![CDATA[<p id="description">Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</p>
+
+<p>You're probably expecting the next line to be something along the lines of <em>"I have been tinkering ever since"</em>. Well, no, actually. At that time in my life I had a penchant for the outdoors, and a not particularly well paid job working at a charity. I didn't have a dedicated computer at the time, only a Playstation 3 (as well as my retro consoles that were entirely off line at that point) that I had bought second hand. Beyond being a very underpowered Linux computer, I wasn't totally sure what this thing called a <a href="https://www.raspberrypi.com/">Raspberry Pi</a> was meant to be.</p>
+
+<p>Eventually my cirumstances changed, I moved career, got a computer, and became aquainted with the internet. I still had my collection of retro gaming consoles, and had a bit of side hustle on the go buying games and consoles at deals, restoring them if they needed it, and selling them on. I was feeding a hobby and making some money on the side, and perhaps contributing to the ridiculous prices that retro gaming would eventually hold - sorry about that.</p>
+
+<p>Naturally, the omniscient Youtube algorithm knew what I wanted to watch before I even did (<em>some</em> of the time), and I kept seeing videos of emulation. A video caught my eye, likely a guide on how to install RetroPie onto this device I had sitting in my drawer. Okay, so <em>that's</em> what that thing can do. Nice! I had most of the real world consoles, with most of the games that I wanted for them. So while I didn't run out the door to buy a USB controller, I <em>did</em> get curious to what else this machine could do. And <em>that's</em> when I began tinkering, and have been ever since.</p>
+
+<p>I understood: it might not have been powerful enough to replace a desktop computer, but it was very good at doing <em>one</em> thing, and doing it really well. To try and list all the things you could do with a Raspberry Pi would be, frankly, a little ridiculous. As I have already mentioned, the ecosystem is huge. There's heaps of talented people in the community, and resources have become immense. Some of the projects I have kept around (some of which there are <a href="/guides">guides</a> for on this website) include:</p>
+
+<ul>
+  <li><a href="/guides/retropie-nespi-4">Retro gaming console</a></li>
+  <li><a href="/guides/gpicase">Handheld retro gaming console</a></li>
+  <li><a href="/guides/kde-plasma-bigscreen">KDE Bigscreen smart TV</a></li>
+  <li>Web radio with touch screen using Volumio</li>
+</ul>
+
+<p>These are just a few I have kept around. I have also experimented with running servers and sinkholes on my Raspberry Pi 2, had Kodi and Magic Mirror running on my Pi 3, and explored various operating systems across the devices too. I haven't even mentioned the Model A or Zero devices, or the Pico Micro Controllers, or robotics, or drones, or AI, or home automation .. you get the message.</p>
+
+<p>Later, the Raspberry Pi 5 family would make desktop computing entirely comfortable. I use a Raaspberry Pi 500+ as my main computer at my desk, and a Compute Module 5, in the new <a href="https://argon40.com/en-gb/products/argon-one-up-cm5-laptop-core-system" target="_blank">Argon One Up</a> laptop sysem (which I am working at now, while I type this!). Desktop computing was an okay experience on the Raspberry Pi 4, although with the demands of modern software (particularly browsers), you needed to maintain an austere process and sacrifice a little multi-tasking.</p>
+
+<blockquote><p>We’re on a mission to put high-performance, low-cost, general-purpose computing platforms in the hands of enthusiasts and engineers all over the world.</p></blockquote>
+
+<p>Raspberry Pi is not the only Single Board Computer out there. But it is arguably the most prolific and may have had the biggest impact on hobbyist computing. Low cost, low energy, and the ability to keep reusing old hardware means that it is all potentially very sustainable. SBC's have placed a little of the power into the hands of consumers that want to tinker and play. SBC's are to software what Lego is to architecture. Except if you build a house from Lego you can't live in it, whereas if you build software or a useful device with an SBC, you can absolutely use it.</p>
+
+<blockquote><p>Raspberry Pi is an engine for creativity, learning and innovation. With over sixty million of our computers sold in the last decade, there has never been a more exciting time to build on Raspberry Pi.</p></blockquote>
+
+<p>As for tech I consider to be thoughtful, I think the Raspberry Pi is a serious contender for <em>the most</em> thoughtful tech. By proffession I am a youth worker, and occassionally a kid I work with will mention learning to code on a Raspberry Pi, and that just makes me smile!</p>]]></content:encoded>
+      <enclosure url="/images/tech/raspberry-pi.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/tech/raspberry-pi.avif" width="1920" height="1080" />
+      <media:content url="/images/tech/raspberry-pi.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Simple CSS</title>
+      <link>https://aaronwatts.dev/tech/simple-css</link>
+      <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
+      <description>Simple CSS was suggested to me by a friend. At the time I had been making an effort to try and learn web development. In essence, it is yet another CSS framework to bootstrap your HTML for fast production. Except, it's not, not really. I'd argue, it's better.</description>
+      <guid>https://aaronwatts.dev/tech/simple-css</guid>
+      <content:encoded><![CDATA[<p id="description">Simple CSS was suggested to me by a friend. At the time I had been making an effort to try and learn web development. In essence, it is yet another CSS framework to bootstrap your HTML for fast production. Except, it's not, not really. I'd argue, it's better.</p>
+
+<p>The first thing that makes <a href="https://simplecss.org/" target="_blank">Simple CSS</a> by <a href="https://kevquirk.com/" target="_blank">Kev Quirk</a> so good compared to other CSS frameworks, is that it's not strictly a framework - it's just one file. One tiny CSS file. No <code>reset.css</code>, no javascript.</p>
+
+<blockquote><p>..the minified CSS for the Bootstrap framework is 144KB in total. By comparison, Simple.css is around 10KB</p></blockquote>
+
+<p>It also describes itself as mostly classless. The <a href="https://simplecss.org/introducing-simple-classes" target="_blank">Simple Classes</a> page describes merely two classes: <code>a.button</code> and <code>p.notice</code>.</p>
+
+<blockquote><p>..makes semantic HTML look good, really quickly</p></blockquote>
+
+<p>Being classless, it focuses on semantic HTML. This means Simple CSS also becomes a fantastic learning resource. The MDN docs are great, but reading and retaining all of that is quite a task. The specs for HTML alone are just so vast, let alone CSS and Javascript. All to often, CSS magic or Javascript wizadry, or a combination of both, get employed to perform a task that HTML can just do already, out of the box. Take the <code>details</code> HTML element for example, collapsible and hideable using <em>HTML only</em>!</p>
+
+<p>Not only is Simple CSS efficient and useful, it's also an introduction to good practises for those of us who've been swept along by the Bootstrapped boot-camps. Learning about the efficiency of good semantics has sent me on a bit of learning quest for good, and standardised, practises that I might otherwise not thought to have seek out, so thank you Kev. And I hope others slow down to look at the <code>doctree</code>'s too, eh? (it's supposed to be a play on that smell the flowers .. ah forget it, a joke that has to be explained is a bad one).</p>]]></content:encoded>
+      <enclosure url="/images/tech/simple-css.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/tech/simple-css.avif" width="1920" height="1080" />
+      <media:content url="/images/tech/simple-css.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Kobo - E-Reader</title>
+      <link>https://aaronwatts.dev/tech/kobo-ereader</link>
+      <pubDate>Fri, 23 May 2025 00:00:00 +0000</pubDate>
+      <description>Kobo e-reader's won't do too much more than an Amazon Kindle, unless you are outside of the US. Kobo do just enough differently that I'd consider them to be thoughtful technology.</description>
+      <guid>https://aaronwatts.dev/tech/kobo-ereader</guid>
+      <content:encoded><![CDATA[<p id="description">Kobo e-reader's won't do too much more than an Amazon Kindle, unless you are outside of the US. Kobo do just enough differently that I'd consider them to be thoughtful technology.</p>
+
+<p>I can resist a trend, and tend not to jump onto very many things early. Amazon was one of those things. One of my first experiences with Amazon, that I still encounter today, is older relatives asking how to cancel a subscription that they didn't know they had. This happens a lot, it's like Amazon design their interfaces to intentionally trick people who are not tech literate into accidentally subscribing to additional services. And Kindle may be the biggest offender in that respect.</p>
+
+<p>My mum is one such tech illiterate person, and the problem had become common enough to put her off trying to use her Kindle. E-readers tend to be pretty locked down in terms of software, so unless you are able to make modifications or track down an obscure model that is probably not suitable for tech noobs, then you're kind of stuck with what you get out of the box.</p>
+
+<p>While looking for a different device for my mum, I found out about <a href="https://www.overdrive.com/apps/libby" target="_blank">Libby and Overdrive</a>, an e-book library system. I thought this was amazing, and wondered why it wasn't included as standard in Kindle's. I later found out that it is in fact included in Kindles, but  not outside of the United States. However, I soon  discovered that the <a href="https://www.kobo.com/" target="_blank">Kobo</a> e-readers do include Overdrive, even here in the UK.</p>
+
+<p>Overdrive requires a library card for your local library, and despite being digital, there are only so many copies of a e-book that can be <em>"borrowed"</em>, so it can be a bit of a wait for more popular titles, if they are even available at all. My mum is an keen and unfussy reader, so despite the limitations, this is a perfect system for her.</p>
+
+<p>After setting up a Kobo for my mum, I was pleased with what I was seeing, and <em>finally</em> made the transition from paper to electronic books myself, although I keep mine offline and manage my own library using the <a href="https://calibre-ebook.com/" target="_blank">Calibre</a> e-book management software.</p>]]></content:encoded>
+      <enclosure url="/images/tech/kobo-ereader.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/tech/kobo-ereader.avif" width="1920" height="1080" />
+      <media:content url="/images/tech/kobo-ereader.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Fairphone - Smartphone</title>
+      <link>https://aaronwatts.dev/tech/fairphone</link>
+      <pubDate>Wed, 07 May 2025 00:00:00 +0000</pubDate>
+      <description>Fairphone, based in Netherlands, brings something back to smartphones that most people don't even realise is missing. Their approach aims to promote user ownership of a device, and longevity.</description>
+      <guid>https://aaronwatts.dev/tech/fairphone</guid>
+      <content:encoded><![CDATA[<p id="description">Fairphone, based in Netherlands, brings something back to smartphones that most people don't even realise is missing. Their approach aims to promote user ownership of a device, and longevity.</p>
+
+<p>While they may not necessarily be hitting their mark in terms of longevity <em>just yet</em> (the Fairphone 4 won't really have had a much longer lifespan than most other Android devices when it reaches the current proposed EOL), <a href="https://www.fairphone.com/en" target="_blank">Fairphone</a> are certainly achieving their goals with regard to user ownership. They issue instructions on how to unlock the bootloader on their phones, and they have made it incredibly easy to self repair with their modular design.</p>
+
+<p>My biggest gripe about smartphones, is that it costs a fortune to fix if you break it. I don't like contracts, I try to steer clear of the subscription society that has become ubiquitous nowadays, so phone repair can get a little pricey. After breaking the screen on my Samsung a second time, I realised I was beginning to get close to the price for an entirely new handset if I took it in to get it fixed again. So I didn't. I got a Fairphone 4, which has a modular design, which means I could repair a screen at home for only £70.</p>
+
+<p><a href="https://www.ifixit.com/Device/Fairphone_4" target="_blank">Ifixit</a> have given the Fairphone 4 a repairability score of 10/10. Fairphone are still selling replacement parts for the Fairphone 3 and even 2 in their parts store. Hopefully, with a little more experience they can get the shelf life of their handsets to where they want them to be.</p>]]></content:encoded>
+      <enclosure url="/images/tech/fairphone.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/tech/fairphone.avif" width="1920" height="1080" />
+      <media:content url="/images/tech/fairphone.avif" type="image/jpeg" />
+    </item>
+  </channel>
+</rss>

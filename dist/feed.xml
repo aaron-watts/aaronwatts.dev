@@ -1,0 +1,1767 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+  <atom:link href="https://aaronwatts.dev/feed.xml" rel="self" type="applications/rss+xml" />
+    <title>AaronWattsDev Latest</title>
+    <link>https://aaronwatts.dev/</link>
+    <description>The most recent content on AaronWattsDev</description>
+    <category>Technology</category>
+    <item>
+      <title>PHP Template Partials</title>
+      <link>https://aaronwatts.dev/blog/php-template-partials</link>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 +0000</pubDate>
+      <description>This won't be long enough to make it into the guides section of my site. But from enquiring with search engines, I couldn't find an answer that gave an answer that was quite complex compared to how a partial normally works, or showed how to do PHP partials with X framework. So I'm including in my blog as a note.</description>
+      <guid>https://aaronwatts.dev/blog/php-template-partials</guid>
+      <content:encoded><![CDATA[<ul class="topic-container">
+  <li class="topic">coding</li>
+  <li class="topic">notes</li>
+</ul>
+
+
+
+<p id="description">This won't be long enough to make it into the guides section of my site. But from enquiring with search engines, I couldn't find an answer that gave an answer that was quite complex compared to how a partial normally works, or showed how to do PHP partials with <em>X</em> framework. So I'm including in my blog as a note.</p>
+
+<p>I was having trouble working out how to include partials in my PHP templates. But this morning I had that <em>well, duh!</em> moment and rigged some up for my website. The same way I <code>require</code> a template, I just needed to <code>require</code> the partial within the template itself. So now I can make adjustments to things like my footer once, and not have to worry about consistency across pages.</p>
+
+<pre class="language-php"><code>&lt;!-- header.php --&gt;
+&lt;header&gt;
+  &lt;h1&gt;Welcome to my website!&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;!-- index.php --&gt;
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;?php require PARTIALS_PATH . 'header.php' ?&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>]]></content:encoded>
+    </item>
+    <item>
+      <title>Hello, World!</title>
+      <link>https://aaronwatts.dev/blog/hello-world</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <description>My blog has been abandoned. Welcome to my blog. I have just rebuilt this website's site management tools using PHP. I had intended to import my blog reel from a Publii site that I was using for blogging, with this site featuring more topical posts. But I have decided I will start anew here. Blog reels can fill up fast, after all.</description>
+      <guid>https://aaronwatts.dev/blog/hello-world</guid>
+      <content:encoded><![CDATA[<p id="description">My blog has been abandoned. Welcome to my blog. I have just rebuilt this website's site management tools using PHP. I had intended to import my blog reel from a Publii site that I was using for blogging, with this site featuring more <em>topical</em> posts. But I have decided I will start anew here. Blog reels can fill up fast, after all.</p>
+
+<p>I've stopped using Publii, for now the site still <a href="https://blog.aaronwatts.dev">still exists</a>, although I may delete the repository at some point and just let my Cloudflare DNS redirect here. I looked to see if there was an easy way to export from Publii, and came across another recent-ish <a href="https://www.gregwalsh.com/exporting-publii-to-markdown-to-jekyll/">post by Greg Walsh</a>, about him making a similar decision. I'm pleased he's kept a Simple-ish design similar to the default Publii one. I really liked it, I've taken a little inspiration from it myself for this site, but not too much. I was a little surprised how complex the proccess of exporting from Publii was, considering it was part of their brand that your work should be <em>yours</em>. I suppose in every other sense of the word it is. Hopefully they make exporting easier in a later release.</p>
+
+<p>I was going to make a PHP scraper to dump the data into files and be done with it. But then I decided it might disturb the context of some of the posts, particularly where I mention my other website that is now this website. I had intended on exploring Publii more as well, but as I use a Raspberry Pi for computing, I was stuck on an older, unofficial release. I have an Intel device with the current version installed. But I'm not going to boot that up for one single task alone - although admittedly I will do that to play Sonic Mania on Steam.</p>
+
+<p>I don't often use pictures for my blog - so I must remember to adjust the static site generator not to expect them ... and, done! It was just a simple case of adjusting a line in the PHP:</p>
+
+<pre class="language-php"><code>// Old
+$imgUrl = $dom-&gt;querySelector('img')-&gt;getAttribute('src');
+
+// New
+$img = $dom-&gt;querySelector('img');
+$imgUrl = $img !== null ? $img-&gt;getAttribute('src') : "";</code></pre>
+
+<p>And one in the <code>feed.php</code> template:</p>
+
+<pre class="language-php"><code>&lt;!-- Old --&gt;
+&lt;enclosure url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" length="0" /&gt;
+&lt;media:thumbnail url="&lt;?= $imgUrl ?&gt;" width="1920" height="1080" /&gt;
+&lt;media:content url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" /&gt;
+
+&lt;!-- New --&gt;
+&lt;?php if (strlen($imgUrl) &gt; 0): ?&gt;
+  &lt;enclosure url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" length="0" /&gt;
+  &lt;media:thumbnail url="&lt;?= $imgUrl ?&gt;" width="1920" height="1080" /&gt;
+  &lt;media:content url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" /&gt;
+&lt;?php endif; ?&gt;</code></pre>
+
+<p>Oh yeah, and I can include XML in my RSS feed on this site's version of my blog - which I couldn't in Publii due to the way it handled it's Atom feed. So expect more of that. Take that Publii!</p>]]></content:encoded>
+    </item>
+    <item>
+      <title>PHP Static Site Generator</title>
+      <link>https://aaronwatts.dev/guides/php-static-site-generator</link>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate>
+      <description>I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it.</description>
+      <guid>https://aaronwatts.dev/guides/php-static-site-generator</guid>
+      <content:encoded><![CDATA[<section id="intro" title="Intro">
+  <p id="description">I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it.</p>
+
+  <p>It's something I've always been curious about, but the bar to entry appeared quite high previously. You need a server to run it, you need to know some system administration to run a server, you will probably need to learn Docker too. I've had a little exposure to PHP since setting up a NextCloud instance, and I recently set up a Coolify instance on a Raspberry Pi 4 so now I have somewhere cheap to play around with it and hopefully learn this language to a useful degree.</p>
+
+  <p>Now that I have begun learning it, and I should stress I have only <em>just</em> started - this is literally the first project I've done and I haven't even learned PHP Classes yet - I regret not having started sooner. You don't need a server to start learning PHP. This project generates a static HTML website (this website!) that at the time of writing is hosted on Github Pages. Sure, I had already done this in Python, but PHP has been designed <em>for the web</em>, and it is certainly evident in as much that as a total newb I have completed this entire project in a relatively short space of time, and in such a way that it is far more portable and customisable than it's Python counterpart.</p>
+</section>
+
+<section id="getting-started" title="Getting Started">
+  <h2>Getting Started</h2>
+
+  <p>If like me, you're running Linux, you've already taken the first step towards a LAMP stack without even trying. Windows and Mac users, I'm not in that world anymore, you'll need Google - my apologies. One thing I'm really enjoying about PHP is I don't have to install yet another package manager. I mean, there is Composer, but for this project at least, I haven't even had to give it a look yet. All the required dependencies were in the Debian Trixie apt repository.</p>
+
+  <pre class="language-none command-line" data-user="aaronwatts" data-host="dev"><code>sudo apt install php php-cli php-xml</code></pre>
+
+  <p>That's it! <code>php</code> itself, <code>php-cli</code> to run the PHP from the command line as a script (this will be <em>very</em> useful in this project), and <code>php-xml</code> to parse and manipulate XML and HTML.</p>
+
+  <p>If you're using VS Code/Codium then the live-server plugin should run PHP fine (or at least it did last time I used it), and I imagine any sensible IDE or editor should be just as easy to get set up. I, however, am using Vim, and had to dig up some Vim script to get a working PHP server. Just put the following somewhere in your <code>.vimrc</code> if you are in the same same boat as me. Just use <code>leader StartPHPServer</code> to get a live PHP server going quickly in Vim.</p>
+
+  <pre class="language-none"><code>" PHP LiveServer Start
+function! StartPHPServer()
+  let cmd = "php -S 127.0.0.1:8080 &amp; firefox 127.0.01:8080 &amp;"
+  call system(cmd)
+  echo "PHP server started in the background: 127.0.0.1:8080"
+endfunction
+
+function! StartPHPServerOnPort(port)
+  let port_num = a:port + 0
+  let cmd = "php -S 127.0.0.1:" . port_num . " &amp; firefox 127.0.0.1:" . port_num . " &amp;"
+  call system(cmd)
+  echo "PHP server started in the background on port " . port_num . ": 127.0.0.1" . port_num
+endfunction
+
+function! KillPHPServer()
+  let cmd = "pkill -f 'php'"
+  call system(cmd)
+endfunction
+
+augroup PHPServerKill
+  autocmd!
+  autocmd VimLeave * call KillPHPServer()
+augroup END
+
+command! StartPHPServer call StartPHPServer()
+command! -nargs=1 StartPHPServerOnPort call StartPHPServerOnPort(&lt;f-args&gt;)
+command! KillPHPServer call KillPHPServer()
+" PHP LiveServer End</code></pre>
+</section>
+
+<section id="simple-server" title="Setting Up A Simple Server">
+  <h2>Setting Up A Simple Server</h2>
+
+  <p>If you have used anything like Express in NodeJS or Flask in Python, this should all feel pretty familiar. We don't need anything particularly secure or rugged, the server will be primarily to have a live environment to work in while working on the website. The magic will happen when we call the same <code>index.php</code> script in the command line without a server running. Doing that will allow us to pipe the output (HTML) into files in a <code>dist</code> folder. I still use the Github Pages default <code>docs</code> folder for sake of simplicity, but I will use <code>dist</code> here for clarity.</p>
+
+  <p>Folder structure will loosely follow a MVC (Model View Controller) paradigm for organisation, but as I haven't learned PHP Classes yet I'm just throwing the whole thing together procedurally. Folder structure will have a <code>public</code> directory - this is where PHP looks by default for an <code>index.php</code> file. I'll also dump all my static content and root files in here too. An <code>app</code> folder will have anything functional such as controllers and helpers and a <code>config</code> folder for any settings, with a <code>views</code> folder for templates. Finally a <code>src</code> folder instead of models - since I'm generating a static site I will just be keeping my articles as stripped down HTML files, to be placed into a template as a HTML string.</p>
+
+  <pre><code class="language-treeview">project_root/
+├── app/
+├── config/
+├── dist/
+├── public/
+|   ├── assets/
+|   ├── images/
+|   ├── CNAME
+|   ├── robots.txt
+|   └── index.php
+├── src/
+└── views/</code></pre></section>
+
+  <p>In <code>index.php</code> we first need to define our paths. As we will be working on a live server, and building from command line, the script needs to be able to identify in which enviroment it is being run. We can do this with the <code>php_sapi_name</code> function. If the script is running from command line, url params will be swapped out for command line arguments, otherwise we can use the <code>$_SERVER['PATH_INFO']</code> from the server to determine the route.</p>
+
+  <pre class="language-php"><code>&lt;?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__) . DIRECTORY_SEPARATOR;
+
+define('CONFIG_PATH', $root . 'config' . DIRECTORY_SEPARATOR);
+define('APP_PATH', $root . 'app' . DIRECTORY_SEPARATOR);
+define('SRC_PATH', $root . 'src' . DIRECTORY_SEPARATOR);
+define('VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR);
+
+require APP_PATH . 'App.php';
+
+if (php_sapi_name() === 'cli') {
+  $path = sizeof($argv) &gt; 1 ? $argv[1] : null;
+  $url = resolveUrl($path);
+} else {
+  $url = resolveUrl($_SERVER['PATH_INFO']);
+}
+
+if ($url['isFeed']) {
+  feedController($url);
+} else if ($url['isPost']) {
+  postController($url);
+} else if ($url['isBlog']) {
+  blogController($url);
+} else if ($url['path'] === '/') {
+  homePageController();
+} else {
+  pageNotFoundController();
+}</code></pre>
+
+  <p><code>resolveUrl</code> and the various route controllers are coming from <code>app/App.php</code>. <code>resolveUrl</code> is simply working out what route should be applied - a framework would parse url params for you usually, but I'm working from scratch here.</p>
+
+  <pre class="language-php"><code>function getPath(string $uri): string
+{
+  $path = preg_replace('/\/+/', '/', $uri);
+  $path = trim($path, '/');
+
+  return $path;
+}
+
+function resolveUrl(string|null $uri): array
+{
+  $configs = include CONFIG_PATH . 'config.php';
+  $url = array();
+
+  if ($uri !== null) {
+    $url['path'] = getPath($uri);
+    $url['params'] = explode('/', $url['path']);
+  } else {
+    $url['path'] = '/';
+    $url['params'] = array();
+  }
+
+  $url['isFeed'] = $url['params'] !== null
+    &amp;&amp; in_array('feed', $url['params']);
+
+  $url['isBlog'] = $url['params'] !== null
+    &amp;&amp; in_array($url['params'][0], array_keys($configs['blogs']));
+
+  $url['isPost'] = $url['isBlog']
+    &amp;&amp; $url['params'] !== null
+    &amp;&amp; sizeof($url['params']) > 1;
+
+  return $url;
+}</code></pre>
+  
+  <p>My website has a few different blogs: guides and tech. I am planning on adding my other actual blog into this site too. Each blog has it's own folder with an <code>index.html</code> file and the articles (previously HTML files but now folders containing <code>index.html</code> files in each). I explode the uri and check its parameters, to see if that is an existing blog - the list of blogs is stored in a config file. If it's a blog with no following params, it will go to it's index, if it has an existing param after the blog, then that param will be assumed to be a post, and a check is done to make sure that post exists. I can also check if it is looking for a feed path, or assign it the home path. If it is not the home path, and all other checks fail, the router will respond with the 404 page.</p>
+
+  <p>For now, we only need <code>config/config.php</code> to return an array of valid blogs. But I want to preserve the blog order, and use a consistent blog description in various places across my website so I have included those too.</p>
+
+  <pre class="language-php"><code>&lt;?php
+
+$guidesDesc = fn (): string =&gt; "A description for Guides blog";
+$techDesc = fn (): string =&gt; "A description for Tech blog";
+
+return array(
+  'blogs' =&gt; [
+    'guides' =&gt; $guidesDesc(),
+    'tech' =&gt; $techDesc()
+  ],
+  'blogOrder' =&gt; [
+    'guides',
+    'tech'
+  ],
+);</code></pre>
+</section>
+
+<section id="blog-post" title="Serving a Blog Post">
+  <h2>Serving a Blog Post</h2>
+
+  <p>Now the server is routing requests, we need to handle the routes themselves using the controllers. The controllers are all in the <code>App.php</code> file in the <code>app</code> directory. Each one will collect and organise the required data before passing that data into the relevant template located in the <code>views</code> directory.</p>
+
+  <pre class="language-php"><code>function postController(array $url): void
+{
+  require APP_PATH . 'helpers.php';
+  $blog = $url['params'][0];
+  $post = $url['params'][1];
+  $src = SRC_PATH . $blog . DIRECTORY_SEPARATOR . $post . '.html';
+  $content = getPost($blog, $post);
+  $dom = Dom\HTMLDocument::createFromString($content);
+  $postInfo = getPostInfo($dom);
+  [
+    'title' =&gt; $title,
+    'description' =&gt; $description,
+    'imgUrl' =&gt; $imgUrl,
+    'date' =&gt; $date,
+    'topics' =&gt; $topics,
+    'sections' =&gt; $sections,
+    'prismRequired' =&gt; $prismRequired
+  ] = $postInfo;
+  $jsonLd = getJsonLd($postInfo);
+
+  require VIEWS_PATH . 'post.php';
+}</code></pre>
+
+  <p>The simplest task may be the displaying a single post page, so let's start with that one. In my <code>postController</code> function, I will first require <code>helpers.php</code>, where I am keeping code to help retreive, organise and manipulate data. A <code>$blog</code> and a <code>$post</code> variable are defined using the url parameters, and then the relevant post is fetched using a <code>getPost</code> function defined in <code>helpers.php</code>. <code>getPost</code> simply returns the HTML file contents as a string, which is then used to create an instance of the <code>Dom\HTMLDocument</code> class, which we can then send to the <code>getPostInfo</code> in <code>helpers.php</code> in order to cherry pick any information we might want to use later on. The function returns an associative array, so we simply unpack only the keys and values we require by destructuring the return value - we are handling a request for a blog post here, so unsurprisingly we are using all of the return values in this case. However, most of this data will be used to generate meta data, such as descriptions, the schema, and JSON Linked Data. Finally, once processed, the data will be passed into the views template <code>post.php</code></p>
+
+  <pre class="language-php"><code>function getPost(string $blog, string $post): string
+{
+  $src = SRC_PATH . $blog . DIRECTORY_SEPARATOR .$post . '.html';
+
+  if (file_exists($src)) {
+    $file = fopen($src, 'r') or die("Unable to open file");
+    $content = fread($file, filesize($src));
+    fclose($file);
+    return $content;
+  } else {
+    return 'Error loading ' . $src;
+  }
+}
+
+function getPostInfo(object $dom): array
+{
+  $title = $dom-&gt;querySelector('h1')-&gt;textContent;
+  $description = $dom-&gt;querySelector('p#description')-&gt;textContent;
+  $imgUrl = $dom-&gt;querySelector('img')-&gt;getAttribute('src');
+  $date = $dom-&gt;querySelector('time')-&gt;getAttribute('datetime');
+  $topics = $dom-&gt;querySelectorAll('li.topic');
+  $sections = $dom-&gt;querySelectorAll('section');
+  $prismRequired = preIsUsed($dom);
+
+  return array(
+    'title' =&gt; $title,
+    'description' =&gt; $description,
+    'imgUrl' =&gt; $imgUrl,
+    'date' =&gt; $date,
+    'topics' =&gt; $topics,
+    'sections' =&gt; $sections,
+    'prismRequired' =&gt; $prismRequired
+  );
+}</code></pre>
+
+  <p>In only a handful of function calls form start to finish, we are ready to assemble our blog post's HTML using the relevant template php file in the <code>views</code> directory. In the interest of readability, I'm going to leave most stuff out. But here you will be able to see how simple it is to include the article inside of an <code>article</code> element just using the <code>$content</code> string. As mentioned, most of the additional data collected from the DOM is being used to populate meta data, but you can see here that I am using it to generate a page navigation if the article is split into sections. Sometimes I split articles up into parts, and sometimes I don't. Using PHP I don't have to consciously worry about how a page will be laid out, and all blog posts can use the same template regradless of their individual structure.</p>
+
+  <pre class="language-php"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+&lt;?php if ($sections-&gt;length &gt; 0): ?&gt;
+  &lt;nav aria-labelledby="page-nav"&gt;
+    &lt;header&gt;
+      &lt;h2 id="page-nav"&gt;On This Page&lt;/h2&gt;
+    &lt;/header&gt;
+    &lt;ol&gt;
+  &lt;?php foreach ($sections as $section): ?&gt;
+    &lt;li&gt;&lt;a href="#&lt;?= $section-&gt;getAttribute('id') ?&gt;"&gt;&lt;?= $section-&gt;getAttribute('title') ?&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;?php endforeach; ?&gt;
+    &lt;/ol&gt;
+    &lt;/nav&gt;
+&lt;?php endif; ?&gt;
+
+    &lt;main&gt;
+      &lt;article&gt;
+        &lt;?= $content; ?&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</section>
+
+<section id="blog" title="Serving a Blog">
+  <h2>Serving a Blog</h2>
+
+  <p>Now we are serving our blog posts, we can take a look at serving the blog reel itself. Exactly how you do this will depend a bit on preference and taste, but I like to have a separate blog reel for each of my blogs. I can use a single template to generate any of my blogs using PHP. The blogs in <code>config.php</code> will be of great help here, as it can provide the description for each blog so that I can use it in page, as well as including the descriptions on the home page, in page meta, as well as in the RSS feeds. Let's start by taking a look at the <code>blogController</code> function in <code>App.php</code>.</p>
+
+  <pre class="language-php"><code>function blogController(array $url): void
+{
+  $configs = include CONFIG_PATH . 'config.php';
+  require APP_PATH . 'helpers.php';
+  $blog = $url['params'][0];
+  $blogDesc = $configs['blogs'][$blog];
+  $posts = getBlogPosts($blog);
+  uasort($posts, "newestPost");
+
+  require VIEWS_PATH . 'blog.php';
+}</code></pre>
+
+  <p>This one looks a little simpler than the <code>postController</code> function, if only because it doesn't have to destructure anything. Blogs will still need to be destructured, but to reduce the work load I will take care of that within the template while iterating over the relevant blog posts. For now, the function simply determines which blog it is looking for using the url parameter, collects the required blog description from the config file, collects the relevant blogs by calling a <code>getBlogPosts</code> function, and then uses PHP's built in <code>uasort</code> function to sort the posts using the callback <code>newestPost</code> function. <code>getBlogPosts</code> and <code>newestPost</code> are both defined in <code>helpers.php</code></p>
+
+  <pre class="language-php"><code>function getBlogPosts(string $blog): array
+{
+  $dir = SRC_PATH . $blog . DIRECTORY_SEPARATOR; 
+  $files = scandir($dir);
+  $posts = array();
+
+  foreach ($files as $file) {
+    $path = $dir . $file;
+
+    if (is_file($path) &amp;&amp; substr($file, -5) === '.html') {
+      $dom = Dom\HTMLDocument::createFromFile($path);
+      $postName = str_replace('.html', '', $file);
+      $posts[$postName] = [
+        'dom' =&gt; $dom,
+        'blog' =&gt; $blog
+      ];
+    }
+  }
+
+  return $posts;
+}
+  
+function newestPost(array $a, array $b): int
+{
+  $ad = $a['dom']-&gt;querySelector('time')-&gt;getAttribute('datetime');
+  $bd = $b['dom']-&gt;querySelector('time')-&gt;getAttribute('datetime');
+
+  if ($ad === $bd) {
+    return 0;
+  }
+
+  return ($ad &gt; $bd) ? -1 : 1;
+}</code></pre>
+
+  <p>The <code>getBlogPosts</code> function is passed a <code>blog</code> string which it uses to set the correct directory, then checks each file is valid and adds it to an associated array using the extension-stripped filename as it's key and a dom object and the blog string as key value pairs, and finally returns the array. By checking that the file ends in <em>".html"</em> we can prevent picking up invalid filetypes such as the swap files that editors like vim might generate when a file has a buffer active. The blog key value pair is not important in this particular workflow, but will prove helpful when working with more than one blog at a time, such as on the home page or in the main RSS feed.</p>
+
+  <p>The <code>newestPost</code> callback used in the uasort simply picks the date out of the articles <code>time</code> element and compares it to it's neighbour in the array.</p>
+
+  <pre class="language-php"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+      &lt;header&gt;
+        &lt;h1&gt;&lt;?= ucfirst($blog) ?&gt;&lt;/h1&gt;
+        &lt;p&gt;&lt;?= $blogDesc ?&gt;&lt;/p&gt;
+      &lt;/header&gt;
+    
+      &lt;nav id="articles"&gt;
+&lt;?php foreach($posts as $postName =&gt; $post):
+
+  $postInfo = getPostInfo($post['dom']);
+  [
+  'title' =&gt; $title,
+  'description' =&gt; $description,
+  'date' =&gt; $date,
+  'topics' =&gt; $topics
+  ] = $postInfo;
+
+  $url = '/' . $blog . '/' . $postName;
+?&gt;
+
+        &lt;article&gt;
+          &lt;header&gt;
+            &lt;h3&gt;&lt;a href="&lt;?= $url ?&gt;"&gt;&lt;?= $title ?&gt;&lt;/a&gt;&lt;/h3&gt;
+            &lt;time datetime="&lt;?= $date ?&gt;"&gt;&lt;?= formatDate($date); ?&gt;&lt;/time&gt;
+            &lt;ul class="topic-container"&gt;
+  &lt;?php foreach($topics as $topic): ?&gt;
+              &lt;li class="topic"&gt;&lt;?= $topic-&gt;textContent ?&gt;&lt;/li&gt;
+  &lt;?php endforeach ?&gt;
+            &lt;/ul&gt;
+          &lt;/header&gt;
+          &lt;p class="description"&gt;&lt;?= $description ?&gt;&lt;/p&gt;
+          &lt;a href="&lt;?= $url ?&gt;"&gt;Read More&lt;/a&gt;
+        &lt;/article&gt;
+&lt;?php endforeach ?&gt;
+      &lt;/nav&gt;
+    &lt;/main&gt;
+
+    &lt;script src="/assets/scripts/filter.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+  <p>Once again, I've stripped out a lot of the stuff that doesn't matter. What happens here, is first we simply populate a title and description for the particular blog - I use the PHP built in function <code>ucfirst</code> to uppercase the first letter of the blog title. Then we iterate over each post in the associative array, which has already been sorted by newest first, and use the <code>getPostInfo</code> function we used for the blog post earlier, to destructure what we need for each post - we don't need a lot here, only the title, description, date and topics. We also use the <code>$blog</code> and <code>postName</code> strings to generate the url - <code>$blog</code> was defined within our controller function, and <code>$postName</code> is the key for the particular post. Once that is done, we have everything we need to create a link for each post with a date and description, as well is a list of topics, which I use with JavaScript to automatically generate a filter search for each blog based on the topics pinned to each article.</p>
+
+</section>
+
+<section id="rss-feed" title="Serving and RSS Feed">
+  <h2>Serving an RSS Feed</h2>
+
+  <p>Next, we will look at how to serve an RSS feed. There are, of course, other pages that I will be serving and generating within my site, but there isn't really anything new to gain from looking at those. However, when serving XML, I encountered a few caveats and gotchas, so I thought I would share the solution I ended up going with. When researching solutions, I came across a few different ones. There may be bettter solutions than mine, and I haven't had mine in production long enough to find bugs yet, but for me this method felt fast and familiar, and didn't deviate too much from what I had already been doing elsewhere in the code. Let's begin by taking a look at what the <code>feedController</code> function is doing.</p>
+
+  <pre class="language-php"><code>function feedController(array $url): void
+{
+  $configs = include CONFIG_PATH . 'config.php';
+  require APP_PATH . 'helpers.php';
+  $posts = array();
+
+  if ($url['isBlog']) {
+    $blog = $url['params'][0];
+    $posts = [...getBlogPosts($blog)];
+  } else {
+    foreach ($configs['blogs'] as $blog =&gt; $blogDesc) {
+      $posts += [...getBlogPosts($blog)];
+    }
+  }
+
+  uasort($posts, "newestPost");
+
+  require VIEWS_PATH . 'feed.php';
+}</code></pre>
+
+  <p>Again, not drastically different from what we've seen before - unsurprising, as we are once again dealing with blog posts in some fashion. This simply checks if a blog has been specified, if one has it will add all the posts from that blog to an associative array and then sort the array using he <code>newestPost</code> callback function. If a blog has not been specified, and we have been routed to the feed controller, then it stands to reason that we need to serve the main feed that includes posts from all of the blogs. There isn't anything new to look at in here, so next we can move straight into the feed template.</p>
+
+  <pre class="language-php"><code>&lt;?php
+header('Content-Type: application/xml; charset=utf-8');
+echo '&lt;?xml version="1.0" encoding="utf-8"?&gt;' . PHP_EOL;
+?&gt;
+&lt;rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"&gt;
+  &lt;channel&gt;
+  &lt;atom:link href="https://aaronwatts.dev/&lt;?= $url['isBlog'] ? $blog . '/' : '' ?&gt;feed.xml" rel="self" type="applications/rss+xml" /&gt;
+    &lt;title&gt;AaronWattsDev &lt;?= $url['isBlog'] ? ucfirst($blog) : 'Latest'  ?&gt;&lt;/title&gt;
+    &lt;link&gt;https://aaronwatts.dev&lt;?= $url['isBlog'] ? '/' . $blog : '' ?&gt;/&lt;/link&gt;
+    &lt;description&gt;&lt;?= $blogDesc ?&gt;&lt;/description&gt;
+    &lt;category&gt;Technology&lt;/category&gt;
+&lt;?php
+$x = 0;
+foreach($posts as $postName =&gt; $post):
+  $x++;
+  if ($x &gt; 10) {
+    break;
+  }
+
+  $postInfo = getPostInfo($post['dom']);
+  [
+    'title' =&gt; $title,
+    'description' =&gt; $description,
+    'imgUrl' =&gt; $imgUrl,
+    'date' =&gt; $date,
+    'topics' =&gt; $topics,
+    'sections' =&gt; $sections,
+    'prismRequired' =&gt; $prismRequired
+  ] = $postInfo;
+
+  $src = SRC_PATH . $post['blog'] . DIRECTORY_SEPARATOR .$postName . '.html';
+  
+  if (file_exists($src)) {
+    $file = fopen($src, 'r') or die("Unable to open file!");
+    $content = fread($file, filesize($src));
+    fclose($file);
+    $content = preg_replace('/&lt;header&gt;(.|\n)*?&lt;\/header&gt;/', '', $content);
+    $content = str_replace(['&lt;', '&gt;'], ['&amp;lt;', '&amp;gt;'], $content);
+  }
+  
+  $baseUrl = 'https://aaronwatts.dev';
+  $url = $baseUrl . '/' . $post['blog'] . '/' . $postName;
+?&gt;
+    &lt;item&gt;
+      &lt;title&gt;&lt;?= $title ?&gt;&lt;/title&gt;
+      &lt;link&gt;&lt;?= $url ?&gt;&lt;/link&gt;
+      &lt;pubDate&gt;&lt;?= date('r', strtotime($date)); ?&gt;&lt;/pubDate&gt;
+      &lt;description&gt;&lt;?= $description ?&gt;&lt;/description&gt;
+      &lt;guid&gt;&lt;?= $url ?&gt;&lt;/guid&gt;
+      &lt;content:encoded&gt;&lt;?= trim($content) ?&gt;&lt;/content:encoded&gt;
+      &lt;enclosure url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" length="0" /&gt;
+      &lt;media:thumbnail url="&lt;?= $imgUrl ?&gt;" width="1920" height="1080" /&gt;
+      &lt;media:content url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" /&gt;
+    &lt;/item&gt;
+&lt;?php endforeach; ?&gt;
+  &lt;/channel&gt;
+&lt;/rss&gt;</code></pre>
+
+  <p>Visually, there's a bit more going on here than in the previous templates. The first thing to note is the built-in PHP <code>header</code> function at the beginning. PHP expects to serve HTML by default. To serve an XML file, this needs to be included in the header of the HTTP response so that the browser knows what filetype it is working with. Next I had to <code>echo</code> the first line on the XML file. I'm not entirely sure why I could only get it to work this way, hopefully it will start to make sense the more PHP I learn. With those two gotcha's out of the way we can handle the rest of the file as though it were any other PHP template.</p>
+
+  <p>I'm using the same <code>feed.php</code> file for the RSS feed for each blog, as well as the aggregated <em>all</em> blog. So I need to include some ternary logic to handle all cases for the feeds information. Then I can iterate over the items in the blog array that I put together in the <code>feedController</code> function. I'm limiting my feeds to 10 articles each, and that is handled within the loop using a break statement, so if there were less than 10 posts then the loop would just end of it's own accord without breaking anything in the script.</p>
+
+
+</section>
+
+<section id="build" title="Building the Site">
+  <h2>Building the Site</h2>
+
+  <p>I have a few more pages on my website, but with what we have looked at, we have all the concepts required to make a home page, sitemap XML file, and whatever else we need. So with the bulk of the work out of the way, we can make a build script.</p>
+
+  <p>For the build script, I chose to use BASH. I like BASH, but I don't get to use it a whole lot, so I'm not particularly good at it. But we only need to run some sequential tasks for the build process.</p>
+
+  <pre class="language-shell"><code>#!/bin/bash
+
+PROJECT_ROOT=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &amp;&gt; /dev/null &amp;&amp; pwd )
+PHP_PUBLIC="${PROJECT_ROOT}/public"
+PHP_RUN="${PHP_PUBLIC}/index.php"
+BLOGS_DIR="${PROJECT_ROOT}/src"
+BUILD_DIR="${PROJECT_ROOT}/dist"
+
+# Write home page to index.html
+php "$PHP_RUN" &gt; "${BUILD_DIR}/index.html"
+
+# Write collated feed
+php "$PHP_RUN" "feed" &gt; "${BUILD_DIR}/feed.xml"
+
+# Write blog pages, posts and blog feeds
+for blogDir in "${BLOGS_DIR}"/*;
+do
+  blog="$(basename "${blogDir}")"
+  php "$PHP_RUN" "$blog" &gt; "${BUILD_DIR}/${blog}/index.html"
+  php "$PHP_RUN" "${blog}/feed" &gt; "${BUILD_DIR}/${blog}/feed.xml"
+
+  for postFile in "${blogDir}"/*;
+  do
+    post="$(basename "${postFile}" .html)"
+    mkdir "${BUILD_DIR}/${blog}/${post}"
+    php "$PHP_RUN" "${blog}/${post}" &gt; "${BUILD_DIR}/${blog}/${post}/index.html"
+  done;
+done;
+
+# Copy root files and folders
+for name in "${PHP_PUBLIC}"/*;
+do
+  if [ "$name" != "${PHP_PUBLIC}/index.php" ]; then
+    if [ -d "$name" ]; then
+      cp -R "$name" "$BUILD_DIR";
+    elif [ -f "$name" ]; then
+      cp "$name" "$BUILD_DIR";
+    fi
+  fi;
+done;</code></pre>
+
+  <p>The script isn't very complicated, although I still managed to eat my RAM and freeze my laptop while writing it. After setting our directories we simply run the php script, using arguments in place of a URI. We use the BASH <code>&gt;</code> operator to write the PHP script's return value to a file, or replace the existing contents with the return value if the file already exists. We do this for each blog page, blog feed, and each post within their respective blogs. Finally, we just copy anything in our <code>public</code> directory directly into the root of the <code>dist</code> directory.</p>
+
+  <p>And with that, the static HTML files are ready to be served wherever you might choose to do so. There is certainly more that can be done here, but we have a working static site generator with PHP on our local machine and no need for a server. I hope that after reading this, anyone who might have been considering learning PHP but felt intimidated or overwhelmed by it, will feel a bit better about just diving into it.</p>
+
+</section>]]></content:encoded>
+      <enclosure url="/images/guides/php-static-site-generator.webp" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/guides/php-static-site-generator.webp" width="1920" height="1080" />
+      <media:content url="/images/guides/php-static-site-generator.webp" type="image/jpeg" />
+    </item>
+    <item>
+      <title>NextCloud</title>
+      <link>https://aaronwatts.dev/tech/nextcloud</link>
+      <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
+      <description>NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</description>
+      <guid>https://aaronwatts.dev/tech/nextcloud</guid>
+      <content:encoded><![CDATA[<p id="description">NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</p>
+
+<p><a href="https://nextcloud.com/" target="_blank">NextCloud</a> is an alternative to things like Google Drive and One Drive that doesn't hand your data and the control over to a conglomerate. Self hosting is not the simplest thing to do, but there are also providers available that do all the hard stuff for you so you can just get on with having a cloud.</p>
+
+<p>Originally, I was subscribed to <a href="https://murena.com/workspace/" target="_blank">Murena's</a> Workspace cloud plan. I didn't have a Murena phone, but the NextCloud offer looked quite good so I tried it. I was pleased, the WorkSpace is pretty good, and includes an OnlyOffice suite for online editing. A measly €1.99 per month gets you 20GB of storage, or you can get 64GB for just €3.99. However, they had some issues a while back when upgrading their infrastructure, and their cloud went down. It's back up now, and due to the way NextCloud syncs with devices, I had local backups on several devices so I didn't lose any files.</p>
+
+<p>But the downtime was a bit longer than anticipated, and during that time I thought I might try set up my own cloud on a VPS. And I did, successfully. I pay <em>a lot</em> more for my NextCloud on a VPS setup, but I get total control of what apps I have on my server. That said, I also have total responsibility when things stop working, which has happened.</p>
+
+<p>Installation is not simple, there are All-In-One installations which are supposed to make things easier, available as either a Snap package or a Docker image, but for me (a novice) the documentation didn't seem to match up and I couldn't get everything working.</p>
+
+<p>If you have some experience in the Linux terminal, then I highly suggest following along to the <a href="https://www.learnlinux.tv/self-host-nextcloud-on-debian-the-ultimate-step-by-step-build-guide/" target="_blank">Learn Linux guide</a>, which is also available as a YouTube walthrough (linked in article). Jay does a great job of explaining what he is doing and why, and if you've ever poked around in PHP applications it should feel quite familiar. I genuinely felt like I had learned quite a bit after working through the guide, as opposed to mindlessly following steps to acheive a goal.</p>
+
+<p>I wasn't able to apply a recent update, and had to reinstall the software, and some steps had changed, but I was able to figure them out on my own as I kind of understood what I was supposed to be doing. Nonetheless, I wouldn't describe the process as easy. And keeping your cloud maintained will also require some work. So if you want to try it, but don't have the time or patience to go through the set up and maintainence, then take a look for a provider.</p>
+
+<p>As an alternative to other cloud providers, NextCloud is actually really good. There is a huge community making stuff for it. At it's most basic it will back up files to the cloud and sync with any number of devices you want it to, giving you local backups if anything was to go wrong. There's a plethora of compatible software for it, and getting your phone sync'd to it is pretty easy too. I'm currently using it as my Documents folder on two computers, so everything I'm working on is accessible anywhere. I also have my git repositories on it, and have had no issues with those. I'm also using it as the directories for software like Publii CMS and Calibre Library, so my blogs and books are available at whatever computer I'm working at.</p>]]></content:encoded>
+      <enclosure url="/images/tech/nextcloud.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/tech/nextcloud.avif" width="1920" height="1080" />
+      <media:content url="/images/tech/nextcloud.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Raspberry Pi</title>
+      <link>https://aaronwatts.dev/tech/raspberry-pi</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</description>
+      <guid>https://aaronwatts.dev/tech/raspberry-pi</guid>
+      <content:encoded><![CDATA[<p id="description">Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</p>
+
+<p>You're probably expecting the next line to be something along the lines of <em>"I have been tinkering ever since"</em>. Well, no, actually. At that time in my life I had a penchant for the outdoors, and a not particularly well paid job working at a charity. I didn't have a dedicated computer at the time, only a Playstation 3 (as well as my retro consoles that were entirely off line at that point) that I had bought second hand. Beyond being a very underpowered Linux computer, I wasn't totally sure what this thing called a <a href="https://www.raspberrypi.com/">Raspberry Pi</a> was meant to be.</p>
+
+<p>Eventually my cirumstances changed, I moved career, got a computer, and became aquainted with the internet. I still had my collection of retro gaming consoles, and had a bit of side hustle on the go buying games and consoles at deals, restoring them if they needed it, and selling them on. I was feeding a hobby and making some money on the side, and perhaps contributing to the ridiculous prices that retro gaming would eventually hold - sorry about that.</p>
+
+<p>Naturally, the omniscient Youtube algorithm knew what I wanted to watch before I even did (<em>some</em> of the time), and I kept seeing videos of emulation. A video caught my eye, likely a guide on how to install RetroPie onto this device I had sitting in my drawer. Okay, so <em>that's</em> what that thing can do. Nice! I had most of the real world consoles, with most of the games that I wanted for them. So while I didn't run out the door to buy a USB controller, I <em>did</em> get curious to what else this machine could do. And <em>that's</em> when I began tinkering, and have been ever since.</p>
+
+<p>I understood: it might not have been powerful enough to replace a desktop computer, but it was very good at doing <em>one</em> thing, and doing it really well. To try and list all the things you could do with a Raspberry Pi would be, frankly, a little ridiculous. As I have already mentioned, the ecosystem is huge. There's heaps of talented people in the community, and resources have become immense. Some of the projects I have kept around (some of which there are <a href="/guides">guides</a> for on this website) include:</p>
+
+<ul>
+  <li><a href="/guides/retropie-nespi-4">Retro gaming console</a></li>
+  <li><a href="/guides/gpicase">Handheld retro gaming console</a></li>
+  <li><a href="/guides/kde-plasma-bigscreen">KDE Bigscreen smart TV</a></li>
+  <li>Web radio with touch screen using Volumio</li>
+</ul>
+
+<p>These are just a few I have kept around. I have also experimented with running servers and sinkholes on my Raspberry Pi 2, had Kodi and Magic Mirror running on my Pi 3, and explored various operating systems across the devices too. I haven't even mentioned the Model A or Zero devices, or the Pico Micro Controllers, or robotics, or drones, or AI, or home automation .. you get the message.</p>
+
+<p>Later, the Raspberry Pi 5 family would make desktop computing entirely comfortable. I use a Raaspberry Pi 500+ as my main computer at my desk, and a Compute Module 5, in the new <a href="https://argon40.com/en-gb/products/argon-one-up-cm5-laptop-core-system" target="_blank">Argon One Up</a> laptop sysem (which I am working at now, while I type this!). Desktop computing was an okay experience on the Raspberry Pi 4, although with the demands of modern software (particularly browsers), you needed to maintain an austere process and sacrifice a little multi-tasking.</p>
+
+<blockquote><p>We’re on a mission to put high-performance, low-cost, general-purpose computing platforms in the hands of enthusiasts and engineers all over the world.</p></blockquote>
+
+<p>Raspberry Pi is not the only Single Board Computer out there. But it is arguably the most prolific and may have had the biggest impact on hobbyist computing. Low cost, low energy, and the ability to keep reusing old hardware means that it is all potentially very sustainable. SBC's have placed a little of the power into the hands of consumers that want to tinker and play. SBC's are to software what Lego is to architecture. Except if you build a house from Lego you can't live in it, whereas if you build software or a useful device with an SBC, you can absolutely use it.</p>
+
+<blockquote><p>Raspberry Pi is an engine for creativity, learning and innovation. With over sixty million of our computers sold in the last decade, there has never been a more exciting time to build on Raspberry Pi.</p></blockquote>
+
+<p>As for tech I consider to be thoughtful, I think the Raspberry Pi is a serious contender for <em>the most</em> thoughtful tech. By proffession I am a youth worker, and occassionally a kid I work with will mention learning to code on a Raspberry Pi, and that just makes me smile!</p>]]></content:encoded>
+      <enclosure url="/images/tech/raspberry-pi.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/tech/raspberry-pi.avif" width="1920" height="1080" />
+      <media:content url="/images/tech/raspberry-pi.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Better Meta</title>
+      <link>https://aaronwatts.dev/guides/better-meta</link>
+      <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
+      <description>I have another website, that I manage with CMS (Content Management Software). I haven't bothered setting up anything for Google or Bing indexing for that site yet, I was waiting to see if I would keep using the site first. But content I was putting on that site was getting indexed anyway, and it also looked good in the search results. So I decided to investigate why this was the case.</description>
+      <guid>https://aaronwatts.dev/guides/better-meta</guid>
+      <content:encoded><![CDATA[<section id="intro" title="Intro">
+
+  <p id="description">I have another website, that I manage with CMS (Content Management Software). I haven't bothered setting up anything for Google or Bing indexing for that site yet, I was waiting to see if I would keep using the site first. But content I was putting on that site was getting indexed anyway, and it also looked good in the search results. So I decided to investigate why this was the case.</p>
+
+  <p>SEO. Isn't it always the answer? I put my hands up, I'm not an expert on it, it's quite a broad subject. I prefer playing in a terminal. But if a website can get itself indexed on it's own, to a high standard and without any human hands getting involved, then it's worth knowing about.</p>
+
+  <p><small>NOTE: Keep in mind, this relies on web crawler bots coming to your site. So while it automates page indexing, if you want things done fast you may still want to use other methods.</small></p>
+</section>
+
+<section id="robots" title="Robots">
+
+  <h2>Robots</h2>
+
+  <p>Let's start with the simplest thing first. The <code>robots.txt</code> file. I've only read about this file being used to <em>limit</em> web crawler activity on a website. It seems obvious now I've seen it, but if it can tell robots to go away, then it can also tell them to come in.</p>
+
+  <pre class="language-none"><code>User-agent: *
+Disallow:
+Sitemap: https://aaronwatts.dev/sitemap.xml</code></pre>
+
+  <p>There we go: all crawlers welcome, here's my site directory. I had been using an XSL template for my sitemap previously, which has since broken on Chromium. Chromium is in the process of removing XSL support from the blink web engine, I'm not sure if that's likely to effect certain web crawlers too, but just to be safe I have removed the XSL instruction from the XML sitemap file.</p>
+
+</section>
+
+<section id="opengraph" title="OpenGraph">
+
+  <h2>OpenGraph</h2>
+
+  <p>The <a href="https://ogp.me/" target="_blank">OpenGraph</a> protocol is a standard that allows relevant information to be picked out by social media applications to generate thumbnails. Not dissimilar from the standard meta description tag, but <em>richer</em>.</p>
+
+  <p>Making use of the tool is just a case of adding the necessary meta elements to your document head.</p>
+
+  <pre class="language-html"><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta property="og:title" content="Better Meta"/&gt;
+    &lt;meta property="og:site_name" content="aaronwatts@dev"/&gt;
+    &lt;meta property="og:description" content="intro text here"/&gt;
+    &lt;meta property="og:url" content="https://aaronwatts.dev/guides/better-meta"/&gt;
+    &lt;meta property="og:image" content="https://aaronwatts.dev/images/guides/better-meta.avif"/&gt;
+    &lt;meta property="og:type" content="article"/&gt;
+    &lt;meta property="og:article:published_time" content="2026-03-05"/&gt;
+  &lt;/head&gt;
+  ...
+&lt;/html&gt;</code></pre>
+
+  <p>The content required for the tags already all exists somewhere within the document itself, so this can all be done programmatically, which I will look at shortly. Automating the process also redduces the risk of breaking something with a typo.</p>
+
+  <p>Twitter has an OpenGraph property for it's cards, which I am not currently implementing here, but will do soon. I have used this page as an example, which would count as an article, but the schema is vast, and it's worth consulting the documentation for what kind of clues you can provide, about what type of content your material is, to other sites that might display links to your site.</p>
+
+</section>
+
+<section id="schema" title="Schema">
+
+  <h2>Schema</h2>
+
+  <p>Similar to OpenGraph, there are also rich content identifiers specifically for search engines. Google, along with other search engines, use the <a href="https://schema.org/" target="_blank">schema.org</a> vocabulary.</p> <p>The easiest way to work with schema is using <a href="https://json-ld.org/" target="_blank">json-ld</a> (JSON Linked Data). Some schema classifications have required attributes, and <a href="https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data" target="_blank">Google's developer documentation</a> has helpful guidance and what ought to be included, and what is complimentary.</p>
+
+  <pre class="language-html"><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type="application/ld+json"&gt;{
+      "@context": "http://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://aaronwatts.dev/guides/better-meta"
+      },
+      "headline": "Better Meta",
+      "datePublished": "2025-03-05",
+      "description": "intro text here",
+      "image": [
+        "https://aaronwatts.dev/images/guides/better-meta.avif"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "aaronwatts@dev"
+      }
+    }&lt;/script&gt;
+  &lt;/head&gt;
+  ...
+&lt;/html&gt;</code></pre>
+
+  <p>To implement a schema using json-ld, you just need a <code>script</code> tag in the <code>head</code> of the document, with a <code>type</code> attribute of <code>application/ld+json</code>. As with the data required to populate the OpenGraph content, all the required data is contained somewhere within the document, so it can be done programmatically.</p>
+
+</section>
+
+<section id="automating" title="Automating the Process">
+
+  <h2>Automating the Process</h2>
+
+  <p>If you are using a CMS, this stuff is likely being handled for you. But if not, it can be automated. How you acheive this will depend on the tech stack you use for a given website, and your preferred or available technologies. A PHP-like templating engine will be the simplest way to automate. For my use case, I have already made a CMS module in Python, and so have implemented the automation into that. Without looking too deeply into my CMS module, I'll outline how I have automated updating the meta for my articles using Python.</p>
+
+  <pre class="language-html"><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"/&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+  &lt;meta name="description"/&gt;
+  ...
+  &lt;meta property="og:title"/&gt;
+  &lt;meta property="og:site_name" content="aaronwatts@dev"/&gt;
+  &lt;meta property="og:description"/&gt;
+  &lt;meta property="og:url"/&gt;
+  &lt;meta property="og:image"/&gt;
+  &lt;meta property="og:type" content="article"/&gt;
+  &lt;meta property="og:article:published_time"/&gt;
+
+  &lt;script type="application/ld+json"&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+
+  <p>Before I even run any Python code, my HTML documents for my articles will already contain the necessary OpenGraph <code>meta</code> tags and an empty <code>script</code> tag with a <code>type</code> of <code>application/ld+json</code>. Anything that is page specific will not have any data applied yet for the <code>content</code> attributes. I am also programmatically populating the <code>content</code> attribute for the standard <code>meta</code> <code>description</code> too for consistency. When I run my Python CMS module, it will first run a series of tests on each document and make sure the tags it is expecting to work with are all present in the document. If anything is missing, or other tests fail, it will <code>exit</code> the program and log what tests have failed.</p>
+
+  <pre class="language-python"><code>def extract_data(doc):
+  doc['title'] = doc['soup'].select_one(SELECTORS['title']).text
+  doc['intro'] = doc['soup'].select_one(SELECTORS['intro']).text
+  doc['description'] = " ".join(doc['intro'].split())
+  doc['html_date'] = doc['soup'].select_one(SELECTORS['time'])
+  doc['date_attr'] = doc['html_date']['datetime']
+  doc['URL'] = path_to_url(f"{doc['directory']}/{doc['filename']}")
+  doc['IMG'] = BASE_URL + selector(doc['soup'], "article img", "src")
+  return doc</code></pre>
+
+  <p>My CMS already iterates through documents to extract the required data to be able to create the RSS feeds, and add new articles to the index pages. So I already have all my data readily available. There are custom functions here to build a url from a specified file path, and a selector function to get an attributes content (I am not using that function to get the datetime attribute as I also use the <code>html_date</code> to format dates to <code>RFC 822</code> for the RSS feed). My CSS selectors are all pulled out of a config file, so if I decide to change my document structure, I just need to alter the config file and not the code itself. The <code>doc</code> being passed into the function is a dictionary for each article document, with keys and values for <code>filename</code>, <code>directory</code>, and <code>soup</code>.</p>
+
+  <p><small>NOTE: I've only included the relevant extractions in the function above. More data gets extracted from each document, but they are not relevant to building the meta for the page and are instead used elsewhere, such as the RSS feeds.</small></p>
+
+  <pre class="language-python"><code>def add_meta_content(article):
+  head = selector(article['soup'], "head")
+
+  description = selector(head, "meta[name='description']")
+  description['content'] = article['description']
+
+  og_title = selector(head, "meta[property='og:title']")
+  og_title['content'] = article['title']
+  og_desc = selector(head, "meta[property='og:description']")
+  og_desc['content'] = article['description']
+  og_url = selector(head, "meta[property='og:url']")
+  og_url['content'] = article['URL']
+  og_image = selector(head, "meta[property='og:image']")
+  og_image['content'] = article['IMG']
+  og_time = selector(head, "meta[property='og:article:published_time']")
+  og_time['content'] = article['date_attr']
+
+  json_ld = selector(head, "script[type='application/ld+json']")
+  json_ld_data = {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage":{
+      "@type": "WebPage",
+      "@id": article['URL']
+    },
+    "headline": article['title'],
+    "datePublished": article['date_attr'],
+    "description": article['description'],
+    "image": [
+      article['IMG']
+        ],
+    "author":{
+          "@type": "Person",
+          "name": "aaronwatts@dev"
+    }
+  }
+
+  json_ld_str = json.dumps(json_ld_data, indent=2)
+  json_ld.string = json_ld_str</code></pre>
+
+  <p>The extended article data is then passed into a function that populates the required <code>meta</code> tags with the applicable data. The Python <code>json</code> module is used to convert a Python dictionary into a JSON string.</p>
+
+  <pre class="language-python"><code>article_path = f"{ROOT}/{article['directory']}/{article['filename']}"
+write_to_html(article['soup'], article_path)
+
+def write_to_html(soup, path):
+  with open(path, "w") as outf:
+    outf.write(str(soup))</code></pre>
+
+  <p>Each document's <code>soup</code> retains all adjustments made, so the final step is simply to write the modified <code>soup</code> back into the file it has been taken from.</p>
+
+</section>]]></content:encoded>
+      <enclosure url="/images/guides/better-meta.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/guides/better-meta.avif" width="1920" height="1080" />
+      <media:content url="/images/guides/better-meta.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Simple CSS</title>
+      <link>https://aaronwatts.dev/tech/simple-css</link>
+      <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
+      <description>Simple CSS was suggested to me by a friend. At the time I had been making an effort to try and learn web development. In essence, it is yet another CSS framework to bootstrap your HTML for fast production. Except, it's not, not really. I'd argue, it's better.</description>
+      <guid>https://aaronwatts.dev/tech/simple-css</guid>
+      <content:encoded><![CDATA[<p id="description">Simple CSS was suggested to me by a friend. At the time I had been making an effort to try and learn web development. In essence, it is yet another CSS framework to bootstrap your HTML for fast production. Except, it's not, not really. I'd argue, it's better.</p>
+
+<p>The first thing that makes <a href="https://simplecss.org/" target="_blank">Simple CSS</a> by <a href="https://kevquirk.com/" target="_blank">Kev Quirk</a> so good compared to other CSS frameworks, is that it's not strictly a framework - it's just one file. One tiny CSS file. No <code>reset.css</code>, no javascript.</p>
+
+<blockquote><p>..the minified CSS for the Bootstrap framework is 144KB in total. By comparison, Simple.css is around 10KB</p></blockquote>
+
+<p>It also describes itself as mostly classless. The <a href="https://simplecss.org/introducing-simple-classes" target="_blank">Simple Classes</a> page describes merely two classes: <code>a.button</code> and <code>p.notice</code>.</p>
+
+<blockquote><p>..makes semantic HTML look good, really quickly</p></blockquote>
+
+<p>Being classless, it focuses on semantic HTML. This means Simple CSS also becomes a fantastic learning resource. The MDN docs are great, but reading and retaining all of that is quite a task. The specs for HTML alone are just so vast, let alone CSS and Javascript. All to often, CSS magic or Javascript wizadry, or a combination of both, get employed to perform a task that HTML can just do already, out of the box. Take the <code>details</code> HTML element for example, collapsible and hideable using <em>HTML only</em>!</p>
+
+<p>Not only is Simple CSS efficient and useful, it's also an introduction to good practises for those of us who've been swept along by the Bootstrapped boot-camps. Learning about the efficiency of good semantics has sent me on a bit of learning quest for good, and standardised, practises that I might otherwise not thought to have seek out, so thank you Kev. And I hope others slow down to look at the <code>doctree</code>'s too, eh? (it's supposed to be a play on that smell the flowers .. ah forget it, a joke that has to be explained is a bad one).</p>]]></content:encoded>
+      <enclosure url="/images/tech/simple-css.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/tech/simple-css.avif" width="1920" height="1080" />
+      <media:content url="/images/tech/simple-css.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>AppSheet - Rota App</title>
+      <link>https://aaronwatts.dev/guides/appsheet</link>
+      <pubDate>Thu, 28 Aug 2025 00:00:00 +0000</pubDate>
+      <description>I first found out about AppSheet a number of years ago when it was still a fairly new project. I was running my own skate school and needed something that could organise data while on the move; specifically bookings I had made with clients. I had looked at a lot of options which didn't quite make the cut of what I needed. But then I stumbled across AppSheet, and it did just about everything I needed it to. Well, almost everything. But as it uses Google Sheets as pseudo-databases, I was able to use Apps Script to fill the last few gaps, and have my own custom software .. for free!</description>
+      <guid>https://aaronwatts.dev/guides/appsheet</guid>
+      <content:encoded><![CDATA[<section id="intro" title="Intro">
+  <p id="description">I first found out about AppSheet a number of years ago when it was still a fairly new project. I was running my own skate school and needed something that could organise data while on the move; specifically bookings I had made with clients. I had looked at a lot of options which didn't quite make the cut of what I needed. But then I stumbled across AppSheet, and it did just about everything I needed it to. Well, almost everything. But as it uses Google Sheets as pseudo-databases, I was able to use Apps Script to fill the last few gaps, and have my own custom software .. for free!</p>
+
+  <p>I <em>really</em> like low cost and no cost solutions. the free tier on AppSheet can be a little limiting, that is unless you know you're way around Google's Apps Script feature. When it was still new, <a href="https://about.appsheet.com/home/" target="_blank">AppSheet</a> relied on Google Sheets and Microsoft Spreadsheets as backend. Nowadays they have a myriad of options that even include cloud SQL databases. They've even released their own AppSheet databases. However, on the free tier, you're limited to 1000 rows in a database, which can fill up quicker than you might expect depending on your use case. There are some handy workflow options, but scheduled workflows are not on the free tier either, so flushing old database entries is not really an option. However, this is remedied by going with the tried and tested, straws and sellotape method of using Google Sheets, where we can write Apps Script's to perform all kinds of workflows. The synergy between AppSheet and Google was so strong, that Google took the project into it's ecosystem (here's hoping they don't send another great project to the <a href="https://killedbygoogle.com/" target="_blank">Google Graveyard</a>)</p>
+
+  <p>I discovered AppSheet at a time where coding was something I occasionally dabbled in and I certainly would not have been able to put together a web app at the time. Now I'm deeper into the rabbit hole, and could confidently put together a simple web app. Yet, I still find myself going back to AppSheet to get something done quickly and for free. I don't have to worry about writing an entire codebase or wrangling with CSS. There are caveats, though. Although AppSheet brands itself as a no-code platform, it does rely heavily on something far more sinister and ugly: formula. That is, spreadsheet style formulae are used to get an app to do just about anything interesting at all. One project that I have built which gets used in the real world is a rota app, to handle shifts for employees where I work. It has just enough going on in it that it's a good example to use to start getting familiar with using AppSheet without being overwhelming. The following is a guide to assembling a simple rota app using AppSheet with some Google Apps Script integration.</p>
+</section>
+<section id="backend" title="Building the Backend">
+  <h2>Building the Backend</h2>
+
+  <p>Ha, good one. Our backend is a Google Sheet.  Column headers will be used as <em>"fields"</em> in app. Any additional rows are considered entries. You can add in directly through Google Sheets, but I'd advise using your AppSheet app to avoid any formatting inconsistencies.</p>
+
+  <p>We can use sheets, or pages, within our spreadsheet as separate data sources. We can also use multiple types of data sources within apps, including multiple spreadsheets, but this app isn't likely to get so large so quickly that having everything tidily in one spreadsheet is likely to become a problem at any point.</p>
+
+  <p>Our main sheet will be a <em>shifts</em> table, with additional tables for <em>staff</em> and <em>locations</em>. Our team at work do occasionally have to work away from the main site, so it's a niche feature that we use, but I am including it here just to demonstrate some neat stuff you can do between AppSheet and Google Suite. The staff and location tables will be structured thus:</p>
+
+  <table class="spreadsheet">
+    <thead>
+      <tr>
+        <th scope="col">Employee Number</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>12345</td>
+        <td>Joe Bloggs</td>
+        <td>071234567</td>
+        <td>joe@work.com</td>
+      </tr>
+      <tr>
+        <td>12346</td>
+        <td>John Hancock</td>
+        <td>071234568</td>
+        <td>john@work.com</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="spreadsheet">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Work</td>
+        <td>Work Street, Liberty City</td>
+      </tr>
+      <tr>
+        <td>Home</td>
+        <td>Home</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>As previously mentioned, it's best to wait to enter the individual records through the AppSheet app. AppSheet is pretty feature rich, it's not difficult at all to include hot buttons in the app to make phone calls and emails. When you set an address data type it will do what you would hope it would do and look for real addresses and list suggestions as you type. You can also enter something that is not an address, like home. We find this particularly useful for when someone works from home. These shifts all eventually end up in a Google Calendar which all employees have access to, and when it opens the location to <em>home</em> on a users device in Google Maps, the omniscient Google normally has a good idea of where <em>home</em> is per user.</p>
+
+  <p>Next, we need somewhere for the work shifts to be stored. So we can make the shifts table. To allow the app to differentiate between shifts we will include a Shift ID column that will be automatically populated by AppSheet itself,  and to track it's linked calendar event in Google Calendar we will include a Cal ID column, which an Apps Script will pass into AppSheet at the end of specific workflows.</p>
+
+  <table class="spreadsheet">
+    <thead>
+      <tr>
+        <th scope="col">Shift ID</th>
+        <th scope="col">Staff</th>
+        <th scope="col">Date</th>
+        <th scope="col">Location</th>
+        <th scope="col">Start</th>
+        <th scope="col">Finish</th>
+        <th scope="col">Cal ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>(AppSheet Generated)</td>
+        <td>12345</td>
+        <td>31/07/2025</td>
+        <td>Work</td>
+        <td>09:00</td>
+        <td>17:00</td>
+        <td>(Apps Script Generated)</td>
+      </tr>
+      <tr>
+        <td>(AppSheet Generated)</td>
+        <td>12346</td>
+        <td>31/07/2025</td>
+        <td>Home</td>
+        <td>10:00</td>
+        <td>16:00</td>
+        <td>(Apps Script Generated)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="frontend" title="Building the Frontend">
+  <h2>Building the Frontend</h2>
+
+  <p>No code, anyone can do it! But, if you want your app to have any kind of useful or advanced functionality it will be less simple. The design UI is good, although, out of the box AppSheet is already doing quite a lot, so even building your first simple app can be a bit of a learning curve.</p>
+
+  <p>The main aspect of the UI are in the menu bar on the left of the screen, for now we only need to worry about <em>data</em> and <em>views</em>. We will also use <em>automation</em>. These are where we make our app work.</p>
+
+  <h3>Data</h3>
+  <p>In the data view, we can add our data sources using the <kbd>+</kbd> button. Find the spreadsheet you created in Google Drive, select it, and select the relevant page for each data source. Depending on what you name each column, AppSheet will hazard a guess at what you want each data type to be, but in case it gets it wrong, these are the data types for the Locations and Staff tables:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">Locations</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>Name</td>
+      <td>Name</td>
+    </tr>
+    <tr>
+      <td>Address</td>
+      <td>Address</td>
+    </tr>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">Staff</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>Employee Number</td>
+      <td>Number</td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>Name</td>
+    </tr>
+    <tr>
+      <td>Phone</td>
+      <td>Phone</td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td>Email</td>
+    </tr>
+  </table>
+
+  <p>For those, you will also want to set the key and labels. For Locations the Name column will be both key and label. For Staff, the employee number will be the key, and the name will be the label. The key is how the app deciphers which record or row is being referenced, while the label is used as the human readable identifier, so that we aren't expected to figure out what staff is being referenced by a particular key.</p>
+
+  <p>The Shifts table is a little more complex, so I will include a few more of the option fields for this one:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Formula</th>
+        <th>Initial Value</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>Shift ID</td>
+      <td>Text</td>
+      <td>UNIQUEID("UUID")</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Staff</td>
+      <td>Ref</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td>Date</td>
+      <td></td>
+      <td>"{DD/MM/YYYY}"</td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>Ref</td>
+      <td></td>
+      <td>"Work"</td>
+    </tr>
+    <tr>
+      <td>Start</td>
+      <td>Time</td>
+      <td></td>
+      <td>"00:00"</td>
+    </tr>
+    <tr>
+      <td>Finish</td>
+      <td>Time</td>
+      <td></td>
+      <td>[Start]+"006:00:00"</td>
+    </tr>
+    <tr>
+      <td>Cal ID</td>
+      <td>Text</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <p>The <em>Ref</em> datatype is a reference to another table or data source. To set what each one references use the <kbd>Edit</kbd> button on the left, which is a pen emoji, and then set the source table to the relevant one for each of those. Also make sure that <em>Cal ID</em> is set to <em>NOT</em> required, as we want to leave that blank for an Apps Script to populate later on.</p>
+
+  <p>We have now had our first tastes of AppSheet's formula in the <em>Formula</em> and <em>Initial Value</em> fields. Formula's allow AppSheet to do some more interesting things computationally than say, a regular table's app. Here, we use the <code>UNIQUEID()</code> function to create a Unique ID for the <em>Shift ID</em>. By default, the function generates strings of 8 random characters, with a low probability of creating duplicates. However, over time and large quantities of data (several thousand entries over the course of years), I have encountered multiple instances where AppSheet generates a code that is already in use. This isn't a huge deal, but you do have to abandon that particular record and start it over again, allowing the app to have a second crack at generating a <em>new</em> code. This is manageable, as long as you have the data available to you to enter it a second time, and if it's not a large amount of data. I take this opportunity to apologise for the times my colleagues have had to start over while logging orders into the skate shop POS). In my defence, the AppSheet documentation claims that:</p>
+
+  <blockquote>The chance of a duplicate ID being generated is virtually zero.</blockquote>
+
+  <p>Since making that app though, AppSheet have added arguments to the <code>UNIQUEID</code> function: <code>"UUID"</code> and <code>"PackedUUID"</code>. These both create longer and more complex strings, vastly decreasing the chance of repetition. One last thing to touch on here, with respect to using computed values as a key, is that AppSheet can be a little quirky here. Ideally, we would set this as the <em>Initial Value</em>, but AppSheet wouldn't let us do that and also select it as a key. If we set it as <em>App Formula</em> instead, and tick this field to act as the <em>key</em>, AppSheet still doesn't like this, but it will automatically generate a new <em>virtual</em> field, called <code>_ComputedKey</code>, and set it's value to <code>[Shift ID]</code> in it's App Formula - <code>[Shift ID]</code> represents the value in that column, or field, for this particular row, or record.</p>
+
+  <p><small>NOTE: Like spreadsheet formula, AppSheet functions are uppercase. This used to be strict, but at some point AppSheet removed case sensitivity from their functions so the same function can be called using lowercase.</small></p>
+
+  <p>We get to see a few more examples of what can be achieved with some simple formula expressions in the <em>Initial Value</em> fields. For date, we can use a template expression to define the format of the date that the user must input the date in. I'm in the UK, so please don't be alarmed that I have defined <code>"{DD/MM/YYYY}"</code>. For location, I have defined <code>"{Work}"</code>, which is one of our location's names. For reference data types, AppSheet will generate a dropdown menu in the form, it uses key's to distinguish referenced records, but it will use the <em>label</em> we have defined within the dropdown, as long as our initial value exists as a label for a record in the linked table, AppSheet will make the association. For Start time, instead of defining a format with <code>"{HH:MM}"</code>, I have set an initial value of <code>"00:00"</code>, this is helpful for the user, as when we define a format as <code>"{DD/MM/YYYY}"</code> or <code>"{HH:MM}"</code> it will display those in app as <code>--/--/----</code> and <code>--/--</code> respectively, by setting the time to <code>"00:00"</code> a user only has to set hours and can skip over the minutes if a shift starts on the hour as they often do. Finally, The Finish time is set to <code>[Start]+"006:00:00"</code>, which assesses what the time defined in the Start field is, and then adds 6 hours to it as a sensible default.</p>
+
+  <p><small>NOTE: Virtual Columns, like the one created by AppSheet for the _ComputedKey are useful for working algorithmically using data that already exists within the spreadsheets. We will look over a few examples later in this article.</small></p>
+
+  <h3>Views</h3>
+
+  <p>The <em>Views</em> panel is where we make the <em>views</em> that the user will interact with in the app. There's a few to look at, but the ones we will be using in this app are <em>Deck</em>, <em>Table</em>, <em>Calendar</em> and <em>Dashboard</em>. AppSheet will automatically generate Details and Form views for each data source, but we can create our own when we want a little more control over what's on screen at a given time.</p>
+
+  <p>Starting with the simplest table, <em>Locations</em>, we can select <em>Deck</em> for view type and choose where on the menu bar we want it to show up. Options here are <em>first</em>, <em>next</em>, <em>middle</em>, <em>later</em>, <em>last</em>, <em>menu</em> and <em>ref</em>. Menu and ref are the only ones that aren't on the main menu bar, selecting menu will move the view button to the side menu, and ref will hide it altogether, and it will be used some other way, such as part of a dashboard view or as a form. For the locations view, set the primary header to <em>Name</em> and the secondary header to <em>Address</em>. We can also select Manual for Actions, and remove any unwanted fluff like the map view button, and just keep the edit and delete buttons showing.</p>
+
+  <p>Next, for the <em>Staff</em> table, set the view type to <em>Table</em>. If we set the Column Order to manual, we can choose only the necessary columns to include in the main view, which I have set to <em>Name</em> and <em>Employee Number</em> only.</p>
+
+  <p>For the <em>Shifts</em> view, we can do something a little more interesting. Instead of a single view, we will make two views and include them both in a dashboard view. The first view will be another deck view, with the Position set to Ref so we can place it in the Dashboard view. We can sort by Date first, and then Start, both descending, so oldest shifts are placed further down the list. We can also use Group By, to separate shifts further under a specified header. I use a virtual column called week start, in descending order. To create the virtual column, simply go back into the data panel, choose the Shifts data, then click the <kbd>+</kbd> button in the top right corner to add a new virtual column. We can also set up an End of Week virtual column that will be useful later on.</p>
+
+  <pre class="language-none"><code># Virtual Column: Start of Week 
+DATE(
+  EOWEEK(
+    DATE([Date] - 1)
+  ) - 5
+)
+
+# Virtual Column: End of Week
+Date(
+  EOWEEK(
+    DATE([Date] -1)
+  ) + 1
+)</code></pre>
+
+  <p>Spreadsheet style formula with nested functions is hard to read whatever way you right it, but I think multiline notation is the only way to not go cross-eyed when  writing some of the more complex formula's in AppSheet. We are limited to how much data we can display at a time in the deck view, but we can use virtual columns here too. We can fit both the name and location in the secondary header by concatenating both columns into one virtual column.</p>
+
+  <pre class="language-none"><code>CONCATENATE([Staff].[Name], "/", [Location].[Name])</code></pre>
+
+  <p>We reference the table reference here and the column we want to use, as using the relevant column from this table would just pull in the <em>key</em> rather than the <em>label</em>. We can use multiple virtual columns on concatenate functions to display the data, start and finish in the primary header.</p>
+
+  <pre class="language-none"><code># Virtual Column: Shift
+CONCATENATE(
+  TEXT([Start],"HH:MM")," - ",TEXT([Finish],"HH:MM")
+)
+
+# Virtual Column: Shift Date Time
+CONCATENATE(
+  TEXT([Date], "DD/MM/YYYY"), ", ", [Shift]
+)</code></pre>
+
+  <p>The "Shift Date Time" column will be what is used for the primary header. We can use the <code>TEXT</code> function to declare the formats to be used when displaying dates and times. In my experience, trying to get AppSheet to do all that in a single virtual column and one formula causes issues and can break the app, but breaking it up into two steps across two virtual columns hasn't caused me any issues in all the time I've been using AppSheet.</p>
+
+  <p>In the summary column on the dashboard, I like to include a weekly hour count for each member of staff. It's a useful quick reference to check how many hours each member of staff is rota'd in for in a given week that can be checked at a glance while working in the app. In order to work that out, we will first want a virtual column to work out each shift duration, then a second to add them together. The Start of Week and End of Week virtual columns are both helpful here in the calculations.</p>
+
+  <pre class="language-none"><code># Virtual Column: Shift Duration
+TOTALMINUTES(
+  TIME([Finish])-TIME([Start])
+) / 60
+
+# Virtual Column: Hours for Week
+SUM(
+ SELECT(
+  Shifts[Shift Duration], 
+  AND(
+    ([Staff] = [_THISROW].[Staff]),
+    ([Start of Week] = [_THISROW].[Start of Week]),
+    ([End of Week] = [_THISROW].[End of Week])
+  )
+ )
+)</code></pre>
+
+  <p>Virtual columns are useful, but as we add more in, the form views and details views that are automatically generated by AppSheet for each data source begin to get cluttered with irrelevant information to adding and updating records. Luckily, we can customise these. At the bottom of the Views menu pane, under <em>System Generated</em>, simply click on the form view for Shifts, and change <em>Column Order</em> form Automatic to Manual. You can then remove all virtual columns since they are automatically generated anyway. This should just leave us with the original columns from the spreadsheet:</p>
+
+  <ul>
+    <li>Shift ID</li>
+    <li>Date</li>
+    <li>Start</li>
+    <li>Finish</li>
+    <li>Staff</li>
+    <li>Location</li>
+  </ul>
+
+  <p>The same process can be repeated for forms for other data sets, and also for details views, however, you might choose to display some of the virtual columns in the details views if they are useful to the app user.</p>
+
+  <p>Next, we can build a Calendar view, and set the data source again to <em>Shifts</em>. In case AppSheet doesn't get the info correct  in the view options settings, we want the following set up:</p>
+
+  <table>
+    <tr>
+      <td>Start date</td>
+      <td>Date</td>
+    </tr>
+    <tr>
+      <td>Start time</td>
+      <td>Start</td>
+    </tr>
+    <tr>
+      <td>End date</td>
+      <td>Date</td>
+    </tr>
+    <tr>
+      <td>End time</td>
+      <td>Finish</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>Staff Name</td>
+    </tr>
+  </table>
+
+  <p>There is also an option for category, this will categorise different records under their own colour codes on the calendar view. This is helpful to see who is working on a given day at a glance, but to use it, we will need to add a colour code field to the staff table.</p>
+
+  <p>Back in Google Drive, add a Colour Code column to the Spreadsheet, then in Data view for the staff table press the <kbd>Regenerate Schema</kbd> button in the top right corner. Make sure the data type is set to <em>color</em>, and then we can add a colour to each staff member in the live preview mode.</p>
+
+  <p><small>NOTE: If you are using the <em>Desktop design</em> optimisation feature, you may need to open the desktop preview to make edits.</small></p>
+</section>
+
+<section id="workflows" title="Workflows">
+
+  <h2>Workflows</h2>
+
+  <p>Now that we have most of our app's frontend set up, we should write some workflows to get our app to communicate with our Google Calendar. We will do this using Google Apps Script. There are essentially two ways to get Apps Script to interact with our AppSheet app. First, we could write some script that is attached to the spreadsheet itself, and set up a trigger for whenever a change is made to the spreadsheet. This approach is good for dealing with bulks of data, for example, a periodic report based on the data that might be sent out by email once per week or so. However, AppSheet can sometimes leave a table with missing rows when it deletes records, so this method is difficult to use with data that has delete permissions. AppSheet also offers a second, albeit limited, method for applying Apps Script to individual records. Let's write our script and then we can hook it up to the app after.</p>
+
+  <p>Start a new Apps Script in Google Drive, advisably in the same, or an adjacent, folder as the Spreadsheet we built earlier. We are going to need some helper functions first though; one to get the Google Calendar we are using for our data so that we don't need to retype that code block for each function, one to format the dates in a way that allows the Google Calendar API to understand them, and the final one to allow the API to make sense of the colour codes being passed in.</p>
+
+  <pre class="language-js"><code>const getCalendar = () =&gt; {
+  return CalendarApp.getOwnedCalendarById('&lt;calendar-id&gt;@group.calendar.google.com');
+};
+
+const formatDate = (date, time) =&gt; {
+  const hours = time.slice(0,2);
+  const minutes = time.slice(3,5);
+  date.setHours(hours);
+  date.setMinutes(minutes);
+  return date;
+};
+
+const assignColor = color =&gt; {
+  switch(color) {
+    case 'Red' : return 11; break;
+    case 'Blue' : return 7; break;
+    case 'Green' : return 10; break;
+    case 'Yellow' : return 5; break;
+    case 'Orange' : return 6; break;
+    case 'Purple' : return 3; break;
+    default : return 5;
+  };
+};</code></pre>
+
+  <p>Next, we can set our write, edit and delete functions for shifts. <code>newShift</code> and <code>changeShift</code> both return the Event ID from the Google Calendar, this will allow AppSheet to keep track of what shift is what in the Google Calendar. They both take args representing each field within the column, and <code>changeShift</code> takes an <code>id</code> argument too so it can find the shift it needs to change in the Calendar. <code>deleteShift</code> only requires an <code>id</code> and does not return any data.</p>
+
+  <pre class="language-js"><code>const deleteShift = (id) =&gt; {
+  const cal = getCalendar();
+
+  const shift = cal.getEventById(id);
+
+  shift.deleteEvent();
+}
+
+const changeShift = (id, date, start, end, location, staff, color) =&gt; {
+  const cal = getCalendar();
+
+  const eventStart = new Date(date + 'Z');
+  const eventEnd = new Date(date + 'Z');
+
+  formatDate(eventStart, start);
+  formatDate(eventEnd, end);
+
+  const shift = cal.getEventById(id);
+
+  shift.setTitle(staff)
+  .setLocation(location)
+  .setTime(eventStart, eventEnd)
+  .setColor(assignColor(color));
+
+  return shift.getId();
+};
+
+const newShift = (date, start, end, location, staff, color) =&gt; {
+  const cal = getCalendar();
+
+  const eventStart = new Date(date + 'Z');
+  const eventEnd = new Date(date + 'Z');
+
+  formatDate(eventStart, start);
+  formatDate(eventEnd, end);
+
+  const event = cal.createEvent(staff, eventStart, eventEnd, {location:location});
+  event.setColor(assignColor(color));
+
+  return event.getId();
+};</code></pre>
+
+  <p>Nice and simple! Now we need to go back to AppSheet editor view, and click on <em>Automation</em> in the menu bar. Click the <kbd>+</kbd> add new bot button, name it something like <em>ShiftAddBot</em>. Choose <em>Configure New Event</em> and click <em>Create Event</em>. On the right of the editor screen, name the event to something along the lines of <em>Shift Add</em>, set <em>App</em> as the event source, <em>Shifts</em> as table that should trigger the event, and highlight <em>Adds</em> as the data change type. In the <em>Run</em> window click <em>Add Step</em>, Name it something like <em>Run Script</em> and set the job as <em>Custom task</em>. On the right again, click <em>Call a script</em>, choose the Apps Script you wrote as the <em>Apps Script Project</em>, and choose <em>newShift</em> in the Function Name field. It will load all the function parameters automatically, and then we can choose which fields in the data will be passed in as the function parameters. These are the parameters for the <em>changeShift</em> function, any of the other functions only use a subset of these each:</p>
+
+  <table>
+    <tr>
+      <td>id</td>
+      <td>[CalID]</td>
+    </tr>
+    <tr>
+      <td>date</td>
+      <td>[Date]</td>
+    </tr>
+    <tr>
+      <td>start</td>
+      <td>[Start]</td>
+    </tr>
+    <tr>
+      <td>end</td>
+      <td>[Finish]</td>
+    </tr>
+    <tr>
+      <td>location</td>
+      <td>[Location].[Address]</td>
+    </tr>
+    <tr>
+      <td>staff</td>
+      <td>[Staff Name]</td>
+    </tr>
+    <tr>
+      <td>color</td>
+      <td>[Staff].[Colour]</td>
+    </tr>
+  </table>
+
+  <p>Next, add a second step for the ShiftAddBot and name it to the affect of <em>Set CalID</em>. Select <em>Custom Action</em> and in the right settings pane select <em>Set row values</em>. Set column <em>CalID</em> with the value of <code>[Run Script].[Output]</code>. <em>Run Script</em> being the name of the previous step in the workflow, and <em>Output</em> being the return data sent back by the <code>newShift</code> function. </p>
+
+  <p>Repeat this process for a <em>ShiftUpdateBot</em> and a <em>ShiftDeleteBot</em>. The delete shift workflow only requires one step as we aren't handling any return data with that one.</p>
+</section>
+
+<section id="bugs" title="Fixing Some Bugs">
+  <h2>Fixing Some Bugs</h2>
+
+  <p>The bulk of the app is pretty much finished here. There are some controls we can add to prevent errors and a few things we ought to tidy up a little. The first thing I want to address is a bug, where if you work too quickly, Apps Script doesn't get enough time to send the calendar ID back to App Sheet before changes can be made. I found a pretty simple solution to this, which is to disable the edit and delete buttons entirely until a calendar ID is present within the data.</p>
+
+  <p>On the left menu bar, click on <em>Actions</em>, under <em>Shifts</em> select <em>Edit</em>, and under <em>Behaviour</em>, we want to enter a condition for <em>Only if this condition is true</em>. Click on the textbox, and type in <code>ISNOTBLANK([CalID])</code>. Do the same for the <em>Delete</em> button, and then a user will not be able to trigger the bug while using the app.</p>
+
+  <p>Next, it would be wise to prevent data entry that could cause errors with the Calendar API script we have made. The glaring opportunity for error here being that <code>Finish</code> should always be <em>greater than</em> <code>Start</code>. So in the <em>Data</em> view for <em>Shifts</em>, click the <kbd>Edit</kbd> button for <em>Finish</em>, and under <em>Data Validity</em> set <em>Valid If</em> to <code>[Finish] &gt; [Start]</code>.</p>
+</section>
+
+<section id="filtering" title="Filtering Data">
+  <h2>Filtering Data</h2>
+
+  <p>One last thing worth looking at before going on your own data organising journey with AppSheet is filtering data. AppSheet has something built in called <em>Slices</em>. A slice will take a chunk of data, and generate a new table based on filtering rules you provide. This is useful if you want to segregate a chunk of data when it meets certain criteria. For example, you might only want to access shifts that are in the future and haven't occurred yet. Slices can be used with <em>Views</em> as well as <em>Ref's</em>, which means you could limit the records that appear in a reference drop down based on a certain criteria. I use this feature in an attendance app, in which we only want to see sessions that are occurring today. However, slices aren't dynamic in the sense that the filter conditions are hard coded.</p>
+
+  <p>To look at creating a dynamic filter, we can make an hours tally for each member of staff, that we can then filter by selecting the start and end dates of a period of time to see how many hours each staff member has worked within that period. This is a little hacky to achieve, and not intuitive at all like slices are, so we will need to think outside of the box on this one.</p>
+
+  <p>We need to begin by adding two new sheets to our Rota spreadsheet. <em>Pay Period</em> and <em>Pay Report</em>. Pay Report will simply be one column named <em>Staff</em>, with each employee number listed as the values for each row. The easiest way to achieve this is to simply copy and paste that column from the staff sheet into this one. Pay Period will be only two columns: <em>Start</em> and <em>End</em>.</p>
+
+  <table class="spreadsheet">
+    <thead>
+      <tr>
+        <th>Staff</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>12345</td>
+    </tr>
+    <tr>
+      <td>12346</td>
+    </tr>
+  </table>
+
+  <table class="spreadsheet">
+    <thead>
+      <tr>
+        <th>Start</th>
+        <th>End</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>&lt;No Data&gt;</td>
+      <td>&lt;No Data&gt;</td>
+    </tr>
+  </table>
+
+  <p>Once these tables are connected as new data sources into AppSheet, set the Staff datatype to <em>Ref</em> in the Pay Report table, and the Start and End datatypes to <em>Date</em> in the Pay Period table. In the Pay Report table, add a virtual column named <em>Hours</em> with a datatype of <em>Decimal</em>, and set the formula to the following:</p>
+
+  <pre class="language-none"><code>SUM(
+  SELECT(
+    Shifts[Shift Duration],
+    AND(
+      [Staff] = [_THISROW].[Staff],
+      [Date] &gt;= ANY(Pay Period[Start]),
+      [Date] &lt;= ANY(Pay Period[End])
+    )
+  )
+)</code></pre>
+
+  <p>This formula will add together all of the hours a staff member has been rota'd to work, where the date for the shift matches ANY record within the Pay Period table's <em>Start</em> and <em>Finish</em> dates. The reason we can use <code>ANY</code> here is that there will only be one record in this table.</p>
+
+  <p>Next we need to make sure there is a view created for the Pay Period table and enter only <b>one</b> record for it with arbitrary dates. Once that is done, we will create a fourth main view for our primary navigation. Name it <em>Pay Period</em> and set it to the <em>Dashboard</em> view type. We will include two views in this dashboard, one named <em>Pay Dates</em>, that will use the <em>Pay Period</em> table as it's data source. It will be a <em>Detail</em> view type, with both of it's columns added to the <em>Quick edit columns</em>. We also want to disable the users ability to save, update or delete records here, however we still want data to be able to be changed by the app, so instead of disabling any of these in the <em>Data</em> settings, we can instead go to the <em>Actions</em> menu, and for <em>Pay Period</em> and <em>Pay Report</em>, set the <em>Add</em>, <em>Edit</em> and <em>Delete</em> buttons <em>Behaviour</em> setting for <em>Only if this condition is true</em> to <code>TRUE = FALSE</code>. These controls will not show now. Instead, when a user sets the Pay Dates and the app syncs, it will tally up each staff member's rota'd hours between the two dates selected. We can also set the Pay Period <em>End</em> column's <em>Valid If</em> formula to <code>[End] &gt;= [Start]</code>.</p>
+
+  <p>Our rota app is now finished. Changes made to shifts will automatically be uploaded to the Google Calendar identified within the Apps Script. This is only a simple app compared to what could potentially be made, but it covers quite a few things that might help you get started in making some useful tools for yourself at a low cost!</p>
+</section>]]></content:encoded>
+      <enclosure url="/images/guides/appsheet.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/guides/appsheet.avif" width="1920" height="1080" />
+      <media:content url="/images/guides/appsheet.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>TV Show Calendar - Github Actions</title>
+      <link>https://aaronwatts.dev/guides/tv-show-calendar</link>
+      <pubDate>Sun, 06 Jul 2025 00:00:00 +0000</pubDate>
+      <description>It's pretty hard keeping track of my favourite show's nowadays across all the different services. So I set up my own automated workflow that eventually finds it's way to a Google Calendar so I can see at a glance when the next episode of a show I'm following is due to air. And, of course, it's completely free!</description>
+      <guid>https://aaronwatts.dev/guides/tv-show-calendar</guid>
+      <content:encoded><![CDATA[<section id="intro" title="Intro">
+
+  <p id="description">It's pretty hard keeping track of my favourite show's nowadays across all the different services. So I set up my own automated workflow that eventually finds it's way to a Google Calendar so I can see at a glance when the next episode of a show I'm following is due to air. And, of course, it's completely free!</p>
+
+  <p>I am subscribed to my own <a href="https://www.imdb.com/" target="_blank">IMDB</a> watch list, however only about 2 of the many shows I follow give me alerts when a new episode airs - and even of those shows, not every episode makes it into my inbox. There are plenty of services that offer this service or services like it, but I wanted to learn how Github Actions worked, so I decided to use it along side Google Apps Script to set up my own tv show calendar for free.</p>
+
+  <p>The workflow begins with a Github Action scheduled with cron to run a python script that uses the <a href="https://www.tvmaze.com/" target="_blank">TV Maze</a> API to generate a JSON file within the repo. I then use Google Apps Script to pipe the data from the JSON file directly into a 'TV Shows' calendar. I could theoretically have skipped the Github step entirely, but I haven't looked at Github's CI/CD tools yet and this was a good opportunity to take my first look at that. Also, Google Apps Script's get timed out after 6 seconds on non-premium accounts (like what I use), and if you end up following a lot of shows then that will be a lot of API calls just to get the data before you can even begin to feed it into a calendar. Handling the initial API calls in Github let's us send a single JSON file to Apps Script with all the data we need in it.</p>
+
+</section>
+
+<section id="json" title="Making the JSON File">
+
+  <h2>Making the JSON File</h2>
+
+  <p>The first thing we need to do is write a script that generates our json file. I'm going to be using Python because it's quick and easy, but you could use just about any language you want for this step. I began by making a list in it's own file, to make it easy to edit, of the show ID's that the TV Maze API will use to find the data about each of my chosen shows. I include the human readable show name as a comment so I can see at a glance what I've already added.</p>
+
+  <pre class="language-python"><code>shows = [
+  '216', # Rick and Morty
+  '107', # Bob's Burgers
+]</code></pre>
+
+  <p>Next I import the shows list into my main Python file, where I simply iterate through my shows list, making an API call for each one to collect the data I need, and then organise the responses into a Python dictionary. I don't include any shows that don't have a next episode listed in the data, but I keep shows that aren't necessarily running currently in my shows list in case a new season get's scheduled. I wrap the API call in a while loop that sleeps each time it doesn't receive a successful repsonse and then tries again. This is on the advice in the TV Maze API docs, however they also mention this is more likely to be an issue with generic search and show requests and less so with embed requests. From testing both types of requests with bot-like spams I never received anything without a successful 200 status code, but it's in there anyway to prevent errors. Lastly, the response data gets dumped into a JSON file called <code>schedule.json</code>.</p>
+
+  <pre class="language-python"><code>#!/usr/bin/env python3
+
+import requests
+from datetime import date
+from shows import shows
+import json
+
+def get_episodes(shows):
+  episodes = {}
+
+  def api_call(url):
+    status_code = 0
+    while status_code != 200:
+      response = requests.get(url)
+      status_code = response.status_code
+      if status_code != 200:
+        sleep(2)
+    return response.json()
+
+  for show_id in shows:
+    show_data = api_call(f'https://api.tvmaze.com/shows/{show_id}?embed=nextepisode')
+
+    if '_embedded' in show_data and 'nextepisode' in show_data['_embedded']:
+      episodes[show_id] = show_data['_embedded']['nextepisode']
+
+  return episodes
+
+def main():
+  schedule = {"schedule": get_episodes(shows)}
+  with open("schedule.json", "w") as fp:
+    json.dump(schedule, fp, indent=4)
+
+if __name__ == "__main__":
+  main()</code></pre>
+
+</section>
+
+<section id="workflow" title="Setting Up the Workflow">
+
+  <h2>Setting Up the Workflow</h2>
+
+  <p>With the main script done, we need to set up the workflow. In the git repository, we simply need to put a YAML file with the workflow instructions in a <code>.gihtub/workflows/</code> directory. I called mine <code>update.yml</code>. The following will trigger on a push to branch, and also at 1:18am daily (Github advises not to run cron workflows at the top of the hour due to high loads at those times). It will set up a temporary Ubuntu machine with Python and the necessary dependencies, run <code>main.py</code> and then commit any changes to <code>schedule.json</code>. And that's the Github side of things done.</p>
+
+  <pre class="language-yaml"><code>name: Update JSON
+
+on:
+  schedule:
+    - cron: '18 1 * * *'
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  run-python-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run python script
+        run: python main.py
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'Gitub Action'
+          git config --global user.email 'action@github.com'
+          git add schedule.json
+          git commit -m "automated commit"
+          git push</code></pre>
+
+</section>
+
+<section id="calendar" title="Putting the Shows Into the Google Calendar">
+
+  <h2>Putting the Shows Into the Google Calendar</h2>
+
+  <p>Finally, we just need to get the data from the JSON file into our Google Calendar. I set up a 'TV Show' calendar specifically for this, so the code can work with it without me having to worry about any other data in it. You will need to create a new Apps Script file in your Google Drive for the script. You can get your Google Calendar's ID in the settings and sharing options in the Google Calendar web page. And you will also need to grant permissions for the script to edit your Google Calendar the first time you run it.</p>
+
+  <p>Getting the JSON file is quite simple, you can simply use the UrlFetchApp class to fetch the <em>raw</em> JSON file from your Github repository. No need to set up DNS, Github Pages, or anything else like that.</p>
+
+  <pre class="language-js"><code>function getSchedule() {
+  const repsonse = UrlFetchApp.fetch('your-raw-github-json-file');
+  const data = JSON.parse(repsonse.getContentText());
+  return data.schedule;
+};</code></pre>
+
+  <p>Some shceduled TV show episodes have only had dates announced and not air times, so I have written some logic to handle those instances differently, making a normal timed event for shows with airtimes, and all-day events for shows without air times. The function accepts an episode and a calendar argument. The episode being the particular episode within the JSON object, and the calendar being the Calendar class instance we are using for our Google Calendar.</p>
+
+  <pre class="language-js"><code>function addToCalendar(episode, calendar) {
+  if(!!episode.airtime &amp;&amp; !!episode.runtime) {
+    const airstamp = new Date(episode.airstamp);
+
+    calendar.createEvent(
+    episode._links.show.name,
+    airstamp,
+    new Date(airstamp.getTime() + episode.runtime * 60000),
+    {
+      description: episode.description,
+    }
+    );
+  } else {
+    const airdate = new Date(episode.airdate);
+    const enddate = new Date(airdate);
+    enddate.setDate(enddate.getDate() + 1);
+
+    calendar.createAllDayEvent(
+    episode._links.show.name,
+    airdate,
+    enddate,
+    {
+      description: episode.description,
+    }
+    );
+  }
+};</code></pre>
+
+  <p>Finally, the main logic for the script iterates through the JSON object, constructing the decsriptions we will use for the Google Calendar entries, and also setting dates for the earliest and latest scheduled shows within our data. The dates will allow us to optimise the Calendar interaction a little by only assessing our Google Calendar for the dates that are relevant to our data, all other entries will be ignored. The Calendar entries are set out with the title being the name of the show, and the description adhering to the follwing format:</p>
+
+  <pre class="language-none"><code>S1E1 Episode Name
+
+Episode Summary
+
+ShowID:EpisodeID</code></pre>
+
+  <p>Having the show and episode ID's at the end make them easy for us to grab to see if we have already added an episode or if it's data needs to be updated - for example an airtime may have been announced, the episode may have been given a summary or had it's title revised. Next the script will cycle through events within the target date range, adding the show ID's it finds in the calendar to an array, and then check for differences between data in the calendar entry and the JSON data, making ammendments where necessary. Finally, we check for negative results to <code>eventsList.indexOf</code> to add any JSON entries to the calendar that do not already exist there yet.</p>
+
+  <pre class="language-js"><code>function main() {
+  const calendar = CalendarApp.getCalendarById(yourCalendarId);
+  const schedule = getSchedule();
+  let startDate = new Date();
+  let endDate = new Date();
+  const eventList = [];
+
+  for(let showID in schedule) {
+    const episode = schedule[showID];
+
+    const summary = !!episode.summary ? episode.summary : '';
+    episode.description = `<b>S${episode.season}E${episode.number} ${episode.name}</b>\n${summary}\n${showID}:${episode.id}`;
+
+    const airstamp = new Date(episode.airstamp);
+    if (airstamp.getTime() &lt; startDate.getTime()) startDate = airstamp;
+    if (airstamp.getTime() &gt; endDate.getTime()) endDate = airstamp;
+  };
+
+  const events = calendar.getEvents(startDate, endDate);
+  
+  for (let event of events) {
+    const description = event.getDescription();
+    const descriptionSplit = description.split(/\W+/);
+    const showId = descriptionSplit[descriptionSplit.length - 2];
+    const episodeId = descriptionSplit[descriptionSplit.length - 1];
+    eventList.push(showId);
+
+    if (schedule[showId]
+    &amp;&amp; episodeId == schedule[showId].id
+    &amp;&amp; schedule[showId].description != description
+    ) event.setDescription(schedule[showId].description);
+  };
+
+  for (let showID in schedule) {
+    const episode = schedule[showID];
+    if (eventList.indexOf(showID) &lt; 0) {
+      addToCalendar(episode, calendar);
+    }
+  }
+};</code></pre>
+
+  <p>The last thing to do is to set a time trigger to execute the script once per day, and then you have your own TV schedule being piped through to a Google Calendar. Now you will never miss a new episode of a show you love again, and it was all for free! Enjoy!</p>
+
+</section>]]></content:encoded>
+      <enclosure url="/images/guides/tv-show-calendar.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/guides/tv-show-calendar.avif" width="1920" height="1080" />
+      <media:content url="/images/guides/tv-show-calendar.avif" type="image/jpeg" />
+    </item>
+    <item>
+      <title>RSS Feeds</title>
+      <link>https://aaronwatts.dev/guides/rss-feeds</link>
+      <pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate>
+      <description>RSS isn't really something you hear spoken about too often. But for us nerds, it's an indisposable technology. And thankfully, it still gets used. Most of the time, if you need an RSS feed for content you've made, the software you've used to make said content has probably already done it for you, you might need not even know. But if you had to make one yourself, would you know how?</description>
+      <guid>https://aaronwatts.dev/guides/rss-feeds</guid>
+      <content:encoded><![CDATA[<section id="intro" title="Intro">
+
+  <p id="description">RSS isn't really something you hear spoken about too often. But for us nerds, it's an indisposable technology. And thankfully, it still gets used. Most of the time, if you need an RSS feed for content you've made, the software you've used to make said content has probably already done it for you, you might need not even know. But if you had to make one yourself, would you know how?</p>
+
+  <p>The docs at the <a href="https://www.rssboard.org/" target="_blank">RSS Advisory Board</a> are ... confusing, to a newcomer. Also, if you try to learn by looking at other website's feeds, it doesn't really work as every single feed is built differently from the last. And not to achieve new objectives, mind you. But I have been exploring the technology a little, and I think I've worked out a relatively simple formula to have a feature rich RSS feed (for something like a blog at least) that should work across most, if not all, RSS feed aggregators.</p>
+
+</section>
+
+<section id="feature-rich" title="A Feature Rich FeedA Feature Rich Feed">
+
+  <h2>A Feature Rich Feed</h2>
+
+  <p>I previously touched on RSS Feeds in my article about <a href="/guides/github-pages-static-website" target="_blank">Github Pages static websites</a>, where I put together a simple python script to build the RSS feed for this site, among other things. Since then, this website has grown a little, as has the feed. Back then, the feed was already handling atom, as well as including media images. But the most important feature was missing: the <em>content</em>.</p>
+
+  <p>The best thing about RSS, in my opinion, is being able to read full news articles without ads and pop-ups suggesting that you subscribe or set your cookie permissions. Other feeds often use something called CDATA, but that didn't mix well with the python XML module that I was using. Luckily, I soon worked out that the content namespace included an encoded element, and it turned out that it did exactly what I needed it to. Without CDATA, you can use pure html within the element for it to be displayed in it's document form in RSS feed readers. To that means, if you write a blog, or articles, you can include the entire html within that tag (provided you are not relying too heavily in CSS or JavaScript trickery). Here is the current layout of my RSS feeds:</p>
+
+  <p><small>NOTE: In a very poetic case of irony, this article is not working on my usual RSS reader (Nextcloud News). I haven't been able to diagnose the issue yet, but it seems mostly fine on other readers I have tested. I am just going to choose to let this article be a comical outlyer for the time being, and update this article if I ever found out what is causing it.</small></p>
+
+  <pre class="language-xml"><code>&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/"&gt;
+  &lt;channel&gt;
+    &lt;atom:link href="https://aaronwatts.dev/guides/feed.xml" rel="self" type="applications/rss+xml" /&gt;
+    &lt;title&gt;AaronWattsDev Latest&lt;/title&gt;
+    &lt;link&gt;https://aaronwatts.dev/guides&lt;/link&gt;
+    &lt;description&gt;The most recent content on AaronWattsDev&lt;/description&gt;
+    &lt;category&gt;Technology&lt;/category&gt;
+    &lt;item&gt;
+      &lt;title&gt;Web Fonts&lt;/title&gt;
+      &lt;link&gt;https://aaronwatts.dev/guides/web-fonts&lt;/link&gt;
+      &lt;pubDate&gt;Sat, 05 Apr 2025 08:00:00 GMT&lt;/pubDate&gt;
+      &lt;description&gt;
+        Intro paragraph goes here
+      &lt;/description&gt;
+      &lt;guid&gt;https://aaronwatts.dev/guides/web-fonts&lt;/guid&gt;
+      &lt;content:encoded&gt;
+        Entire article in escaped HTML goes here
+      &lt;/content:encoded&gt;
+      &lt;enclosure url="https://aaronwatts.dev/images/guides/web-fonts.jpg" length="0" type="image/jpeg" /&gt;
+      &lt;media:thumbnail url="https://aaronwatts.dev/images/guides/web-fonts.jpg" width="1920" height="1080" /&gt;
+      &lt;media:content type="image/jpeg" url="https://aaronwatts.dev/images/guides/web-fonts.jpg" /&gt;
+    &lt;/item&gt;
+  &lt;/channel&gt;
+&lt;/rss&gt;</code></pre>
+
+</section>
+
+<section id="namespaces" title="Namespaces">
+
+  <h2>Namespaces</h2>
+
+  <p>If you're familiar with XML, then you already know that namespaces let us extend an XML document with tags that aren't already included within the specification (in this case, RSS) that we are already using. In this feed I have included the namespaces for <a href="http://www.w3.org/2005/Atom" target="_blank">Atom</a>, <a href="http://search.yahoo.com/mrss/" target="_blank">Media</a> and <a href="http://purl.org/rss/1.0/modules/content/" target="_blank">Content</a>.</p>
+
+</section>
+
+<section id="atom" title="Atom">
+
+  <h2>Atom</h2>
+
+  <p>Atom is another XML feed specification. Without divulging in too much history, it was a new (at the time) XML feed specification that was different from RSS, but by including it's namespace in our RSS feed, and atom:link-ing the feed to itself (which shows as an error in RSS validators, but is also encouraged by the RSS Board - I told you RSS is confusing), our RSS feed also becomes a valid Atom feed. Just put it through an Atom validator to see for yourself.</p>
+
+</section>
+
+<section id="media" title="Media">
+
+  <h2>Media</h2>
+
+  <p>The Media namespace lets us include media images. The enclosure element built into the RSS spec also does that, but not every RSS reader will show an enclosure image. Media has a much higher success rate, although while testing different aggregators, I have found that Media also doesn't work with certain readers. There are other ways to show images, but so far I have found that this combination will meet protocol for most, if not all, RSS aggregators.</p>
+
+</section>
+
+<section id="content" title="Content">
+
+  <h2>Content</h2>
+
+  <p>The Content namespace lets us include, well, content. The docs for it seem to show CDATA elements, and a lot of RSS feeds out there do just that. However, I have found that escaped HTML works fine if you just drop it inside the <code>content:encoded</code> element. I haven't found an aggregator yet that doesn't display it, but with the fast and loose rules to RSS, I am sure that said aggregator exists.</p>
+
+</section>
+
+<section id="dates" title="Dates">
+
+  <h2>Dates</h2>
+
+  <p>I'm only using pubDate in my feed, there are a few other useful elements that are date typed depending on what you are trying to acheive. Dates are RFC 822 format. What does that mean?? Eventually I found out through using an RSS validator, and it does appear to be included in the RSS Board docs now (I'm convinced it wasnt' before, but I could be unobservant and wrong). It means that dates should be formatted like so:</p>
+
+  <pre class="language-none"><code>Sat, 07 Sep 2002 09:42:31 GMT</code></pre>
+
+</section>
+
+<section id="guid" title="GUID">
+
+  <h2>GUID</h2>
+
+  <p>GUID stands for Globally Uniquie Identifier. Aggregators use this to check if an RSS item is new. I try to avoid mistakes when I can, but if I need to go back and fix a typo, this element will preventing aggregators from fetching the item a second time. I tend to just use the url path for the article as the ID, as it is the only article that will ever have that exact url.</p>
+
+</section>
+
+<section id="automation" title="Python Automation">
+
+  <h2>Python Automation</h2>
+
+  <p>I won't go into a lot of detail here, as most of it will already be covered in the previous article about <a href="/guides/github-pages-static-website" target="_blank">Github Pages Static Websites</a>, but there was a little trial and error invloved with getting the pre elements to format correctly in the content encoded RSS elements. Also relative links all needed to be replaced with absolute links, and as a bonus I'll include the date formatting, even though we both know you could have worked that out for yourself pretty easily.</p>
+
+  <p>Here is the python function to format the content encoded HTML. It prefers to put everything on one line, except for pre elements as they need to include line breaks to be displayed correctly.</p>
+
+  <pre class="language-python"><code>'''
+format_main_content will remove new lines from html elements
+except for pre elements where it will preserve them
+'''
+def format_main_content(content):
+  content_str = ''
+  for child in content.children:
+    if child.name == 'pre':
+      content_str += str(child)
+    else:
+      content_str += ' '.join(str(child).split())
+  return content_str
+
+'''
+format_main_content is called when scraping the files with
+the BeautifulSoup module
+'''
+main_element = article_soup.select_one('main')
+content = format_main_content(main_element)
+
+articles.append({
+  ...
+  'content': content,
+  ...
+})
+
+'''
+Finally I need to explicitly remove those new lines,
+the previous formatting will stop any issues with pre
+elements, and finally all relative links are replaced
+with absolute links
+'''
+str(article['content'])
+.strip()
+.replace('\\n', '')
+.replace('="/', '="https://aaronwatts.dev/')</code></pre>
+
+  <p>The date formatting is pretty straightforward. I don't include a time so I just add an arbitrary one in.</p>
+
+  <pre class="language-python"><code>'''
+I use a time element for the published date
+'''
+html_date = article_soup.select_one('time')
+article_date = date.fromisoformat(html_date['datetime'])
+formatted_date = article_date.strftime('%a, %d %b %Y')
+
+articles.append({
+  ...
+  'formatted_date' : formatted_date + ' 08:00:00 GMT',
+  ...
+})</code></pre>
+
+</section>]]></content:encoded>
+      <enclosure url="/images/guides/rss-feeds.avif" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/guides/rss-feeds.avif" width="1920" height="1080" />
+      <media:content url="/images/guides/rss-feeds.avif" type="image/jpeg" />
+    </item>
+  </channel>
+</rss>

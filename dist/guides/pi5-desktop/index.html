@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="This is less of a guide, and more just an outline of how, and why, I'm doing it. As well as a review of how it's going. It's not here as clickbait, you might not want to do it yourself, but I'm here to say that it's working for me."/>
+    <meta name="keywords" content="raspberry pi, rpi5, computing, daily driver"/>
+
+    <title>AWD - Raspberry Pi 5 - Desktop Computer</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+
+    <link rel="canonical" href="/guides/pi5-desktop"/>
+    <link href="https://aaronwatts.dev/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - All" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/blog/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Blog" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
+
+    <meta property="og:title" content="Raspberry Pi 5 - Desktop Computer"/>
+    <meta property="og:site_name" content="aaronwatts@dev"/>
+    <meta property="og:description" content="This is less of a guide, and more just an outline of how, and why, I'm doing it. As well as a review of how it's going. It's not here as clickbait, you might not want to do it yourself, but I'm here to say that it's working for me."/>
+    <meta property="og:url" content="https://aaronwatts.dev/guides/pi5-desktop"/>
+    <meta property="og:image" content="/images/guides/pi5-desktop.avif"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:article:published_time" content="2024-05-31"/>
+
+    <link rel="preload" href="/assets/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <link rel="stylesheet" href="/assets/styles/style.css">
+
+        <script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronwatts.dev/guides/pi5-desktop/"
+  },
+  "headline": "Raspberry Pi 5 - Desktop Computer"
+  "datePublished": "2024-05-31",
+  "description": "This is less of a guide, and more just an outline of how, and why, I'm doing it. As well as a review of how it's going. It's not here as clickbait, you might not want to do it yourself, but I'm here to say that it's working for me.",
+  "image": [
+      https://aaronwatts.dev/images/guides/pi5-desktop.avif
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "aaronwatts@dev"
+  }
+}</script>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Breadcrumb">
+        <ol>
+          <li><a 
+              href="/">aaronwatts@dev</a></li><span
+              aria-hidden="true" class="term-dir"></span><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a 
+              href="/guides/">guides</a></li><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a
+              href="" aria-current="page">pi5-desktop</a></li><span
+              aria-hidden="true" class="term-priv"></span>
+        </ol>
+      </nav>
+<div class="svg-container">
+  <a href="/rss">
+  <svg class="rss">
+    <use href="/assets/svg/svg-map.svg#rss-feed" />
+  </svg>
+  </a>
+</div>
+
+    </header>
+
+    <nav aria-labelledby="page-nav">
+      <header>
+        <h2 id="page-nav">On This Page</h2>
+      </header>
+      <ol>
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#why">But, why?</a></li>
+        <li><a href="#good-enough">Is it good enough?</a></li>
+        <li><a href="#setup">My set up</a></li>
+        <li><a href="#youtube">Youtube</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <article>
+        <header>
+
+  <ul class="topic-conntainer">
+    <li class="topic">raspberry pi</li>
+    <li class="topic">rpi5</li>
+    <li class="topic">computing</li>
+    <li class="topic">daily driver</li>
+  </ul>
+
+  <h1>Raspberry Pi 5 - Desktop Computer</h1>
+
+  <time datetime="2024-05-31">31st May, 2024</time>
+
+  <img alt="Screenshot of the Raspberry Pi desktop, with a terminal open to neofetch displaying specs, code editor displaying a html file, and a web browser open to onlyoffice document editor, with the contents of this web page written within the editor." src="/images/guides/pi5-desktop.avif"/>
+
+</header>
+
+<section id="intro" title="Intro">
+
+  <p id="description">This is less of a guide, and more just an outline of how, and why, I'm doing it. As well as a review of how it's going. It's not here as clickbait, you might not want to do it yourself, but I'm here to say that it's working for me.</p>
+
+  <p>I know. There are hundreds of articles on this. But they are all out to prove that something is worth doing or not. This isn't that. It's not hyped up, undeserving praise, nor is it phobic criticism. I have genuinely switched from a <em>classical</em> desktop computer, to using a Raspberry Pi 5, and it works for me. Really well, in fact!</p>
+
+</section>
+
+<section id="why" title="But, why?">
+
+  <h2>But, why?</h2>
+
+  <p>This might be the wrong question. Maybe, it was more: how? I don't work in tech, it's just a hobby of mine. Nor do I make heaps of expendable money to blow on tech. My last desktop computer was a Dell Optiplex 3050, with some variant of an intel i5 processor. I found it next to the communal bins outside my flat. There was nothing wrong with it. I adopted it, cleaned it, installed linux, plugged in some additional RAM and it was a great computer. I even found an old AMD graphics card that fit it. It's still here, it still works. I was trying out the i3wm community edition of EndeavourOS, and it was great (I love i3wm!). There was an update a little while ago to lightDM, the login manager for that flavour of EndeavourOS. I fixed it on my laptop at work, which also runs the same flavour distro, but I suppose the graphics card in my desktop means there's extra steps to take for the desktop, I dunno, I still haven't looked yet. But I also didn't want to lose some files from my SSD, so I've left it on the shelf until I can be bothered to sort that out. What's important about that story, is it broke in the morning, as I was about to begin the work I do as my job for the day. I didn't have anything else on hand to do my job, and I needed to clock in soon. As luck would have it, my Macbook Pro 2012's keyboard had just degraded beyond the point of no return a week or two prior, which left me a little stuck.</p>
+
+  <p>What I <em>did</em> have, was a Raspberry Pi 4 on my desk. Yes, I know, this is about Raspberry Pi 5, I will get to that. Anyway, we've all seen the misleading videos on youtube that make sponsor-bucks by luring viewers into assuming that a pi 4 will run as their daily driver and get the job done. I know better than to rely on it. But for my job, which is mostly emails, documents, spreadsheets, and some databases that look like they were designed to run in internet explorer, it seemed like it might be enough to get through the day. So I powered up my pi 4, and did my job. And, it worked. I mean, it was a little slower than I was used to, and it did struggle a little at times, but I got everything done that I needed to. And then a few days later, while I was working and my trusty pi 4 was ticking along shouldering its load, I got a notification that the pi 5 was now in stock. I bought my pi 5, from my pi 4. Neat.</p>
+
+  <p>My pi 4 got reassigned, and I set up the 5 with the new version of the argon one case and an M.2. NVME SSD drive, and just .. carried on working.</p>
+
+</section>
+
+<section id="good-enough" title="Is it good enough?">
+
+  <h2>Is it good enough?</h2>
+
+  <p>Yes. I mean, for me, it is. I won't lie, pi 4 can get the job done. But it suffers while it does it, and at the end of the day, it goes home, falls straight to sleep, all the while growing more and more distant from it's wife and children. The pi 5, on the other hand, doesn't yet comprehend the evils and injustices of the world, and has enough ambition and energy to perform at it's tasks, and get to live a good quality of life at the end of the day too.</p>
+
+  <p>What do you want it to do? Personally, I use my pi for the work I've already mentioned, some coding, and guides and nerdery. I'm not trying to game on it, I'm not trying to edit videos on it. Though, there is evidence on youtube that it can actually do the latter to an acceptable standard! There are, naturally, some hurdles involved with integrating a linux device into a world that doesn't even know it's name. And too, the ARM architecture causes one or two nags here and there. But things are improving, all the time, and for my use case, I've been able to get everything running in a way that causes me no hinderence, to the point that this is now the only computer on my desk.</p>
+
+  <p>One huge win over using a more typical device, is the electricity usage. It uses almost none. I leave this pi, and another that I use specifically as a web radio and music streaming device running volumio, both running all day long. All day. It uses less electric than making toast in the toaster ONCE. I shit you not. If you care about the environment or the energy crisis, that should make you happy. But if like me, you are more concerned with keeping your pockets lined with copper, then you should also get a kick out of that too.</p>
+
+</section>
+
+<section id="setup" title="My set up">
+
+  <h2>My set up</h2>
+
+  <h3>Operating System and Desktop Environment</h3>
+
+  <p>I went with Raspberry Pi OS. I haven't changed the desktop environment at all. It defaults to wayland, I've looked at the X desktop, but I've found no real reason to switch yet. Wayland has an issue with the system tray icons, KDE Connect and Nextcloud don't appear up there, but that hasn't bothered me so far. This flavour of LXDE isn't the most modern looking, and changing it takes a lot more work than I'm willing to invest. But there is a charm to the default pi desktop, and it's fun to see the little changes here and there as they continue to work on it. Besides, how much time do you spend really looking at your desktop and the window textures once an app is open?</p>
+
+  <p>You could no doubt choose a more modern looking OS. But pi's own OS does everything well enough for me, and as usual I get the best possible compatibility with accessories, as well as having the best operating system possible for when I work on my guides.</p>
+
+  <h3>Software</h3>
+
+  <p>Nextcloud and KDE Connect both work, and are both available in the apt repo's, which is great. For writing code I use <a href="https://vscodium.com/#install-on-debian-ubuntu-deb-package">VSCodium</a>, which is an opensource version of VSCode, and has a lot of the same extensions available for it. There is a VSCode in apt, but it is from Microsofts repo, so aside from installing bloat, some people may not like that.</p>
+
+  <p>LibreOffice is a great office suite, and I genuinely love it. However, everyone where I work is inside of the Microsoft ecosystem, and LibreOffice doesn't always play well with Microsoft Office. In my experience, OnlyOffice integrates very well with the Microsoft Suite, and I've been able to collaborate with my colleagues with virtually no issues at all using it. But. And it's a big but. It's not compatible with ARM architecture. All is not lost, however, as OnlyOffice is integrated into Nextcloud, so you can use it online with any Nextcloud provider, or even your own.</p>
+
+  <p>Everything else I do is online. Most of my work apps refuse to work in aything besides chrome or edge, so I just use chromium for work, and I have firefox for play time. There isn't much else for me to say on software. I live a simple life, do I not?</p>
+
+  <h3>Peripherals</h3>
+
+  <p>One thing I do have to do online, a lot more often than I would like to, is conference calls. My employer uses MS Teams, which is a resource hog, and has caused many of my intel devices to struggle and stutter. I am, however, pleased to say that the pi 5 handles these calls with grace. Of course, you don't get a webcam or microphone built into a raspberry pi, and plug and play compatibility on any linux device can be shaky at best if you aren't prepared to do an extensive amount of research. If you want to get going quickly here, then I have reccomendations.</p>
+
+  <p>The microphone I am using is a <a href="https://www.amazon.co.uk/SAMSON-30-10004-Samson-SAMTR-Microphone/dp/B004J3X47A/" target="_blank">Samson Meteor Mic</a>, it is a 1950's style, chrome studio microphone that is genuine plug and play on linux. I just plugged it in and it worked flawlessly. It features a hard mute button, as well as a headphone port, for when you need to drown out some background noise in order to hear the meeting.</p>
+
+  <p>A microphone is the minimum you need to take part in an online meeting, so that's sorted. But people might start to talk about you if you are the only one that never turns your camera on. I'm not saying affordable plug and play webcams for linux don't exist, but if they do, I haven't been able to find them. Searching for linux webcam on amazon did get me a result, but when I plugged it in, there were hoops to jump through, and then a setting in the cheese application broke it. But, for what I think is a fairly reasonable price, you can pick up a Raspberry Pi Zero 2, and a Raspberry Pi Camera Module 3, and put together your own truly plug and play webcam by following <a href="https://www.raspberrypi.com/tutorials/plug-and-play-raspberry-pi-usb-webcam/" target="_blank">this actually quite simple tutorial</a>. The Camera 3 Module actually yields pretty good camera quality as far as webcams go. And also, with chrome and ribbon cables all over your desk, you do start to feel pretty darn cyberpunk!</p>
+
+</section>
+
+<section id="youtube" title="Youtube">
+
+  <h2>Youtube</h2>
+
+  <p>I suppose we do have to talk about it. It's the real question, after all, isn't it? Yes. It's watchable. I can run youtube on fullscreen in chromium, at 1080p 60fps. It drops some frames, but in my opinion, it's completely watchable. Running it 720p 60fps drops very few frames at all. But, if running youtube on a raspberry pi is all that matters to you, then you should maybe look at installing android on a raspberry pi instead.</p>
+
+</section>
+
+      </article>
+    </main>
+
+    <nav aria-labelledby="to-top">
+      <a href="#top" id="to-top">Back to Top</a>
+    </nav>
+
+<footer>
+  <div>Made by Hand. Powered by</div>
+  <a href="https://pages.github.com/" target="_blank">
+    <img alt="https://pages.github.com/" src="/assets/svg/githubpages.svg"/>
+  </a>
+</footer>
+      </body>
+</html>
+

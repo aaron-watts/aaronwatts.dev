@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it."/>
+    <meta name="keywords" content="computing, diy, cloud"/>
+
+    <title>AWD - NextCloud</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+
+    <link rel="canonical" href="/tech/nextcloud"/>
+    <link href="https://aaronwatts.dev/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - All" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/blog/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Blog" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
+
+    <meta property="og:title" content="NextCloud"/>
+    <meta property="og:site_name" content="aaronwatts@dev"/>
+    <meta property="og:description" content="NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it."/>
+    <meta property="og:url" content="https://aaronwatts.dev/tech/nextcloud"/>
+    <meta property="og:image" content="/images/tech/nextcloud.avif"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:article:published_time" content="2026-04-20"/>
+
+    <link rel="preload" href="/assets/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <link rel="stylesheet" href="/assets/styles/style.css">
+
+        <script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronwatts.dev/tech/nextcloud/"
+  },
+  "headline": "NextCloud"
+  "datePublished": "2026-04-20",
+  "description": "NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.",
+  "image": [
+      https://aaronwatts.dev/images/tech/nextcloud.avif
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "aaronwatts@dev"
+  }
+}</script>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Breadcrumb">
+        <ol>
+          <li><a 
+              href="/">aaronwatts@dev</a></li><span
+              aria-hidden="true" class="term-dir"></span><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a 
+              href="/tech/">tech</a></li><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a
+              href="" aria-current="page">nextcloud</a></li><span
+              aria-hidden="true" class="term-priv"></span>
+        </ol>
+      </nav>
+<div class="svg-container">
+  <a href="/rss">
+  <svg class="rss">
+    <use href="/assets/svg/svg-map.svg#rss-feed" />
+  </svg>
+  </a>
+</div>
+
+    </header>
+
+
+    <main>
+      <article>
+        <header>
+
+  <ul class="topic-container">
+    <li class="topic">computing</li>
+    <li class="topic">diy</li>
+    <li class="topic">cloud</li>
+  </ul>
+
+  <h1>NextCloud</h1>
+
+  <time datetime="2026-04-20">20<sup>th</sup> April, 2026</time>
+
+  <img alt="The NextCloud Hub Logo in white text on a blue background." src="/images/tech/nextcloud.avif"/>
+
+</header>
+
+<p id="description">NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</p>
+
+<p><a href="https://nextcloud.com/" target="_blank">NextCloud</a> is an alternative to things like Google Drive and One Drive that doesn't hand your data and the control over to a conglomerate. Self hosting is not the simplest thing to do, but there are also providers available that do all the hard stuff for you so you can just get on with having a cloud.</p>
+
+<p>Originally, I was subscribed to <a href="https://murena.com/workspace/" target="_blank">Murena's</a> Workspace cloud plan. I didn't have a Murena phone, but the NextCloud offer looked quite good so I tried it. I was pleased, the WorkSpace is pretty good, and includes an OnlyOffice suite for online editing. A measly €1.99 per month gets you 20GB of storage, or you can get 64GB for just €3.99. However, they had some issues a while back when upgrading their infrastructure, and their cloud went down. It's back up now, and due to the way NextCloud syncs with devices, I had local backups on several devices so I didn't lose any files.</p>
+
+<p>But the downtime was a bit longer than anticipated, and during that time I thought I might try set up my own cloud on a VPS. And I did, successfully. I pay <em>a lot</em> more for my NextCloud on a VPS setup, but I get total control of what apps I have on my server. That said, I also have total responsibility when things stop working, which has happened.</p>
+
+<p>Installation is not simple, there are All-In-One installations which are supposed to make things easier, available as either a Snap package or a Docker image, but for me (a novice) the documentation didn't seem to match up and I couldn't get everything working.</p>
+
+<p>If you have some experience in the Linux terminal, then I highly suggest following along to the <a href="https://www.learnlinux.tv/self-host-nextcloud-on-debian-the-ultimate-step-by-step-build-guide/" target="_blank">Learn Linux guide</a>, which is also available as a YouTube walthrough (linked in article). Jay does a great job of explaining what he is doing and why, and if you've ever poked around in PHP applications it should feel quite familiar. I genuinely felt like I had learned quite a bit after working through the guide, as opposed to mindlessly following steps to acheive a goal.</p>
+
+<p>I wasn't able to apply a recent update, and had to reinstall the software, and some steps had changed, but I was able to figure them out on my own as I kind of understood what I was supposed to be doing. Nonetheless, I wouldn't describe the process as easy. And keeping your cloud maintained will also require some work. So if you want to try it, but don't have the time or patience to go through the set up and maintainence, then take a look for a provider.</p>
+
+<p>As an alternative to other cloud providers, NextCloud is actually really good. There is a huge community making stuff for it. At it's most basic it will back up files to the cloud and sync with any number of devices you want it to, giving you local backups if anything was to go wrong. There's a plethora of compatible software for it, and getting your phone sync'd to it is pretty easy too. I'm currently using it as my Documents folder on two computers, so everything I'm working on is accessible anywhere. I also have my git repositories on it, and have had no issues with those. I'm also using it as the directories for software like Publii CMS and Calibre Library, so my blogs and books are available at whatever computer I'm working at.</p>
+
+      </article>
+    </main>
+
+    <nav aria-labelledby="to-top">
+      <a href="#top" id="to-top">Back to Top</a>
+    </nav>
+
+<footer>
+  <div>Made by Hand. Powered by</div>
+  <a href="https://pages.github.com/" target="_blank">
+    <img alt="https://pages.github.com/" src="/assets/svg/githubpages.svg"/>
+  </a>
+</footer>
+      </body>
+</html>
+
