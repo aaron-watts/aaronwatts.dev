@@ -29,7 +29,9 @@
     <meta property="og:site_name" content="aaronwatts@dev"/>
     <meta property="og:description" content="<?= $description ?>"/>
     <meta property="og:url" content="https://aaronwatts.dev/<?= $blog . '/' . $post ?>"/>
+<?php if ($imgUrl !== ""): ?>
     <meta property="og:image" content="<?= $imgUrl ?>"/>
+<?php endif; ?>
     <meta property="og:type" content="article"/>
     <meta property="og:article:published_time" content="<?= $date ?>"/>
 
