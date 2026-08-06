@@ -85,8 +85,11 @@
     </nav>
 
 <?php require PARTIALS_PATH . 'footer.php'; ?>
-
-    <script src="/assets/scripts/prism.js"></script>
+    <?php
+        if ($prismRequired === true) {
+            echo '<script src="/assets/scripts/prism.js"></script>';
+        }
+    ?>
   </body>
 </html>
 
