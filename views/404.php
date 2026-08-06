@@ -9,6 +9,7 @@
   <link href="/images/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
   <link href="/site.webmanifest" rel="manifest"/>
   <link href="https://aaronwatts.dev/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - All" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/blog/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Blog" type="application/rss+xml"/>
   <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
   <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
   <link href="/assets/styles/style.css" rel="stylesheet"/>
