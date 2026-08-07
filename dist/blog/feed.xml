@@ -4,7 +4,7 @@
   <atom:link href="https://aaronwatts.dev/blog/feed.xml" rel="self" type="applications/rss+xml" />
     <title>AaronWattsDev Blog</title>
     <link>https://aaronwatts.dev/blog/</link>
-    <description>Here I talk about things that don't fit in with the topics of my other blog reels. Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</description>
+    <description>Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</description>
     <category>Technology</category>
     <item>
       <title>Unicorns</title>
