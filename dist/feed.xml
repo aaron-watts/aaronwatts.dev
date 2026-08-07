@@ -7,6 +7,28 @@
     <description>The most recent content on AaronWattsDev</description>
     <category>Technology</category>
     <item>
+      <title>Unicorns</title>
+      <link>https://aaronwatts.dev/blog/unicorns</link>
+      <pubDate>Fri, 07 Aug 2026 00:00:00 +0000</pubDate>
+      <description>I got unicorns. I've seen a few people raging at GitHub lately, I don't like joining in on politics. But my personal website has been affected now and I've taken action.</description>
+      <guid>https://aaronwatts.dev/blog/unicorns</guid>
+      <content:encoded><![CDATA[<p id="description">I got unicorns. I've seen a few people raging at GitHub lately, I don't like joining in on politics. But my personal website has been affected now and I've taken action.</p>
+
+<p>I'm not leaving GitHub. Not yet anyway. If I did I would most likely move everything over to my GitLab account - I haven't even logged into it for years, but it exists. I've heard a lot of opinions that GitLab is just as bad (as GitHub), but I don't see self-hosting repositories as a solution for me. I already host my own NextCloud and Coolify instances, I can't imagine looking after a versioning hosting server - I am managing my cloud and web server, but I often feel a little out of my depth in doing so. Also, code repositories are something I would prefer not lose - and I'd like the liberty of being able to blame someone else if something were to happen to them.</p>
+
+<p>So, for now, I am still hosting the repository for this website on GitHub, but it's now deployed through my Coolify instance. I had considered moving it to my Netlify account, but Netlify has lambdas, so I would prefer to keep that for projects that require a little more functionality than a standard static website, but don't necessarily require a proper server. There are, of course, other services, but I already have so many accounts for so many things, so I'm making use of what I already have set up for now.</p>
+
+<p>The unicorns. I had heard about them, but not seen them myself. Until a few months ago. If the GitHub servers go down proper, you see the unicorn. It's something to do with their server using software called Unicorn. But I've now adopted the phrase for whenever GitHub doesn't work. The first unicorn was when I tried to make a commit a little while ago, and it wasn't working. So I did a DuckDuckGo search for how to test my GitHub SSH connection to make sure that it was working correctly. The GitHub page with the instructions failed, as did the rest of the website, and there was the majestic creature right on my screen. Yesterday, I commited a new post to my blog, and the GitHub Pages action kept timing out after a few seconds. I couldn't figure out what was wrong. I have a strong suspicion that I'm nowhere near any of the size limits imposed on the free GitHub Pages websites. Furthermore, it was a brand new repository with hardly any history as I had just changed my website management tool to a new one that I had written in PHP to replace my old Python one. There's been speculation that A.I. agents have been reeking havoc on GitHubs servers. Whatever the reason, it might have been fine if I had just waited a few hours, but I do a lot of work on that particular repository and I don't want to have to wait a day to push an update.</p>
+
+
+<p>Moving the project over to Coolify wasn't too difficult. The NixPacks set up is pretty simple. I can serve from the <code>dist</code> folder now too, which is nice. There were ways to do that with GitHub Pages, but it was just easier to go with the default <code>docs</code> directory and not have to use custom actions. For the site to redeploy on pushes I had to set up a webhook in GitHub, hopefully that is less taxing on their servers than the Github Pages action, and therefore less likely to cause issues later on. Getting the DNS moved over wasn't too tricky either, although I had forgotten what I was doing with the CloudFlare tunnel as it doesn't come up as an option on the DNS configuration page (Coolify is running on a Raspberry Pi on my desk so the usual <em>point at IP and go</em> won't suffice here). I did eventually find it again in the zero trust section, and after copying the values I had set for <code>*.aaronwattts.dev</code> over to <code>aaronwatts.dev</code>, it was just a case of waiting for the new settings to propogate.</p>
+
+<p>So now my website is self-hosted - which is cool, I guess. I've changed the <em>powered by</em> in the footer from GtitHub Pages to Raspberry Pi. They are quite concise about the use of their logo so that's one less SVG for me to worry about. The terms of use apparently apply to the words <em>"Raspberry Pi"</em> too, but I'll risk it, I'm an avid fan of their work and you'll be pressed to find a bad word about them on this website.</p>]]></content:encoded>
+      <enclosure url="/images/blog/unicorn.webp" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/blog/unicorn.webp" width="1920" height="1080" />
+      <media:content url="/images/blog/unicorn.webp" type="image/jpeg" />
+    </item>
+    <item>
       <title>PHP Template Partials</title>
       <link>https://aaronwatts.dev/blog/php-template-partials</link>
       <pubDate>Thu, 06 Aug 2026 00:00:00 +0000</pubDate>
@@ -1595,173 +1617,6 @@ ShowID:EpisodeID</code></pre>
       <enclosure url="/images/guides/tv-show-calendar.avif" type="image/jpeg" length="0" />
       <media:thumbnail url="/images/guides/tv-show-calendar.avif" width="1920" height="1080" />
       <media:content url="/images/guides/tv-show-calendar.avif" type="image/jpeg" />
-    </item>
-    <item>
-      <title>RSS Feeds</title>
-      <link>https://aaronwatts.dev/guides/rss-feeds</link>
-      <pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate>
-      <description>RSS isn't really something you hear spoken about too often. But for us nerds, it's an indisposable technology. And thankfully, it still gets used. Most of the time, if you need an RSS feed for content you've made, the software you've used to make said content has probably already done it for you, you might need not even know. But if you had to make one yourself, would you know how?</description>
-      <guid>https://aaronwatts.dev/guides/rss-feeds</guid>
-      <content:encoded><![CDATA[<section id="intro" title="Intro">
-
-  <p id="description">RSS isn't really something you hear spoken about too often. But for us nerds, it's an indisposable technology. And thankfully, it still gets used. Most of the time, if you need an RSS feed for content you've made, the software you've used to make said content has probably already done it for you, you might need not even know. But if you had to make one yourself, would you know how?</p>
-
-  <p>The docs at the <a href="https://www.rssboard.org/" target="_blank">RSS Advisory Board</a> are ... confusing, to a newcomer. Also, if you try to learn by looking at other website's feeds, it doesn't really work as every single feed is built differently from the last. And not to achieve new objectives, mind you. But I have been exploring the technology a little, and I think I've worked out a relatively simple formula to have a feature rich RSS feed (for something like a blog at least) that should work across most, if not all, RSS feed aggregators.</p>
-
-</section>
-
-<section id="feature-rich" title="A Feature Rich FeedA Feature Rich Feed">
-
-  <h2>A Feature Rich Feed</h2>
-
-  <p>I previously touched on RSS Feeds in my article about <a href="/guides/github-pages-static-website" target="_blank">Github Pages static websites</a>, where I put together a simple python script to build the RSS feed for this site, among other things. Since then, this website has grown a little, as has the feed. Back then, the feed was already handling atom, as well as including media images. But the most important feature was missing: the <em>content</em>.</p>
-
-  <p>The best thing about RSS, in my opinion, is being able to read full news articles without ads and pop-ups suggesting that you subscribe or set your cookie permissions. Other feeds often use something called CDATA, but that didn't mix well with the python XML module that I was using. Luckily, I soon worked out that the content namespace included an encoded element, and it turned out that it did exactly what I needed it to. Without CDATA, you can use pure html within the element for it to be displayed in it's document form in RSS feed readers. To that means, if you write a blog, or articles, you can include the entire html within that tag (provided you are not relying too heavily in CSS or JavaScript trickery). Here is the current layout of my RSS feeds:</p>
-
-  <p><small>NOTE: In a very poetic case of irony, this article is not working on my usual RSS reader (Nextcloud News). I haven't been able to diagnose the issue yet, but it seems mostly fine on other readers I have tested. I am just going to choose to let this article be a comical outlyer for the time being, and update this article if I ever found out what is causing it.</small></p>
-
-  <pre class="language-xml"><code>&lt;?xml version='1.0' encoding='UTF-8'?&gt;
-&lt;rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/"&gt;
-  &lt;channel&gt;
-    &lt;atom:link href="https://aaronwatts.dev/guides/feed.xml" rel="self" type="applications/rss+xml" /&gt;
-    &lt;title&gt;AaronWattsDev Latest&lt;/title&gt;
-    &lt;link&gt;https://aaronwatts.dev/guides&lt;/link&gt;
-    &lt;description&gt;The most recent content on AaronWattsDev&lt;/description&gt;
-    &lt;category&gt;Technology&lt;/category&gt;
-    &lt;item&gt;
-      &lt;title&gt;Web Fonts&lt;/title&gt;
-      &lt;link&gt;https://aaronwatts.dev/guides/web-fonts&lt;/link&gt;
-      &lt;pubDate&gt;Sat, 05 Apr 2025 08:00:00 GMT&lt;/pubDate&gt;
-      &lt;description&gt;
-        Intro paragraph goes here
-      &lt;/description&gt;
-      &lt;guid&gt;https://aaronwatts.dev/guides/web-fonts&lt;/guid&gt;
-      &lt;content:encoded&gt;
-        Entire article in escaped HTML goes here
-      &lt;/content:encoded&gt;
-      &lt;enclosure url="https://aaronwatts.dev/images/guides/web-fonts.jpg" length="0" type="image/jpeg" /&gt;
-      &lt;media:thumbnail url="https://aaronwatts.dev/images/guides/web-fonts.jpg" width="1920" height="1080" /&gt;
-      &lt;media:content type="image/jpeg" url="https://aaronwatts.dev/images/guides/web-fonts.jpg" /&gt;
-    &lt;/item&gt;
-  &lt;/channel&gt;
-&lt;/rss&gt;</code></pre>
-
-</section>
-
-<section id="namespaces" title="Namespaces">
-
-  <h2>Namespaces</h2>
-
-  <p>If you're familiar with XML, then you already know that namespaces let us extend an XML document with tags that aren't already included within the specification (in this case, RSS) that we are already using. In this feed I have included the namespaces for <a href="http://www.w3.org/2005/Atom" target="_blank">Atom</a>, <a href="http://search.yahoo.com/mrss/" target="_blank">Media</a> and <a href="http://purl.org/rss/1.0/modules/content/" target="_blank">Content</a>.</p>
-
-</section>
-
-<section id="atom" title="Atom">
-
-  <h2>Atom</h2>
-
-  <p>Atom is another XML feed specification. Without divulging in too much history, it was a new (at the time) XML feed specification that was different from RSS, but by including it's namespace in our RSS feed, and atom:link-ing the feed to itself (which shows as an error in RSS validators, but is also encouraged by the RSS Board - I told you RSS is confusing), our RSS feed also becomes a valid Atom feed. Just put it through an Atom validator to see for yourself.</p>
-
-</section>
-
-<section id="media" title="Media">
-
-  <h2>Media</h2>
-
-  <p>The Media namespace lets us include media images. The enclosure element built into the RSS spec also does that, but not every RSS reader will show an enclosure image. Media has a much higher success rate, although while testing different aggregators, I have found that Media also doesn't work with certain readers. There are other ways to show images, but so far I have found that this combination will meet protocol for most, if not all, RSS aggregators.</p>
-
-</section>
-
-<section id="content" title="Content">
-
-  <h2>Content</h2>
-
-  <p>The Content namespace lets us include, well, content. The docs for it seem to show CDATA elements, and a lot of RSS feeds out there do just that. However, I have found that escaped HTML works fine if you just drop it inside the <code>content:encoded</code> element. I haven't found an aggregator yet that doesn't display it, but with the fast and loose rules to RSS, I am sure that said aggregator exists.</p>
-
-</section>
-
-<section id="dates" title="Dates">
-
-  <h2>Dates</h2>
-
-  <p>I'm only using pubDate in my feed, there are a few other useful elements that are date typed depending on what you are trying to acheive. Dates are RFC 822 format. What does that mean?? Eventually I found out through using an RSS validator, and it does appear to be included in the RSS Board docs now (I'm convinced it wasnt' before, but I could be unobservant and wrong). It means that dates should be formatted like so:</p>
-
-  <pre class="language-none"><code>Sat, 07 Sep 2002 09:42:31 GMT</code></pre>
-
-</section>
-
-<section id="guid" title="GUID">
-
-  <h2>GUID</h2>
-
-  <p>GUID stands for Globally Uniquie Identifier. Aggregators use this to check if an RSS item is new. I try to avoid mistakes when I can, but if I need to go back and fix a typo, this element will preventing aggregators from fetching the item a second time. I tend to just use the url path for the article as the ID, as it is the only article that will ever have that exact url.</p>
-
-</section>
-
-<section id="automation" title="Python Automation">
-
-  <h2>Python Automation</h2>
-
-  <p>I won't go into a lot of detail here, as most of it will already be covered in the previous article about <a href="/guides/github-pages-static-website" target="_blank">Github Pages Static Websites</a>, but there was a little trial and error invloved with getting the pre elements to format correctly in the content encoded RSS elements. Also relative links all needed to be replaced with absolute links, and as a bonus I'll include the date formatting, even though we both know you could have worked that out for yourself pretty easily.</p>
-
-  <p>Here is the python function to format the content encoded HTML. It prefers to put everything on one line, except for pre elements as they need to include line breaks to be displayed correctly.</p>
-
-  <pre class="language-python"><code>'''
-format_main_content will remove new lines from html elements
-except for pre elements where it will preserve them
-'''
-def format_main_content(content):
-  content_str = ''
-  for child in content.children:
-    if child.name == 'pre':
-      content_str += str(child)
-    else:
-      content_str += ' '.join(str(child).split())
-  return content_str
-
-'''
-format_main_content is called when scraping the files with
-the BeautifulSoup module
-'''
-main_element = article_soup.select_one('main')
-content = format_main_content(main_element)
-
-articles.append({
-  ...
-  'content': content,
-  ...
-})
-
-'''
-Finally I need to explicitly remove those new lines,
-the previous formatting will stop any issues with pre
-elements, and finally all relative links are replaced
-with absolute links
-'''
-str(article['content'])
-.strip()
-.replace('\\n', '')
-.replace('="/', '="https://aaronwatts.dev/')</code></pre>
-
-  <p>The date formatting is pretty straightforward. I don't include a time so I just add an arbitrary one in.</p>
-
-  <pre class="language-python"><code>'''
-I use a time element for the published date
-'''
-html_date = article_soup.select_one('time')
-article_date = date.fromisoformat(html_date['datetime'])
-formatted_date = article_date.strftime('%a, %d %b %Y')
-
-articles.append({
-  ...
-  'formatted_date' : formatted_date + ' 08:00:00 GMT',
-  ...
-})</code></pre>
-
-</section>]]></content:encoded>
-      <enclosure url="/images/guides/rss-feeds.avif" type="image/jpeg" length="0" />
-      <media:thumbnail url="/images/guides/rss-feeds.avif" width="1920" height="1080" />
-      <media:content url="/images/guides/rss-feeds.avif" type="image/jpeg" />
     </item>
   </channel>
 </rss>

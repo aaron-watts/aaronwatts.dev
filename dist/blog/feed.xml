@@ -7,6 +7,28 @@
     <description>Here I talk about things that don't fit in with the topics of my other blog reels. Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</description>
     <category>Technology</category>
     <item>
+      <title>Unicorns</title>
+      <link>https://aaronwatts.dev/blog/unicorns</link>
+      <pubDate>Fri, 07 Aug 2026 00:00:00 +0000</pubDate>
+      <description>I got unicorns. I've seen a few people raging at GitHub lately, I don't like joining in on politics. But my personal website has been affected now and I've taken action.</description>
+      <guid>https://aaronwatts.dev/blog/unicorns</guid>
+      <content:encoded><![CDATA[<p id="description">I got unicorns. I've seen a few people raging at GitHub lately, I don't like joining in on politics. But my personal website has been affected now and I've taken action.</p>
+
+<p>I'm not leaving GitHub. Not yet anyway. If I did I would most likely move everything over to my GitLab account - I haven't even logged into it for years, but it exists. I've heard a lot of opinions that GitLab is just as bad (as GitHub), but I don't see self-hosting repositories as a solution for me. I already host my own NextCloud and Coolify instances, I can't imagine looking after a versioning hosting server - I am managing my cloud and web server, but I often feel a little out of my depth in doing so. Also, code repositories are something I would prefer not lose - and I'd like the liberty of being able to blame someone else if something were to happen to them.</p>
+
+<p>So, for now, I am still hosting the repository for this website on GitHub, but it's now deployed through my Coolify instance. I had considered moving it to my Netlify account, but Netlify has lambdas, so I would prefer to keep that for projects that require a little more functionality than a standard static website, but don't necessarily require a proper server. There are, of course, other services, but I already have so many accounts for so many things, so I'm making use of what I already have set up for now.</p>
+
+<p>The unicorns. I had heard about them, but not seen them myself. Until a few months ago. If the GitHub servers go down proper, you see the unicorn. It's something to do with their server using software called Unicorn. But I've now adopted the phrase for whenever GitHub doesn't work. The first unicorn was when I tried to make a commit a little while ago, and it wasn't working. So I did a DuckDuckGo search for how to test my GitHub SSH connection to make sure that it was working correctly. The GitHub page with the instructions failed, as did the rest of the website, and there was the majestic creature right on my screen. Yesterday, I commited a new post to my blog, and the GitHub Pages action kept timing out after a few seconds. I couldn't figure out what was wrong. I have a strong suspicion that I'm nowhere near any of the size limits imposed on the free GitHub Pages websites. Furthermore, it was a brand new repository with hardly any history as I had just changed my website management tool to a new one that I had written in PHP to replace my old Python one. There's been speculation that A.I. agents have been reeking havoc on GitHubs servers. Whatever the reason, it might have been fine if I had just waited a few hours, but I do a lot of work on that particular repository and I don't want to have to wait a day to push an update.</p>
+
+
+<p>Moving the project over to Coolify wasn't too difficult. The NixPacks set up is pretty simple. I can serve from the <code>dist</code> folder now too, which is nice. There were ways to do that with GitHub Pages, but it was just easier to go with the default <code>docs</code> directory and not have to use custom actions. For the site to redeploy on pushes I had to set up a webhook in GitHub, hopefully that is less taxing on their servers than the Github Pages action, and therefore less likely to cause issues later on. Getting the DNS moved over wasn't too tricky either, although I had forgotten what I was doing with the CloudFlare tunnel as it doesn't come up as an option on the DNS configuration page (Coolify is running on a Raspberry Pi on my desk so the usual <em>point at IP and go</em> won't suffice here). I did eventually find it again in the zero trust section, and after copying the values I had set for <code>*.aaronwattts.dev</code> over to <code>aaronwatts.dev</code>, it was just a case of waiting for the new settings to propogate.</p>
+
+<p>So now my website is self-hosted - which is cool, I guess. I've changed the <em>powered by</em> in the footer from GtitHub Pages to Raspberry Pi. They are quite concise about the use of their logo so that's one less SVG for me to worry about. The terms of use apparently apply to the words <em>"Raspberry Pi"</em> too, but I'll risk it, I'm an avid fan of their work and you'll be pressed to find a bad word about them on this website.</p>]]></content:encoded>
+      <enclosure url="/images/blog/unicorn.webp" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/blog/unicorn.webp" width="1920" height="1080" />
+      <media:content url="/images/blog/unicorn.webp" type="image/jpeg" />
+    </item>
+    <item>
       <title>PHP Template Partials</title>
       <link>https://aaronwatts.dev/blog/php-template-partials</link>
       <pubDate>Thu, 06 Aug 2026 00:00:00 +0000</pubDate>
