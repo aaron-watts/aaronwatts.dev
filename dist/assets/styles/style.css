@@ -110,6 +110,10 @@ article:not(:first-of-type) {
     margin-top: 4rem;
 }
 
+nav[aria-labelledby="to-top"] {
+    margin-top: 2.5rem;
+}
+
 button:not(.topic) {
     border-style: none;
     background: none;
@@ -466,7 +470,7 @@ nav[aria-label='Breadcrumb'] {
 
 footer {
     text-align: center;
-    padding-block: 2.5rem 2rem;
+    padding-block: 5rem 2rem;
 }
 
 footer > div {
