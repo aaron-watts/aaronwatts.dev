@@ -59,6 +59,11 @@ body {
     margin: auto;
 }
 
+.screen-reader-text {
+  position: absolute;
+  left: -9999px;
+}
+
 h1,
 h2,
 h3,
@@ -106,7 +111,8 @@ a:visited:hover {
     color: var(--accent-secondary-light);
 }
 
-article:not(:first-of-type) {
+article:not(:first-of-type),
+.blog--wrapper {
     margin-top: 4rem;
 }
 
@@ -247,9 +253,13 @@ blockquote {
 p#description {
     font-weight: bold;
     font-style: italic;
+
+    & em {
+      font-style: normal;
+    }
 }
 
-time {
+header > time {
     display: block;
     margin: -1em .5em 1em;
     font-size: .9em;
