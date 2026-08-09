@@ -95,7 +95,7 @@
   </head>
   <body>
     <header>
-      <nav>
+      <nav aria-label="External Links">
 <?php require PARTIALS_PATH . 'rss.php'; ?>
         <a href="https://sites.aaronwatts.dev">More by aaronwatts@dev</a>
       </nav>
