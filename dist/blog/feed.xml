@@ -7,6 +7,18 @@
     <description>Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</description>
     <category>Technology</category>
     <item>
+      <title>My Path From Here</title>
+      <link>https://aaronwatts.dev/blog/my-path-from-here</link>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+      <description>I've been finding time to spend coding recently. I've learned a little PHP and applied it. My energy is high, but my focus and direction are low.</description>
+      <guid>https://aaronwatts.dev/blog/my-path-from-here</guid>
+      <content:encoded><![CDATA[<p id="description">I've been finding time to spend coding recently. I've learned a little PHP and applied it. My energy is high, but my focus and direction are low.</p>
+
+<p>I suppose that this is a post just to keep me mentally on track. I've found time, against the odds, to learn a little PHP and apply it. That's got me excited to be at my computer again. I also migrated my site over to my Coolify server. Migrating and changing my build tools also meant I had to fix a few bugs that slipped through in all the excitement. I also made some quality of life changes to my website, and dusted off an old checklist of a few things I wanted to implement but never got round to, and ticked those all off too.</p>
+
+<p>So I'm here because I started learning PHP. And now my enthusiasm is high but not pointed anywhere in particular, so I'm doing that thing where I get pulled toward anything I find remotely interesting. <em>Distractions</em>. Carry on with PHP - if just the syntax got me this excited then I ought to force myself back on track and keep going.</p>]]></content:encoded>
+    </item>
+    <item>
       <title>Unicorns</title>
       <link>https://aaronwatts.dev/blog/unicorns</link>
       <pubDate>Fri, 07 Aug 2026 00:00:00 +0000</pubDate>
