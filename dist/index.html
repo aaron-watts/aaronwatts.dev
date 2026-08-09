@@ -95,12 +95,13 @@
   </head>
   <body>
     <header>
-      <nav>
+      <nav aria-label="Complimentary">
 <div class="svg-container">
   <a href="/rss">
-  <svg class="rss">
-    <use href="/assets/svg/svg-map.svg#rss-feed" />
-  </svg>
+    <span class="screen-reader-text">RSS Feeds</span>
+    <svg class="rss">
+      <use href="/assets/svg/svg-map.svg#rss-feed" />
+    </svg>
   </a>
 </div>
 
@@ -112,7 +113,7 @@
       </div>
     </header>
     <main>
-      <nav>
+      <nav aria-label="Site Navigation">
         <h2>Latest</h2>
         <article>
           <header>
@@ -127,18 +128,24 @@
           <p class="description">I got unicorns. I've seen a few people raging at GitHub lately, I don't like joining in on politics. But my personal website has been affected now and I've taken action.</p>
           <a href="/blog/unicorns">Read More</a>
         </article>
+
+        <div class="blog--wrapper">
+          <h2><a href="/blog">Blog</a></h2>
+          <p>Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</p>
+          <a href="/blog">Go to blog</a>
+        </div>
+        <div class="blog--wrapper">
+          <h2><a href="/guides">Guides</a></h2>
+          <p>Some guides on things that I have worked on where resources are either hard to find or scattered.</p>
+          <a href="/guides">Go to guides</a>
+        </div>
+        <div class="blog--wrapper">
+          <h2><a href="/tech">Tech</a></h2>
+          <p>Technology that I consider to be <em>thoughtful</em>, where there are more meaningful priorities than exponential growth and high profit margins.</p>
+          <a href="/tech">Go to tech</a>
+        </div>
+
       </nav>
-
-        <h2><a href="/blog">Blog</a></h2>
-        <p>Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</p>
-        <a href="/blog">Go to blog</a>
-        <h2><a href="/guides">Guides</a></h2>
-        <p>Some guides on things that I have worked on where resources are either hard to find or scattered.</p>
-        <a href="/guides">Go to guides</a>
-        <h2><a href="/tech">Tech</a></h2>
-        <p>Technology that I consider to be <em>thoughtful</em>, where there are more meaningful priorities than exponential growth and high profit margins.</p>
-        <a href="/tech">Go to tech</a>
-
     </main>
 
 <footer>

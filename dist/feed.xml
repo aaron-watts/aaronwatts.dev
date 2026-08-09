@@ -34,14 +34,7 @@
       <pubDate>Thu, 06 Aug 2026 00:00:00 +0000</pubDate>
       <description>This won't be long enough to make it into the guides section of my site. But from enquiring with search engines, I couldn't find an answer that gave an answer that was quite complex compared to how a partial normally works, or showed how to do PHP partials with X framework. So I'm including in my blog as a note.</description>
       <guid>https://aaronwatts.dev/blog/php-template-partials</guid>
-      <content:encoded><![CDATA[<ul class="topic-container">
-  <li class="topic">coding</li>
-  <li class="topic">notes</li>
-</ul>
-
-
-
-<p id="description">This won't be long enough to make it into the guides section of my site. But from enquiring with search engines, I couldn't find an answer that gave an answer that was quite complex compared to how a partial normally works, or showed how to do PHP partials with <em>X</em> framework. So I'm including in my blog as a note.</p>
+      <content:encoded><![CDATA[<p id="description">This won't be long enough to make it into the guides section of my site. But from enquiring with search engines, I couldn't find an answer that gave an answer that was quite complex compared to how a partial normally works, or showed how to do PHP partials with <em>X</em> framework. So I'm including in my blog as a note.</p>
 
 <p>I was having trouble working out how to include partials in my PHP templates. But this morning I had that <em>well, duh!</em> moment and rigged some up for my website. The same way I <code>require</code> a template, I just needed to <code>require</code> the partial within the template itself. So now I can make adjustments to things like my footer once, and not have to worry about consistency across pages.</p>
 
