@@ -122,9 +122,11 @@
         </article>
 
 <?php foreach($blogOrder as $blogName): ?>
-        <h2><a href="/<?= $blogName ?>"><?= ucfirst($blogName) ?></a></h2>
-        <p><?= $blogs[$blogName] ?></p>
-        <a href="/<?= $blogName ?>">Go to <?= $blogName ?></a>
+        <div class="blog--wrapper">
+          <h2><a href="/<?= $blogName ?>"><?= ucfirst($blogName) ?></a></h2>
+          <p><?= $blogs[$blogName] ?></p>
+          <a href="/<?= $blogName ?>">Go to <?= $blogName ?></a>
+        </div>
 <?php endforeach ?>
 
       </nav>
