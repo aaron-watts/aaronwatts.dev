@@ -112,9 +112,9 @@
           <h3><a href="/<?= $latest['blog'] ?>/<?= $name ?>"><?= $title ?></a></h3>
           <time datetime="<?= $date ?>"><?= formatDate($date); ?></time>
             <ul class="topic-container">
-              <li class="topic">computing</li>
-              <li class="topic">diy</li>
-              <li class="topic">cloud</li>
+<?php foreach($topics as $topic): ?>
+              <li class="topic"><?= $topic->textContent ?></li>
+<?php endforeach; ?>
             </ul>
           </header>
           <p class="description"><?= $description ?></p>
