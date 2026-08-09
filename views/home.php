@@ -105,7 +105,7 @@
       </div>
     </header>
     <main>
-      <nav>
+      <nav aria-label="Site Navigation">
         <h2>Latest</h2>
         <article>
           <header>
@@ -120,7 +120,6 @@
           <p class="description"><?= $description ?></p>
           <a href="/<?= $latest['blog'] ?>/<?= $name ?>">Read More</a>
         </article>
-      </nav>
 
 <?php foreach($blogOrder as $blogName): ?>
         <h2><a href="/<?= $blogName ?>"><?= ucfirst($blogName) ?></a></h2>
@@ -128,6 +127,7 @@
         <a href="/<?= $blogName ?>">Go to <?= $blogName ?></a>
 <?php endforeach ?>
 
+      </nav>
     </main>
 
 <?php require PARTIALS_PATH . 'footer.php'; ?>
