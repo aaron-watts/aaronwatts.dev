@@ -1,131 +1,189 @@
-'use strict'
+'use strict';
 
-document.addEventListener('DOMContentLoaded', function()  {
-    document.querySelector('search#topics').classList.remove('noscript');
-
-    const topicList = document.querySelector('search#topics ul');
-    const topics = getTopics();
-    const truncIndex = parseInt(getTruncIndex());
-
-    populateFilter(topicList, topics, truncIndex);
-    truncateTopics(topicList, topics, truncIndex);
+document.addEventListener('DOMContentLoaded', function() {
+  const searchElem = document.querySelector('search#topics');
+  const filterSearch = new FilterSearch(searchElem);
+  filterSearch.init();
 });
 
-function populateFilter(topicList, topics, truncIndex) {
-    topics.forEach(topicName => {
-        topicList.appendChild(makeTopicBtn(topicName));
+class FilterSearch {
+  constructor(searchElem) {
+    this.articles = [...document.querySelectorAll('article')].map(article => {
+      return {
+        dom: article, 
+        topics: [...article.querySelectorAll('.topic')].map(topic => topic.textContent.trim())
+      }
+    });
+   
+    this.filters = [];
+    this.searchElem = searchElem;
+    this.topicList = this.searchElem.querySelector('ul.topic-container');
+    this.topics = FilterSearch.getTopics();
+    this.truncIndex = FilterSearch.getTruncIndex();
+    this.truncMsg = this.searchElem.querySelector('#usr-msg--truncated small');
+    this.filterMsg = this.searchElem.querySelector('#usr-msg--filter small');
+    this.showBtn = this.searchElem.querySelector('button#showBtn');
+    this.removeFiltersBtn = this.searchElem.querySelector('button#filter-remove');
+    this.filterBtns;
+  }
+
+  init() {
+    this.populate();
+    this.truncate();
+    this.filterBtns = this.searchElem.querySelectorAll('button.topic');
+    this.searchElem.classList.remove('noscript');
+    
+    this.searchElem.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('topic')) {
+        this.filterTopic(evt.target);
+      } else if (evt.target.id === 'filter-remove') {
+        this.removeFilters();
+      } else if (evt.target.id === 'showBtn') {
+        this.showTopicsList();
+      }
+    });
+  }
+
+  populate() {
+    this.topics.forEach(topicName => {
+      this.topicList.appendChild(
+        FilterSearch.makeTopicBtn(topicName)
+      );
+    });
+  }
+
+  truncate() {
+    if (this.topics.length > this.truncIndex - 1) {
+      this.topicList.classList.add('truncated');
+    }
+   
+    this.updateTruncMsg();
+  }
+
+  updateTruncMsg() {
+    const filter = this.topicList.querySelector('button[aria-pressed="true"]');
+    const slice = ( 
+      filter && 
+      this.topics.indexOf(filter.textContent) > this.truncIndex - 2 
+    ) ? this.truncIndex : this.truncIndex - 1;
+    
+    if (this.topicList.classList.contains('truncated')) {
+      this.truncMsg.textContent =
+        `Showing ${slice} of ${this.topics.length} topics`;
+    } else {
+      this.truncMsg.textContent =
+        `Showing ${this.topics.length} of ${this.topics.length} topics`;
+    }
+  }
+
+  updateFilterMsg(filterSet=false) {
+    if (filterSet) {
+      this.filterMsg.textContent = `Filtering ${this.filters.length} topics.`;
+    } else {
+      this.filterMsg.textContent = 'Select a topic to filter articles.';
+    }
+  }
+
+  filterTopic(filterBtn) {
+    const filter = filterBtn.textContent.trim();
+    const filterIndex = this.filters.indexOf(filter);
+
+    if (filterIndex < 0) {
+      this.filters.push(filter);
+      filterBtn.classList.add('filterTopic');
+      filterBtn.ariaPressed = 'true';
+    } else {
+      this.filters = this.filters.filter(i => i !== filter);
+      filterBtn.classList.remove('filterTopic');
+      filterBtn.ariaPressed = 'false';
+    }
+
+    if (this.filters.length) {
+      this.removeFiltersBtn.removeAttribute('disabled');
+      this.updateFilterMsg(true);
+    } else {
+      this.removeFiltersBtn.setAttribute('disabled', 'disabled');
+      this.updateFilterMsg(false);
+    }
+
+    this.articles.forEach(article => {
+      if (this.filters.length > 0) {
+        article.dom.classList.add('hidden');
+    
+        for (let topic of article.topics) {
+          if (this.filters.includes(topic)) {
+            article.dom.classList.remove('hidden');
+            break;
+          }
+        }
+      } else {
+        article.dom.classList.remove('hidden');
+      }
+    });
+  }
+
+  removeFilters() {
+    this.filters = [];
+    this.removeFiltersBtn.setAttribute('disabled', 'disabled');
+
+    this.filterBtns.forEach(btn => {
+      btn.classList.remove('filterTopic');
+      btn.ariaPressed = 'false';
     });
 
-    function makeTopicBtn(topicName) {
-        const topicLi = document.createElement('li');
-        const topicBtn = document.createElement('button');
-        topicBtn.innerText = topicName;
-        topicBtn.classList.add('topic');
-        topicBtn.addEventListener('click', function() {
-            filterTopic(this, topicList, topics, truncIndex);
-        });
-        topicBtn.ariaPressed = 'false';
-        topicLi.appendChild(topicBtn);
-        return topicLi;
-    };
-};
+    this.articles.forEach(article => {
+      article.dom.classList.remove('hidden');
+    });
 
-function filterTopic(filter, topicList, topics, truncIndex) {
-    const currentFilter = document.querySelector('button.topic.filterTopic');
-    const usrMsg = document.querySelector('#usr-msg--filter');
+    this.updateFilterMsg(false);
+  }
 
-    if (currentFilter) {
-        currentFilter.classList.remove('filterTopic');
-        currentFilter.ariaPressed = 'false';
-        usrMsg.innerText = "Select a topic to filter articles.";
-    }
-    const topic = filter.innerText;
-    const articles = document.querySelectorAll('article');
+  showTopicsList() {
+    this.topicList.classList.toggle('truncated');
 
-    if (!currentFilter || currentFilter.innerText !== topic) {
-        filter.classList.add('filterTopic');
-        filter.ariaPressed = 'true';
-        usrMsg.innerText = "Click current filter to remove it, or select a new filter."
-
-        articles.forEach(article => {
-            article.classList.add('hidden');
-
-            const articleTopics = [...article.querySelectorAll('.topic')];
-            for (let articleTopic of articleTopics) {
-                if (articleTopic.innerText.trim() === topic.trim()) {
-                    article.classList.remove('hidden');
-                }
-            }
-        });
+    if (this.topicList.classList.contains('truncated')) {
+      this.showBtn.textContent = "Show all topics";
     } else {
-        filter.classList.remove('filterTopic');
-        filter.ariaPressed = 'false';
-        articles.forEach(article => article.classList.remove('hidden'));
+      this.showBtn.textContent = "Show fewer topics";
     }
+    
+    this.updateTruncMsg();
+  }
 
-    updateTruncMsg(topicList, topics, truncIndex);
-}
+  static makeTopicBtn(topicName) {
+    const template = document.querySelector('template#topicBtn');
+    const clone = document.importNode(template.content, true);
+    clone.querySelector('button').textContent = topicName;
+    return clone;
+  }
 
-function truncateTopics(topicList, topics, truncIndex) {
-    if (topics.length > truncIndex - 1) {
-        topicList.classList.add('truncated');
-        updateTruncMsg(topicList, topics, truncIndex);
-    }
-
-    const showBtn = document.querySelector('#showBtn');
-    showBtn.addEventListener('click', showBtnHandler);
-
-    function showBtnHandler() {
-        topicList.classList.toggle('truncated');
-
-        if (topicList.classList.contains('truncated')) {
-            this.innerText = "Show all topics";
-        } else {
-            this.innerText = "Show fewer topics";
-        }
-
-        updateTruncMsg(topicList, topics, truncIndex);
-    };
-};
-
-function updateTruncMsg(topicList, topics, truncIndex) {
-    const truncMsg = document.querySelector('#usr-msg--truncated');
-    const activeFilter = topicList.querySelector('button[aria-pressed="true"]');
-    const slice = activeFilter && topics.indexOf(activeFilter.innerText) > truncIndex - 2 ?
-        truncIndex : truncIndex - 1;
-   
-    if (topicList.classList.contains('truncated')) {
-        truncMsg.innerText = `Showing ${slice} of ${topics.length} topics`;
-    } else {
-        truncMsg.innerText = `Showing ${topics.length} of ${topics.length} topics`;
-    }
-};
-
-function getTopics() {
-     const topics = [
-        ...new Set(
-            [...document.querySelectorAll('.topic')]
-                .map(i  => i.innerText)
-        )
+  static getTopics() {
+    const topics = [
+      ...new Set(
+        [...document.querySelectorAll('li.topic')].map(i => i.textContent)
+      )
     ].sort();
-
+    
     return topics;
-};
+  }
 
-function getTruncIndex() {
+  static getTruncIndex() {
     const rules = document.styleSheets[0].cssRules;
-
+    
     for (let rule of rules) {
-        if (rule.selectorText == 'search#topics') {
-            return getNumberAfterSubstring('nth-of-type', rule.cssText);
-        }
+      if (rule.selectorText === 'search#topics') {
+        return FilterSearch.getNumberAfterSubstring('nth-of-type', rule.cssText);
+      }
     }
-};
+  }
 
-function getNumberAfterSubstring(substring, text) {
+  static getNumberAfterSubstring(substring, text) {
     let re = new RegExp(substring + '.*?(\\d\)'), match = re.exec(text);
+    
     if (match === null) {
-        return '';
+      return '';
     }
-    return match[1];
+    
+    return parseInt(match[1]);
+  }
 }

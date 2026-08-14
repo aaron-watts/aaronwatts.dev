@@ -47,14 +47,21 @@
       <search class="noscript" id="topics">
         <header>
           <h2>Filter by Topic</h2>
-          <p aria-live="polite" id="usr-msg--filter" role="status">Select a topic to filter articles.</p>
+          <p aria-live="polite" id="usr-msg--filter" role="status"><small>Select a topic to filter articles.</small></p>
+          <button disabled id="filter-remove">Remove filters</button>
         </header>
         <ul aria-describedby="usr-msg--filter" class="topic-container"></ul>
         <p aria-live="polite" id="usr-msg--truncated" role="status"><small></small></p>
         <button aria-describedby="usr-msg--truncated" id="showBtn">Show all topics</button>
         <noscript>
-          <p><small>This page does have some search features to make finding stuff easier if you were to enable script ... no pressure.</small></p>
+          <p><small>This page has a filter search feature to make finding stuff easier if you were to enable script ... no pressure.</small></p>
         </noscript>
+
+        <template id="topicBtn">
+          <li>
+            <button class="topic" aria-pressed="false"></button>
+          </li>
+        </template>
       </search>
     
       <nav id="articles">

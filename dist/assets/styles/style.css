@@ -126,6 +126,15 @@ button:not(.topic) {
     font-size: 1em;
     text-decoration: underline;
     cursor: pointer;
+
+    &:disabled {
+      cursor: default;
+      color: grey;
+
+      &:hover {
+        color: grey;
+      }
+    }
 }
 
 code:not([class*=language-]) {
@@ -315,6 +324,11 @@ search#topics {
 
         & button[aria-pressed="true"] {
             background-color: var(--border-color);
+            color: var(--bg-color-dark);
+
+            &:hover {
+              background-color: var(--border-color);
+            }
         }
 
         &.truncated li {
