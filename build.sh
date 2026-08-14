@@ -29,6 +29,7 @@ php "$PHP_RUN" "sitemap" > "${BUILD_DIR}/sitemap.xml"
 for blogDir in "${BLOGS_DIR}"/*;
 do
   blog="$(basename "${blogDir}")"
+  mkdir "${BUILD_DIR}/${blog}"
   php "$PHP_RUN" "$blog" > "${BUILD_DIR}/${blog}/index.html"
   php "$PHP_RUN" "${blog}/feed" > "${BUILD_DIR}/${blog}/feed.xml"
 
