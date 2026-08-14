@@ -2,3 +2,4 @@ src/*
 public/*
 !public/index.php
 !dist/
+legacy.*
