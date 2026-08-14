@@ -6,6 +6,10 @@ PHP_RUN="${PHP_PUBLIC}/index.php"
 BLOGS_DIR="${PROJECT_ROOT}/src"
 BUILD_DIR="${PROJECT_ROOT}/dist"
 
+# Delete old build files
+rm -R "${BUILD_DIR}"
+mkdir "${BUILD_DIR}"
+
 # Write home page to index.html
 php "$PHP_RUN" > "${BUILD_DIR}/index.html"
 
