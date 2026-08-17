@@ -57,7 +57,7 @@
       </search>
     
       <nav id="articles">
-<?php foreach($posts as $postName => $post):
+<?php foreach($posts as $path => $post):
 
   $postInfo = getPostInfo($post['dom']);
   [
@@ -67,7 +67,7 @@
   'topics' => $topics
   ] = $postInfo;
 
-  $url = '/' . $blog . '/' . $postName;
+  $url = '/' . $path;
 ?>
 
         <article>

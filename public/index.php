@@ -29,6 +29,8 @@ if ($url['isFeed']) {
     rssController();
 } else if ($url['path'] === 'sitemap') {
     sitemapController();
+} else if ($url['params'][0] === 'search') {
+    searchController($url);
 } else if ($url['path'] === '/') {
     homePageController();
 } else {

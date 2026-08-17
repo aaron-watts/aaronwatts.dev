@@ -24,6 +24,7 @@ function resolveUrl(string|null $uri): array
     }
 
     $url['isFeed'] = $url['params'] !== null
+        && $url['params'][0] !== 'search'
         && in_array('feed', $url['params']);
     $url['isBlog'] = $url['params'] !== null
         && in_array($url['params'][0], array_keys($configs['blogs']));
@@ -32,6 +33,21 @@ function resolveUrl(string|null $uri): array
         && sizeof($url['params']) > 1;
 
     return $url;
+}
+
+function searchController(array $url): void
+{
+  if (sizeof($url['params']) > 1 && $url['params'][1] === 'feed') {
+    $configs = include CONFIG_PATH . 'config.php';
+    require APP_PATH . 'helpers.php';
+    $posts = [];
+    foreach ($configs['blogs'] as $blog => $blogDesc) {
+        $posts += [...getBlogPosts($blog)];
+    }
+    var_dump($posts);
+  } else {
+    require VIEWS_PATH . 'search.php';
+  }
 }
 
 function sitemapController(): void

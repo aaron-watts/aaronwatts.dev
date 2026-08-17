@@ -11,7 +11,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . PHP_EOL;
     <category>Technology</category>
 <?php
 $x = 0;
-foreach($posts as $postName => $post):
+foreach($posts as $path => $post):
     $x++;
     if ($x > 10) {
         break;
@@ -28,7 +28,7 @@ foreach($posts as $postName => $post):
         'prismRequired' => $prismRequired
     ] = $postInfo;
 
-    $src = SRC_PATH . $post['blog'] . DIRECTORY_SEPARATOR .$postName . '.html';
+    $src = SRC_PATH . DIRECTORY_SEPARATOR . $path . '.html';
     
     if (file_exists($src)) {
         $file = fopen($src, 'r') or die("Unable to open file!");
@@ -38,7 +38,7 @@ foreach($posts as $postName => $post):
     }
     
     $baseUrl = 'https://aaronwatts.dev';
-    $url = $baseUrl . '/' . $post['blog'] . '/' . $postName;
+    $url = $baseUrl . '/' . $path . '/';
 ?>
     <item>
       <title><?= $title ?></title>

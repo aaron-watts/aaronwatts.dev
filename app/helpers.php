@@ -80,8 +80,8 @@ function newestPost(array $a, array $b): int
 
 function getNewestPost(array $posts): array {
     $x = 0;
-    foreach ($posts as $postName => $post) {
-        $name = $postName;
+    foreach ($posts as $path => $post) {
+        $name = $post['postName'];
         $latest = $post;
         $x++;
         if ($x > 0) {
@@ -120,9 +120,10 @@ function getBlogPosts(string $blog): array
         if (is_file($path) && substr($file, -5) === '.html') {
             $dom = Dom\HTMLDocument::createFromFile($path);
             $postName = str_replace('.html', '', $file);
-            $posts[$postName] = [
-                'dom' => $dom,
-                'blog' => $blog
+            $posts[$blog . '/' . $postName] = [
+              'dom' => $dom,
+              'postName' => $postName,
+              'blog' => $blog
             ];
         }
     }

@@ -15,10 +15,10 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . PHP_EOL;
   </url>
   <?php $posts = array();
   $posts = [...getBlogPosts($blog)];
-  foreach($posts as $postName => $post):
+  foreach($posts as $path => $post):
       [ 'date' => $date ] = getPostInfo($post['dom']);
   ?><url>
-    <loc><?= $baseUrl . '/' . $blog . '/' .  $postName . '/' ?></loc>
+    <loc><?= $baseUrl . '/' . $path . '/' ?></loc>
     <lastmod><?= date('Y-m-d', strtotime($date)); ?></lastmod>
   </url>
   <?php endforeach; 
