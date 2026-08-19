@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function() {
-  const feedUrl = '/search/feed';
+  const feedUrl = '/search/feed.json';
   const feed = await Search.getFeed(feedUrl);
 
   if (feed !== null) {
