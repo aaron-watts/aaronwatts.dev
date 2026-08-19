@@ -95,15 +95,14 @@
   </head>
   <body>
     <header>
-      <nav aria-label="Complimentary">
 <?php require PARTIALS_PATH . 'rss.php'; ?>
-        <a href="https://sites.aaronwatts.dev">More by aaronwatts@dev</a>
-      </nav>
+<?php require PARTIALS_PATH . 'search.php' ?>
       <div class="hero">
         <span class="hero-text">
           <h1><span class="host">aaronwatts@dev</span></h1><span aria-hidden="true" class="term-dir"></span></span><span aria-hidden="true" class="term-priv"></span><span aria-hidden="true" class="term-cursor"></span>
       </div>
     </header>
+
     <main>
       <nav aria-label="Site Navigation">
         <h2>Latest</h2>
@@ -133,5 +132,13 @@
     </main>
 
 <?php require PARTIALS_PATH . 'footer.php'; ?>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.noscript').forEach(i => {
+          i.classList.remove('noscript');
+        });
+      });
+    </script>
   </body>
 </html>
