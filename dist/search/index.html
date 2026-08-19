@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AWD - Page Not Found</title>
+  <title>AWD - Search</title>
   <link href="/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
   <link href="/images/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
   <link href="/images/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -27,38 +27,61 @@
             href="/">aaronwatts@dev</a></li><span
             aria-hidden="true" class="term-dir"></span><li><span
             aria-hidden="true" class="breadcrumb--seperator"></span><a 
-            href="" aria-current="page"><span class="screen-reader-text">404</span>
+            href="" aria-current="page"><span class="screen-reader-text">search</span>
             <span class=bash
-            aria-hidden="true">cd: no such file or directory:
-            </span><span id="pathname">404</span></a></li>
+<span class=bash
+            aria-hidden="true"></span></a></li>
       </ol>
+      <div class="svg-container">
+  <a href="/rss">
+    <span class="screen-reader-text">RSS Feeds</span>
+    <svg class="rss">
+      <use href="/assets/svg/svg-map.svg#rss-feed" />
+    </svg>
+  </a>
+</div>
+
     </nav>
   </header>
 
   <main>
-    <h1>Page Not Found</h1>
-    <img src="/images/404.jpg" alt="Missing Image">
-    <p>
-      It looks like the page you're looking for does not exist.
-      Return to the <a href="/">home page</a> to find what you
-      are looking for.
-    </p>
-    <nav aria-labelledby="home">
-      <a href="/" id="home">Go to home page</a>
-    </nav>
+    <h1>Search</h1>
+    
+    <noscript>
+      <p>This page requires JavaScript enabled to work!</p>
+    </noscript>
+
+<search id="search" class="noscript">
+  <form action="/search">
+    <input type="text" name="query" required placeholder="Search posts...">
+    <button type="submit">Search</button>
+  </form>
+</search>
+
+
+    <div id="results" class="noscript">
+      <h2></h2>
+      
+      <template id="result">
+        <article>
+          <header>
+            <h3><a href=""></a></h3>
+            <time></time>
+            <ul class="topic-container">
+            </ul>
+          </header>
+          <p class="description"></p>
+          <a href="">Read More</a>
+        </article>
+      </template>
+    </div>
   </main>
 
 <footer>
   Made by Hand<br />Powered by Raspberry Pi
 </footer>
 
-  <script>
-    function getPath(){
-      const path = document.querySelector('#pathname');
-      path.innerText = location.pathname.substring(1);
-    }
-
-    document.addEventListener('DOMContentLoaded', getPath);
-  </script>
+  <script src="/assets/scripts/lunr.js"></script>
+  <script src="/assets/scripts/search.js"></script>
 </body>
 </html>

@@ -120,6 +120,12 @@ nav[aria-labelledby="to-top"] {
     margin-top: 2.5rem;
 }
 
+button:focus,
+input:focus,
+a:focus {
+  outline: 2px solid var(--border-color);
+}
+
 button:not(.topic) {
     border-style: none;
     background: none;
@@ -290,6 +296,32 @@ button.copy {
     }
 }
 
+search#search.noscript,
+#results.noscript {
+  display: none;
+}
+
+search#search {
+  width: 100%;
+  margin-block: 1.5rem 3rem;
+
+  & input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid var(--border-color);
+    color: var(--accent-mono-light);
+    padding: .5em;
+    font-size: 1rem;
+    width: 70%;
+  }
+
+  & button {
+    font-size: 1rem;
+    padding: .5em;
+  }
+}
+
 search#topics {
     margin-bottom: 3rem;
 
@@ -394,6 +426,7 @@ svg.content-copy {
 
 svg.rss {
     height: 3rem;
+    width: 3.2rem;
     color: #cc6918;
 
     &:hover {
@@ -403,8 +436,10 @@ svg.rss {
 
 .svg-container,
 .rss-container {
+    display: inline;
     margin-block: .5em 1em;
-    width: 3.2em;
+    width: 3.2rem;
+    height: 3rem;
 }
 
 .github-icon {
@@ -489,6 +524,11 @@ nav[aria-label='Breadcrumb'] {
         margin-inline: .1em !important;
         font-size: .8em !important;
 
+    }
+
+    search#search input {
+        width: 80%;
+        display: block;
     }
 }
 
