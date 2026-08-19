@@ -13,37 +13,59 @@
   <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
   <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
   <link href="/assets/styles/style.css" rel="stylesheet"/>
+  <style>
+    .bash::before {
+      content: ' $ ';
+    }
   </style>
 </head>
 <body>
-    <header>
-      <nav aria-label="Breadcrumb">
-       <ol>
-          <li><a href="/">aaronwatts@dev</a></li><span aria-hidden="true" class="term-dir"></span><li><span aria-hidden="true" class="breadcrumb--seperator"></span><a aria-current="page" href="">search</a></li><span aria-hidden="true" class="term-priv"></span>
-        </ol>
-      </nav>
-<?php require PARTIALS_PATH . 'rss.php'; ?>
-    </header>
+  <header>
+    <nav aria-label="Breadcrumb">
+      <ol>
+        <li><a 
+            href="/">aaronwatts@dev</a></li><span
+            aria-hidden="true" class="term-dir"></span><li><span
+            aria-hidden="true" class="breadcrumb--seperator"></span><a 
+            href="" aria-current="page"><span class="screen-reader-text">search</span>
+            <span class=bash
+<span class=bash
+            aria-hidden="true"></span></a></li>
+      </ol>
+      <?php require PARTIALS_PATH . 'rss.php'; ?>
+    </nav>
+  </header>
 
   <main>
     <h1>Search</h1>
-    <search>
-      <form>
-        <input type="text" name="query">
-        <button type="submit">Search</button>
-      </form>
-    </search>
+    
+    <noscript>
+      <p>This page requires JavaScript enabled to work!</p>
+    </noscript>
+
+<?php require PARTIALS_PATH . 'search.php' ?>
+
+    <div id="results" class="noscript">
+      <h2></h2>
+      
+      <template id="result">
+        <article>
+          <header>
+            <h3><a href=""></a></h3>
+            <time></time>
+            <ul class="topic-container">
+            </ul>
+          </header>
+          <p class="description"></p>
+          <a href="">Read More</a>
+        </article>
+      </template>
+    </div>
   </main>
 
 <?php require PARTIALS_PATH . 'footer.php'; ?>
 
-  <script>
-    function getPath(){
-      const path = document.querySelector('#pathname');
-      path.innerText = location.pathname.substring(1);
-    }
-
-    document.addEventListener('DOMContentLoaded', getPath);
-  </script>
+  <script src="/assets/scripts/lunr.js"></script>
+  <script src="/assets/scripts/search.js"></script>
 </body>
 </html>
