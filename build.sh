@@ -29,7 +29,7 @@ php "$PHP_RUN" "sitemap" > "${BUILD_DIR}/sitemap.xml"
 mkdir "${BUILD_DIR}/search"
 
 # Create search feed
-php "$PHP_RUN" "search/feed" > "${BUILD_DIR}/search/feed.json"
+php "$PHP_RUN" "search/feed.json" > "${BUILD_DIR}/search/feed.json"
 
 # Create search page
 php "$PHP_RUN" "search" > "${BUILD_DIR}/search/index.html"
