@@ -8,10 +8,10 @@
     <category>Technology</category>
     <item>
       <title>My Path From Here</title>
-      <link>https://aaronwatts.dev/blog/my-path-from-here</link>
+      <link>https://aaronwatts.dev/blog/my-path-from-here/</link>
       <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
       <description>I've been finding time to spend coding recently. I've learned a little PHP and applied it. My energy is high, but my focus and direction are low.</description>
-      <guid>https://aaronwatts.dev/blog/my-path-from-here</guid>
+      <guid>https://aaronwatts.dev/blog/my-path-from-here/</guid>
       <content:encoded><![CDATA[<p id="description">I've been finding time to spend coding recently. I've learned a little PHP and applied it. My energy is high, but my focus and direction are low.</p>
 
 <p>I suppose that this is a post just to keep me mentally on track. I've found time, against the odds, to learn a little PHP and apply it. That's got me excited to be at my computer again. I also migrated my site over to my Coolify server. Migrating and changing my build tools also meant I had to fix a few bugs that slipped through in all the excitement. I also made some quality of life changes to my website, and dusted off an old checklist of a few things I wanted to implement but never got round to, and ticked those all off too.</p>
@@ -20,10 +20,10 @@
     </item>
     <item>
       <title>Unicorns</title>
-      <link>https://aaronwatts.dev/blog/unicorns</link>
+      <link>https://aaronwatts.dev/blog/unicorns/</link>
       <pubDate>Fri, 07 Aug 2026 00:00:00 +0000</pubDate>
       <description>I got unicorns. I've seen a few people raging at GitHub lately, I don't like joining in on politics. But my personal website has been affected now and I've taken action.</description>
-      <guid>https://aaronwatts.dev/blog/unicorns</guid>
+      <guid>https://aaronwatts.dev/blog/unicorns/</guid>
       <content:encoded><![CDATA[<p id="description">I got unicorns. I've seen a few people raging at GitHub lately, I don't like joining in on politics. But my personal website has been affected now and I've taken action.</p>
 
 <p>I'm not leaving GitHub. Not yet anyway. If I did I would most likely move everything over to my GitLab account - I haven't even logged into it for years, but it exists. I've heard a lot of opinions that GitLab is just as bad (as GitHub), but I don't see self-hosting repositories as a solution for me. I already host my own NextCloud and Coolify instances, I can't imagine looking after a versioning hosting server - I am managing my cloud and web server, but I often feel a little out of my depth in doing so. Also, code repositories are something I would prefer not lose - and I'd like the liberty of being able to blame someone else if something were to happen to them.</p>
@@ -42,10 +42,10 @@
     </item>
     <item>
       <title>PHP Template Partials</title>
-      <link>https://aaronwatts.dev/blog/php-template-partials</link>
+      <link>https://aaronwatts.dev/blog/php-template-partials/</link>
       <pubDate>Thu, 06 Aug 2026 00:00:00 +0000</pubDate>
       <description>This won't be long enough to make it into the guides section of my site. But from enquiring with search engines, I couldn't find an answer that gave an answer that was quite complex compared to how a partial normally works, or showed how to do PHP partials with X framework. So I'm including in my blog as a note.</description>
-      <guid>https://aaronwatts.dev/blog/php-template-partials</guid>
+      <guid>https://aaronwatts.dev/blog/php-template-partials/</guid>
       <content:encoded><![CDATA[<p id="description">This won't be long enough to make it into the guides section of my site. But from enquiring with search engines, I couldn't find an answer that gave an answer that was quite complex compared to how a partial normally works, or showed how to do PHP partials with <em>X</em> framework. So I'm including in my blog as a note.</p>
 
 <p>I was having trouble working out how to include partials in my PHP templates. But this morning I had that <em>well, duh!</em> moment and rigged some up for my website. The same way I <code>require</code> a template, I just needed to <code>require</code> the partial within the template itself. So now I can make adjustments to things like my footer once, and not have to worry about consistency across pages.</p>
@@ -64,10 +64,10 @@
     </item>
     <item>
       <title>Hello, World!</title>
-      <link>https://aaronwatts.dev/blog/hello-world</link>
+      <link>https://aaronwatts.dev/blog/hello-world/</link>
       <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
       <description>My blog has been abandoned. Welcome to my blog. I have just rebuilt this website's site management tools using PHP. I had intended to import my blog reel from a Publii site that I was using for blogging, with this site featuring more topical posts. But I have decided I will start anew here. Blog reels can fill up fast, after all.</description>
-      <guid>https://aaronwatts.dev/blog/hello-world</guid>
+      <guid>https://aaronwatts.dev/blog/hello-world/</guid>
       <content:encoded><![CDATA[<p id="description">My blog has been abandoned. Welcome to my blog. I have just rebuilt this website's site management tools using PHP. I had intended to import my blog reel from a Publii site that I was using for blogging, with this site featuring more <em>topical</em> posts. But I have decided I will start anew here. Blog reels can fill up fast, after all.</p>
 
 <p>I've stopped using Publii, for now the site still <a href="https://blog.aaronwatts.dev">still exists</a>, although I may delete the repository at some point and just let my Cloudflare DNS redirect here. I looked to see if there was an easy way to export from Publii, and came across another recent-ish <a href="https://www.gregwalsh.com/exporting-publii-to-markdown-to-jekyll/">post by Greg Walsh</a>, about him making a similar decision. I'm pleased he's kept a Simple-ish design similar to the default Publii one. I really liked it, I've taken a little inspiration from it myself for this site, but not too much. I was a little surprised how complex the proccess of exporting from Publii was, considering it was part of their brand that your work should be <em>yours</em>. I suppose in every other sense of the word it is. Hopefully they make exporting easier in a later release.</p>
@@ -101,10 +101,10 @@ $imgUrl = $img !== null ? $img-&gt;getAttribute('src') : "";</code></pre>
     </item>
     <item>
       <title>PHP Static Site Generator</title>
-      <link>https://aaronwatts.dev/guides/php-static-site-generator</link>
+      <link>https://aaronwatts.dev/guides/php-static-site-generator/</link>
       <pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate>
       <description>I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it.</description>
-      <guid>https://aaronwatts.dev/guides/php-static-site-generator</guid>
+      <guid>https://aaronwatts.dev/guides/php-static-site-generator/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
   <p id="description">I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it.</p>
 
@@ -623,10 +623,10 @@ done;</code></pre>
     </item>
     <item>
       <title>NextCloud</title>
-      <link>https://aaronwatts.dev/tech/nextcloud</link>
+      <link>https://aaronwatts.dev/tech/nextcloud/</link>
       <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
       <description>NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</description>
-      <guid>https://aaronwatts.dev/tech/nextcloud</guid>
+      <guid>https://aaronwatts.dev/tech/nextcloud/</guid>
       <content:encoded><![CDATA[<p id="description">NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</p>
 
 <p><a href="https://nextcloud.com/" target="_blank">NextCloud</a> is an alternative to things like Google Drive and One Drive that doesn't hand your data and the control over to a conglomerate. Self hosting is not the simplest thing to do, but there are also providers available that do all the hard stuff for you so you can just get on with having a cloud.</p>
@@ -648,10 +648,10 @@ done;</code></pre>
     </item>
     <item>
       <title>Raspberry Pi</title>
-      <link>https://aaronwatts.dev/tech/raspberry-pi</link>
+      <link>https://aaronwatts.dev/tech/raspberry-pi/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
       <description>Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</description>
-      <guid>https://aaronwatts.dev/tech/raspberry-pi</guid>
+      <guid>https://aaronwatts.dev/tech/raspberry-pi/</guid>
       <content:encoded><![CDATA[<p id="description">Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</p>
 
 <p>You're probably expecting the next line to be something along the lines of <em>"I have been tinkering ever since"</em>. Well, no, actually. At that time in my life I had a penchant for the outdoors, and a not particularly well paid job working at a charity. I didn't have a dedicated computer at the time, only a Playstation 3 (as well as my retro consoles that were entirely off line at that point) that I had bought second hand. Beyond being a very underpowered Linux computer, I wasn't totally sure what this thing called a <a href="https://www.raspberrypi.com/">Raspberry Pi</a> was meant to be.</p>
@@ -686,10 +686,10 @@ done;</code></pre>
     </item>
     <item>
       <title>Better Meta</title>
-      <link>https://aaronwatts.dev/guides/better-meta</link>
+      <link>https://aaronwatts.dev/guides/better-meta/</link>
       <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
       <description>I have another website, that I manage with CMS (Content Management Software). I haven't bothered setting up anything for Google or Bing indexing for that site yet, I was waiting to see if I would keep using the site first. But content I was putting on that site was getting indexed anyway, and it also looked good in the search results. So I decided to investigate why this was the case.</description>
-      <guid>https://aaronwatts.dev/guides/better-meta</guid>
+      <guid>https://aaronwatts.dev/guides/better-meta/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">I have another website, that I manage with CMS (Content Management Software). I haven't bothered setting up anything for Google or Bing indexing for that site yet, I was waiting to see if I would keep using the site first. But content I was putting on that site was getting indexed anyway, and it also looked good in the search results. So I decided to investigate why this was the case.</p>
@@ -870,10 +870,10 @@ def write_to_html(soup, path):
     </item>
     <item>
       <title>Simple CSS</title>
-      <link>https://aaronwatts.dev/tech/simple-css</link>
+      <link>https://aaronwatts.dev/tech/simple-css/</link>
       <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
       <description>Simple CSS was suggested to me by a friend. At the time I had been making an effort to try and learn web development. In essence, it is yet another CSS framework to bootstrap your HTML for fast production. Except, it's not, not really. I'd argue, it's better.</description>
-      <guid>https://aaronwatts.dev/tech/simple-css</guid>
+      <guid>https://aaronwatts.dev/tech/simple-css/</guid>
       <content:encoded><![CDATA[<p id="description">Simple CSS was suggested to me by a friend. At the time I had been making an effort to try and learn web development. In essence, it is yet another CSS framework to bootstrap your HTML for fast production. Except, it's not, not really. I'd argue, it's better.</p>
 
 <p>The first thing that makes <a href="https://simplecss.org/" target="_blank">Simple CSS</a> by <a href="https://kevquirk.com/" target="_blank">Kev Quirk</a> so good compared to other CSS frameworks, is that it's not strictly a framework - it's just one file. One tiny CSS file. No <code>reset.css</code>, no javascript.</p>
@@ -893,10 +893,10 @@ def write_to_html(soup, path):
     </item>
     <item>
       <title>AppSheet - Rota App</title>
-      <link>https://aaronwatts.dev/guides/appsheet</link>
+      <link>https://aaronwatts.dev/guides/appsheet/</link>
       <pubDate>Thu, 28 Aug 2025 00:00:00 +0000</pubDate>
       <description>I first found out about AppSheet a number of years ago when it was still a fairly new project. I was running my own skate school and needed something that could organise data while on the move; specifically bookings I had made with clients. I had looked at a lot of options which didn't quite make the cut of what I needed. But then I stumbled across AppSheet, and it did just about everything I needed it to. Well, almost everything. But as it uses Google Sheets as pseudo-databases, I was able to use Apps Script to fill the last few gaps, and have my own custom software .. for free!</description>
-      <guid>https://aaronwatts.dev/guides/appsheet</guid>
+      <guid>https://aaronwatts.dev/guides/appsheet/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
   <p id="description">I first found out about AppSheet a number of years ago when it was still a fairly new project. I was running my own skate school and needed something that could organise data while on the move; specifically bookings I had made with clients. I had looked at a lot of options which didn't quite make the cut of what I needed. But then I stumbled across AppSheet, and it did just about everything I needed it to. Well, almost everything. But as it uses Google Sheets as pseudo-databases, I was able to use Apps Script to fill the last few gaps, and have my own custom software .. for free!</p>
 

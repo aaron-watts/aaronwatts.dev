@@ -8,10 +8,10 @@
     <category>Technology</category>
     <item>
       <title>PHP Static Site Generator</title>
-      <link>https://aaronwatts.dev/guides/php-static-site-generator</link>
+      <link>https://aaronwatts.dev/guides/php-static-site-generator/</link>
       <pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate>
       <description>I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it.</description>
-      <guid>https://aaronwatts.dev/guides/php-static-site-generator</guid>
+      <guid>https://aaronwatts.dev/guides/php-static-site-generator/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
   <p id="description">I'm learning PHP. I've wanted to learn it for a while but it's taken me a while to get around to actually starting. But I've started now, and even just as I start my journey, some of my misconceptions have been flipped upside down. I'm not saying you should learn it, but if you've been wanting to, and like I was, you are a little intimidated by it or don't know where to start, then hopefully this article might inspire you to just go for it.</p>
 
@@ -530,10 +530,10 @@ done;</code></pre>
     </item>
     <item>
       <title>Better Meta</title>
-      <link>https://aaronwatts.dev/guides/better-meta</link>
+      <link>https://aaronwatts.dev/guides/better-meta/</link>
       <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
       <description>I have another website, that I manage with CMS (Content Management Software). I haven't bothered setting up anything for Google or Bing indexing for that site yet, I was waiting to see if I would keep using the site first. But content I was putting on that site was getting indexed anyway, and it also looked good in the search results. So I decided to investigate why this was the case.</description>
-      <guid>https://aaronwatts.dev/guides/better-meta</guid>
+      <guid>https://aaronwatts.dev/guides/better-meta/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">I have another website, that I manage with CMS (Content Management Software). I haven't bothered setting up anything for Google or Bing indexing for that site yet, I was waiting to see if I would keep using the site first. But content I was putting on that site was getting indexed anyway, and it also looked good in the search results. So I decided to investigate why this was the case.</p>
@@ -714,10 +714,10 @@ def write_to_html(soup, path):
     </item>
     <item>
       <title>AppSheet - Rota App</title>
-      <link>https://aaronwatts.dev/guides/appsheet</link>
+      <link>https://aaronwatts.dev/guides/appsheet/</link>
       <pubDate>Thu, 28 Aug 2025 00:00:00 +0000</pubDate>
       <description>I first found out about AppSheet a number of years ago when it was still a fairly new project. I was running my own skate school and needed something that could organise data while on the move; specifically bookings I had made with clients. I had looked at a lot of options which didn't quite make the cut of what I needed. But then I stumbled across AppSheet, and it did just about everything I needed it to. Well, almost everything. But as it uses Google Sheets as pseudo-databases, I was able to use Apps Script to fill the last few gaps, and have my own custom software .. for free!</description>
-      <guid>https://aaronwatts.dev/guides/appsheet</guid>
+      <guid>https://aaronwatts.dev/guides/appsheet/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
   <p id="description">I first found out about AppSheet a number of years ago when it was still a fairly new project. I was running my own skate school and needed something that could organise data while on the move; specifically bookings I had made with clients. I had looked at a lot of options which didn't quite make the cut of what I needed. But then I stumbled across AppSheet, and it did just about everything I needed it to. Well, almost everything. But as it uses Google Sheets as pseudo-databases, I was able to use Apps Script to fill the last few gaps, and have my own custom software .. for free!</p>
 
@@ -1229,10 +1229,10 @@ const newShift = (date, start, end, location, staff, color) =&gt; {
     </item>
     <item>
       <title>TV Show Calendar - Github Actions</title>
-      <link>https://aaronwatts.dev/guides/tv-show-calendar</link>
+      <link>https://aaronwatts.dev/guides/tv-show-calendar/</link>
       <pubDate>Sun, 06 Jul 2025 00:00:00 +0000</pubDate>
       <description>It's pretty hard keeping track of my favourite show's nowadays across all the different services. So I set up my own automated workflow that eventually finds it's way to a Google Calendar so I can see at a glance when the next episode of a show I'm following is due to air. And, of course, it's completely free!</description>
-      <guid>https://aaronwatts.dev/guides/tv-show-calendar</guid>
+      <guid>https://aaronwatts.dev/guides/tv-show-calendar/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">It's pretty hard keeping track of my favourite show's nowadays across all the different services. So I set up my own automated workflow that eventually finds it's way to a Google Calendar so I can see at a glance when the next episode of a show I'm following is due to air. And, of course, it's completely free!</p>
@@ -1446,10 +1446,10 @@ ShowID:EpisodeID</code></pre>
     </item>
     <item>
       <title>RSS Feeds</title>
-      <link>https://aaronwatts.dev/guides/rss-feeds</link>
+      <link>https://aaronwatts.dev/guides/rss-feeds/</link>
       <pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate>
       <description>RSS isn't really something you hear spoken about too often. But for us nerds, it's an indisposable technology. And thankfully, it still gets used. Most of the time, if you need an RSS feed for content you've made, the software you've used to make said content has probably already done it for you, you might need not even know. But if you had to make one yourself, would you know how?</description>
-      <guid>https://aaronwatts.dev/guides/rss-feeds</guid>
+      <guid>https://aaronwatts.dev/guides/rss-feeds/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">RSS isn't really something you hear spoken about too often. But for us nerds, it's an indisposable technology. And thankfully, it still gets used. Most of the time, if you need an RSS feed for content you've made, the software you've used to make said content has probably already done it for you, you might need not even know. But if you had to make one yourself, would you know how?</p>
@@ -1613,10 +1613,10 @@ articles.append({
     </item>
     <item>
       <title>Web Fonts</title>
-      <link>https://aaronwatts.dev/guides/web-fonts</link>
+      <link>https://aaronwatts.dev/guides/web-fonts/</link>
       <pubDate>Sat, 05 Apr 2025 00:00:00 +0000</pubDate>
       <description>If you've ever used an older or lower spec device, or had a slow connection on a public wifi network, you may have noticed the fonts on a web page get loaded after the content and layout. Most of the time this is virtually unnoticable, but once you've seen it, as with most things traumatic, it is hard to unsee it. But there are a few steps we can take to mitigate this from happening.</description>
-      <guid>https://aaronwatts.dev/guides/web-fonts</guid>
+      <guid>https://aaronwatts.dev/guides/web-fonts/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">If you've ever used an older or lower spec device, or had a slow connection on a public wifi network, you may have noticed the fonts on a web page get loaded after the content and layout. Most of the time this is virtually unnoticable, but once you've seen it, as with most things traumatic, it is hard to unsee it. But there are a few steps we can take to mitigate this from happening.</p>
@@ -1709,10 +1709,10 @@ body {
     </item>
     <item>
       <title>Watchy - Arduino IDE</title>
-      <link>https://aaronwatts.dev/guides/watchy</link>
+      <link>https://aaronwatts.dev/guides/watchy/</link>
       <pubDate>Sun, 25 Aug 2024 00:00:00 +0000</pubDate>
       <description>I didn't intend to write an article about Watchy, as I only bought it to satisfy my nerd fetish. But after the trouble I had getting it to work, I thought I might write a short guide to assist anyone who might run into some of the same issues I did.</description>
-      <guid>https://aaronwatts.dev/guides/watchy</guid>
+      <guid>https://aaronwatts.dev/guides/watchy/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">I didn't intend to write an article about Watchy, as I only bought it to satisfy my nerd fetish. But after the trouble I had getting it to work, I thought I might write a short guide to assist anyone who might run into some of the same issues I did.</p>
@@ -1799,10 +1799,10 @@ make
     </item>
     <item>
       <title>Firefox Web Apps - Plasma Bigscreen</title>
-      <link>https://aaronwatts.dev/guides/firefox-web-apps</link>
+      <link>https://aaronwatts.dev/guides/firefox-web-apps/</link>
       <pubDate>Thu, 22 Aug 2024 00:00:00 +0000</pubDate>
       <description>With the introduction of Web Manifest V3, ad blocking in Chromium based browsers is changing. the new limitations and API's for browser extensions means ad blockers, such as Ublock Origin are less effective than they once were. Firefox will still be using Manifest V2 for a while yet, but the fact that Firefox, on the dekstop at least, does not have support for PWA's (progressive web apps) may hinder the user experience for those off us using Plasma Bigscreen as a streaming OS. Luckily, Linux is flexible, and there's an easy way to get Firefox Web Apps.</description>
-      <guid>https://aaronwatts.dev/guides/firefox-web-apps</guid>
+      <guid>https://aaronwatts.dev/guides/firefox-web-apps/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">With the introduction of Web Manifest V3, ad blocking in Chromium based browsers is changing. the new limitations and API's for browser extensions means ad blockers, such as Ublock Origin are less effective than they once were. Firefox will still be using Manifest V2 for a while yet, but the fact that Firefox, on the dekstop at least, does not have support for PWA's (progressive web apps) may hinder the user experience for those off us using Plasma Bigscreen as a streaming OS. Luckily, Linux is flexible, and there's an easy way to get Firefox Web Apps.</p>
@@ -1855,10 +1855,10 @@ sudo apt install firefox rpi-firefox-mods</code></pre>
     </item>
     <item>
       <title>Google Calendar API - Apps Script</title>
-      <link>https://aaronwatts.dev/guides/google-calendar-appscript-api</link>
+      <link>https://aaronwatts.dev/guides/google-calendar-appscript-api/</link>
       <pubDate>Fri, 21 Jun 2024 00:00:00 +0000</pubDate>
       <description>Considering how long they've been around, working with iCal's in the browser is surprisingly difficult. When working with data from Google Calendar, we can use Google's Apps Script to create an API, that will let us pull exactly what we desire down from a Google Calendar.</description>
-      <guid>https://aaronwatts.dev/guides/google-calendar-appscript-api</guid>
+      <guid>https://aaronwatts.dev/guides/google-calendar-appscript-api/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">Considering how long they've been around, working with iCal's in the browser is surprisingly difficult. When working with data from Google Calendar, we can use Google's Apps Script to create an API, that will let us pull exactly what we desire down from a Google Calendar.</p>
@@ -2089,10 +2089,10 @@ document.addEventListener('DOMContentLoaded', populateLists)</code></pre>
     </item>
     <item>
       <title>Static Website - Github Pages</title>
-      <link>https://aaronwatts.dev/guides/github-pages-static-website</link>
+      <link>https://aaronwatts.dev/guides/github-pages-static-website/</link>
       <pubDate>Sun, 09 Jun 2024 00:00:00 +0000</pubDate>
       <description>You don't always need a full stack. When all you need to do is show information, a static website is enough. And with Github Pages, it is possible to have a fully functioning website for free, just like this one! It could just be the perfect solution for your portfolio page.</description>
-      <guid>https://aaronwatts.dev/guides/github-pages-static-website</guid>
+      <guid>https://aaronwatts.dev/guides/github-pages-static-website/</guid>
       <content:encoded><![CDATA[<section id="intro" title="Intro">
 
   <p id="description">You don't always need a full stack. When all you need to do is show information, a static website is enough. And with Github Pages, it is possible to have a fully functioning website for free, just like this one! It could just be the perfect solution for your portfolio page.</p>

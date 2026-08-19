@@ -8,10 +8,10 @@
     <category>Technology</category>
     <item>
       <title>NextCloud</title>
-      <link>https://aaronwatts.dev/tech/nextcloud</link>
+      <link>https://aaronwatts.dev/tech/nextcloud/</link>
       <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
       <description>NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</description>
-      <guid>https://aaronwatts.dev/tech/nextcloud</guid>
+      <guid>https://aaronwatts.dev/tech/nextcloud/</guid>
       <content:encoded><![CDATA[<p id="description">NextCloud is a cloud storage solution that is intended as privacy focused with an option for self hosting. I've been using it for a while now, and I am very happy with it.</p>
 
 <p><a href="https://nextcloud.com/" target="_blank">NextCloud</a> is an alternative to things like Google Drive and One Drive that doesn't hand your data and the control over to a conglomerate. Self hosting is not the simplest thing to do, but there are also providers available that do all the hard stuff for you so you can just get on with having a cloud.</p>
@@ -33,10 +33,10 @@
     </item>
     <item>
       <title>Raspberry Pi</title>
-      <link>https://aaronwatts.dev/tech/raspberry-pi</link>
+      <link>https://aaronwatts.dev/tech/raspberry-pi/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
       <description>Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</description>
-      <guid>https://aaronwatts.dev/tech/raspberry-pi</guid>
+      <guid>https://aaronwatts.dev/tech/raspberry-pi/</guid>
       <content:encoded><![CDATA[<p id="description">Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</p>
 
 <p>You're probably expecting the next line to be something along the lines of <em>"I have been tinkering ever since"</em>. Well, no, actually. At that time in my life I had a penchant for the outdoors, and a not particularly well paid job working at a charity. I didn't have a dedicated computer at the time, only a Playstation 3 (as well as my retro consoles that were entirely off line at that point) that I had bought second hand. Beyond being a very underpowered Linux computer, I wasn't totally sure what this thing called a <a href="https://www.raspberrypi.com/">Raspberry Pi</a> was meant to be.</p>
@@ -71,10 +71,10 @@
     </item>
     <item>
       <title>Simple CSS</title>
-      <link>https://aaronwatts.dev/tech/simple-css</link>
+      <link>https://aaronwatts.dev/tech/simple-css/</link>
       <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
       <description>Simple CSS was suggested to me by a friend. At the time I had been making an effort to try and learn web development. In essence, it is yet another CSS framework to bootstrap your HTML for fast production. Except, it's not, not really. I'd argue, it's better.</description>
-      <guid>https://aaronwatts.dev/tech/simple-css</guid>
+      <guid>https://aaronwatts.dev/tech/simple-css/</guid>
       <content:encoded><![CDATA[<p id="description">Simple CSS was suggested to me by a friend. At the time I had been making an effort to try and learn web development. In essence, it is yet another CSS framework to bootstrap your HTML for fast production. Except, it's not, not really. I'd argue, it's better.</p>
 
 <p>The first thing that makes <a href="https://simplecss.org/" target="_blank">Simple CSS</a> by <a href="https://kevquirk.com/" target="_blank">Kev Quirk</a> so good compared to other CSS frameworks, is that it's not strictly a framework - it's just one file. One tiny CSS file. No <code>reset.css</code>, no javascript.</p>
@@ -94,10 +94,10 @@
     </item>
     <item>
       <title>Kobo - E-Reader</title>
-      <link>https://aaronwatts.dev/tech/kobo-ereader</link>
+      <link>https://aaronwatts.dev/tech/kobo-ereader/</link>
       <pubDate>Fri, 23 May 2025 00:00:00 +0000</pubDate>
       <description>Kobo e-reader's won't do too much more than an Amazon Kindle, unless you are outside of the US. Kobo do just enough differently that I'd consider them to be thoughtful technology.</description>
-      <guid>https://aaronwatts.dev/tech/kobo-ereader</guid>
+      <guid>https://aaronwatts.dev/tech/kobo-ereader/</guid>
       <content:encoded><![CDATA[<p id="description">Kobo e-reader's won't do too much more than an Amazon Kindle, unless you are outside of the US. Kobo do just enough differently that I'd consider them to be thoughtful technology.</p>
 
 <p>I can resist a trend, and tend not to jump onto very many things early. Amazon was one of those things. One of my first experiences with Amazon, that I still encounter today, is older relatives asking how to cancel a subscription that they didn't know they had. This happens a lot, it's like Amazon design their interfaces to intentionally trick people who are not tech literate into accidentally subscribing to additional services. And Kindle may be the biggest offender in that respect.</p>
@@ -115,10 +115,10 @@
     </item>
     <item>
       <title>Fairphone - Smartphone</title>
-      <link>https://aaronwatts.dev/tech/fairphone</link>
+      <link>https://aaronwatts.dev/tech/fairphone/</link>
       <pubDate>Wed, 07 May 2025 00:00:00 +0000</pubDate>
       <description>Fairphone, based in Netherlands, brings something back to smartphones that most people don't even realise is missing. Their approach aims to promote user ownership of a device, and longevity.</description>
-      <guid>https://aaronwatts.dev/tech/fairphone</guid>
+      <guid>https://aaronwatts.dev/tech/fairphone/</guid>
       <content:encoded><![CDATA[<p id="description">Fairphone, based in Netherlands, brings something back to smartphones that most people don't even realise is missing. Their approach aims to promote user ownership of a device, and longevity.</p>
 
 <p>While they may not necessarily be hitting their mark in terms of longevity <em>just yet</em> (the Fairphone 4 won't really have had a much longer lifespan than most other Android devices when it reaches the current proposed EOL), <a href="https://www.fairphone.com/en" target="_blank">Fairphone</a> are certainly achieving their goals with regard to user ownership. They issue instructions on how to unlock the bootloader on their phones, and they have made it incredibly easy to self repair with their modular design.</p>
