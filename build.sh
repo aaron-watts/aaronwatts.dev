@@ -25,6 +25,15 @@ php "$PHP_RUN" "feed" > "${BUILD_DIR}/feed.xml"
 # Write sitemap.xml
 php "$PHP_RUN" "sitemap" > "${BUILD_DIR}/sitemap.xml"
 
+# Create search folder
+mkdir "${BUILD_DIR}/search"
+
+# Create search feed
+php "$PHP_RUN" "search/feed" > "${BUILD_DIR}/search/feed.json"
+
+# Create search page
+php "$PHP_RUN" "search" > "${BUILD_DIR}/search/index.html"
+
 # Write blog pages, posts and blog feeds
 for blogDir in "${BLOGS_DIR}"/*;
 do
