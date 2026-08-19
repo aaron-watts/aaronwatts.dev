@@ -37,7 +37,7 @@ function resolveUrl(string|null $uri): array
 
 function searchController(array $url): void
 {
-  if (sizeof($url['params']) > 1 && $url['params'][1] === 'feed') {
+  if (sizeof($url['params']) > 1 && $url['params'][1] === 'feed.json') {
     $configs = include CONFIG_PATH . 'config.php';
     require APP_PATH . 'helpers.php';
     $posts = [];
