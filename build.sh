@@ -16,6 +16,7 @@ php "$PHP_RUN" > "${BUILD_DIR}/index.html"
 # Write 404 page
 php "$PHP_RUN" "404" > "${BUILD_DIR}/404.html"
 
+mkdir "${BUILD_DIR}/rss"
 # Write rss/index.html page
 php "$PHP_RUN" "rss" > "${BUILD_DIR}/rss/index.html"
 
@@ -25,12 +26,9 @@ php "$PHP_RUN" "feed" > "${BUILD_DIR}/feed.xml"
 # Write sitemap.xml
 php "$PHP_RUN" "sitemap" > "${BUILD_DIR}/sitemap.xml"
 
-# Create search folder
 mkdir "${BUILD_DIR}/search"
-
 # Create search feed
 php "$PHP_RUN" "search/feed.json" > "${BUILD_DIR}/search/feed.json"
-
 # Create search page
 php "$PHP_RUN" "search" > "${BUILD_DIR}/search/index.html"
 
