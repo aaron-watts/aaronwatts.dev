@@ -94,6 +94,17 @@ function getNewestPost(array $posts): array {
     ];
 }
 
+function getPostText(object $dom): string
+{
+  $children = $dom->querySelectorAll('p');
+  $content = '';
+  foreach ($children as $child) {
+    $content = $content . ' ' . $child->textContent;
+  }
+  
+  return $content;
+}
+
 function getPost(string $blog, string $post): string
 {
     $src = SRC_PATH . $blog . DIRECTORY_SEPARATOR .$post . '.html';

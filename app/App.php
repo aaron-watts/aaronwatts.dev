@@ -41,10 +41,41 @@ function searchController(array $url): void
     $configs = include CONFIG_PATH . 'config.php';
     require APP_PATH . 'helpers.php';
     $posts = [];
+    $jsonResponse = array();
+    
     foreach ($configs['blogs'] as $blog => $blogDesc) {
         $posts += [...getBlogPosts($blog)];
     }
-    var_dump($posts);
+
+    foreach ($posts as $path => $post) {
+      $content = getPostText($post['dom']);
+      $postInfo = getPostInfo($post['dom']);
+      [
+        'title' => $title,
+        'description' => $description,
+        'date' => $date,
+        'topics' => $topics
+      ] = $postInfo;
+
+      $topicText = array();
+      foreach ($topics as $topic) {
+        $topicText[] = $topic->textContent;
+      }
+
+      $jsonResponse[$path] = [
+        'url' => $path,
+        'blog' => ucfirst($post['blog']),
+        'textContent' => trim($content),
+        'title' => $title,
+        'description' => $description,
+        'date' => $date,
+        'dateString' => formatDate($date),
+        'topics' => $topicText
+      ];
+    }
+    
+    header('Content-Type: application/json;');
+    echo json_encode($jsonResponse);
   } else {
     require VIEWS_PATH . 'search.php';
   }
