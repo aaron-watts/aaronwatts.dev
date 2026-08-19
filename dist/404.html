@@ -28,8 +28,7 @@
             aria-hidden="true" class="term-dir"></span><li><span
             aria-hidden="true" class="breadcrumb--seperator"></span><a 
             href="" aria-current="page"><span class="screen-reader-text">404</span>
-            <span class=bash
-            aria-hidden="true">cd: no such file or directory:
+            <span class="bash" aria-hidden="true">cd: no such file or directory:
             </span><span id="pathname">404</span></a></li>
       </ol>
     </nav>
