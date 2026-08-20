@@ -7,6 +7,335 @@
     <description>Some guides on things that I have worked on where resources are either hard to find or scattered.</description>
     <category>Technology</category>
     <item>
+      <title>Search Feature For Static Websites</title>
+      <link>https://aaronwatts.dev/guides/search-feature-for-static-websites/</link>
+      <pubDate>Thu, 20 Aug 2026 00:00:00 +0000</pubDate>
+      <description>I've just added a search feature to this website. The website is static, but it is built programmatically. After switching my build process over to a PHP one, the process of adding a search feature was actually pretty simple. It doesn't require PHP, you just need a way to set up a JSON object with the content you want to make searchable. I'll go over how I did it in this post.</description>
+      <guid>https://aaronwatts.dev/guides/search-feature-for-static-websites/</guid>
+      <content:encoded><![CDATA[<section id="intro" title="Intro">
+  <p id="description">I've just added a search feature to this website. The website is static, but it is built programmatically. After switching my build process over to a PHP one, the process of adding a search feature was actually pretty simple. It doesn't require PHP, you just need a way to set up a JSON object with the content you want to make searchable. I'll go over how I did it in this post.</p>
+
+  <p>There are a few ways to achieve this. Google offer a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overlay">programmable search engine</a> if you have a static site that you want to make searchable but aren't very technically adept, or just want it done quickly. I don't want large scripts or services I don't control in my website so that's a no for me. Apache offer <a href="https://solr.apache.org/">Solr</a> if you want to host your own search index. I might return to look at this once I have a bit more experience setting up Docker images on my Coolify instance, and if the data collection on my website becomes so large that static searching becomes impractical. And then there's static searching; indexing the data within the client itself, and offloading the work to the users browser.</p>
+
+  <p>I want my site to work well and do it fast. So that had some influence on how I executed the process, and on which search tool I chose. Two standouts were <a href="https://github.com/nextapps-de/flexsearch">FlexSearch</a> and <a href="https://lucaong.github.io/minisearch/">MiniSearch</a>. But I went with <a href="https://lunrjs.com/">Lunr</a>, which was just easier to get going with a static file that I can keep on my own site. There are comments floating around StackOverflow pointing out that the project hasn't had an update since 2020, but since I'm not using NodeJS here, and the script itself appears safe, it shouldn't cause any issues.</p>
+</section>
+
+<section id="getting-started" title="Getting Started">
+  <h2>Getting Started</h2>
+
+  <p>First and foremost, we need the data we want to search. I used PHP for this and simply write the return value into a JSON file in my build script. I will also want to manipulate DOM to show results, so I will include a few extra bits to help with that.</p>
+
+  <pre class="language-php"><code>&lt;?php
+
+$configs = include CONFIG_PATH . 'config.php';
+require APP_PATH . 'helpers.php';
+$posts = [];
+$jsonResponse = array();
+
+foreach ($configs['blogs'] as $blog =&gt; $blogDesc) {
+    $posts += [...getBlogPosts($blog)];
+}
+
+foreach ($posts as $path =&gt; $post) {
+  $content = getPostText($post['dom']);
+  $postInfo = getPostInfo($post['dom']);
+  [
+    'title' =&gt; $title,
+    'description' =&gt; $description,
+    'date' =&gt; $date
+  ] = $postInfo;
+
+
+  $jsonResponse[$path] = [
+    'url' =&gt; $path,
+    'blog' =&gt; ucfirst($post['blog']),
+    'textContent' =&gt; trim($content),
+    'title' =&gt; $title,
+    'description' =&gt; $description,
+    'date' =&gt; $date,
+    'dateString' =&gt; formatDate($date)
+  ];
+}
+     
+header('Content-Type: application/json;');
+echo json_encode($jsonResponse);</code></pre>
+
+  <p>This is the controller for my <code>search/feed</code> route in my <a href="/guides/php-static-site-generator">static site generator</a>. There's a few helper functions here doing most of the work with regard to organising the data, but essentially I'm just collecting the posts from all my blogs, getting a stripped down version of the text (I'm only including text within <code>p</code> elements and ignoring all else), getting a few helpful DOM extractions, and then sending that data in a JSON response, in the form of an array of objects. Writing that to a file is one line in the terminal, or a line in my BASH build script.</p>
+
+  <pre class="language-none command-line" data-host="dev" data-user="aaronwatts"><code>php index.php "search/feed" &gt; dist/search/feed.json</code></pre>
+  
+</section>
+
+<section id="setting-up-search" title="Setting Up Search">
+  <h2>Setting Up Search</h2>
+
+  <p>How you execute the process is entirely up to you. I opted to keep it simple, and delegate as little work to the client as I could get away with while still having a functional search feature. I also plan for JavaScript to be disabled by the user or not to load. Here is a mildly entertaining <a href="https://piccalil.li/blog/a-handful-of-reasons-javascript-wont-be-available/">post</a> listing reasons why that might happen; the train tunnel phenomenon is something I occasionally experience as my commute to work goes underground a few times en route. So I went with a search form on the home page, which is hidden until the clients browser detects JavaScript, that directs a query to a search page where the search is actually executed.</p>
+
+  <pre class="language-html"><code>&lt;search id="search" class="noscript"&gt;
+  &lt;form action="/search"&gt;
+    &lt;input type="text" name="query" required placeholder="Search posts..."&gt;
+    &lt;button type="submit"&gt;Search&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/search&gt;</code></pre>
+
+  <p>That snippet is actually a PHP partial that I can require in my home page and my search page. So later I can make changes to one block of code and have it persist wherever it is used.</p>
+
+  <p>Next we need the actual lunr file itself. The <a href="https://github.com/olivernn/lunr.js/blob/master/lunr.js">full static file</a> can be found in the projects GitHub, and the guide offers an unpkg CDN file, but it's the full file, which is quite large. It's <em>very</em> well documented using JSDoc comments. I haven't seen it mentioned in the guide, but there is a <a href="https://unpkg.com/lunr@2.3.9/lunr.min.js">minified version</a> available from the unpkg CDN too. So I downloaded that straight into my project's files.</p>
+
+  <pre class="language-none command-line" data-host="dev" data-user="aaronwatts"><code>curl -o assets/scripts/lunr.js https://unpkg.com/lunr@2.3.9/lunr.min.js</code></pre>
+
+  <p>Next, after including the script in the search page, we just need to fetch our JSON feed and build an index. There are extras available such as match indices and fuzzy search, but I explained in my <a href="/blog/my-site-has-a-search-feature">blog</a> why I opted to just use the defaults. So with the following in our own <code>search.js</code> we are ready to get started with setting up the rest of the page's functionality.</p>
+
+  <pre class="language-javascript"><code>async function getFeed(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
+}
+  
+function getIdx(feed) {
+  const idx = lunr(function () {
+    this.ref('url');
+    this.field('title');
+    this.field('textContent');
+    
+    for (const item in feed) {
+      this.add(feed[item]);
+    }
+  })
+
+  return idx;
+}
+  
+// perform a search
+const feed = await getFeed('/search/feed.json');
+const idx = getIdx(feed);
+const results = idx.search(query);</code></pre>
+
+</section>
+
+<section id="page-functionality" title="Setting Up The Page Functionality">
+  <h2>Setting Up The Page Functionality</h2>
+
+  <p>I've gotten into the habit of using classes when a bunch of code works together to achieve a single concept. Such as searching content. So I will be using a JavaScript class, while not telling you that OOP will change your life. If you prefer to work functionally, you will likely be passing a lot more parameters into functions if you aren't scoping globally (oops! Sorry, I literally just said I wouldn't do that).</p>
+
+  <p>Before we write any more script let's arrange our HTML first. We need the search form, and somewhere to put the results. I've chosen not to list results in an unordered list, but to present them as articles with links as I would in a blog page, so I'm breaking one of my own rules in this case and actually using a div element.</p>
+
+  <pre class="language-html"><code>&lt;search id="search" class="noscript"&gt;
+  &lt;form action="/search"&gt;
+    &lt;input type="text" name="query" required placeholder="Search posts..."&gt;
+    &lt;button type="submit"&gt;Search&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/search&gt;    
+
+&lt;div id="results" class="noscript"&gt;
+  &lt;h2&gt;&lt;/h2&gt;
+  
+  &lt;template id="result"&gt;
+    &lt;article&gt;
+      &lt;header&gt;
+        &lt;h3&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/h3&gt;
+        &lt;time&gt;&lt;/time&gt;
+      &lt;/header&gt;
+      &lt;p class="description"&gt;&lt;/p&gt;
+      &lt;a href=""&gt;Read More&lt;/a&gt;
+    &lt;/article&gt;
+  &lt;/template&gt;
+&lt;/div&gt;</code></pre>
+
+  <p>I've recently read a pretty good article about <a href="https://master.dev/blog/patterns-for-memory-efficient-dom-manipulation/">memory efficient DOM manipulation</a>, so I'm going to be using a <code>template</code> element for my individual search results. Now that we have a DOM, it's time to write some JavaScript. It's also worth noting the <code>noscript</code> class attached to both elements here. They will be set to <code>display: none</code> in CSS until JavaScript is detected.</p>
+
+  <pre class="language-javascript"><code>class Search {
+  constructor(feed, idx) {
+    this.feed = feed;
+    this.idx = idx;
+    
+    this.resultsElem = document.querySelector('#results');
+    this.form = this.document.querySelector('search#search form');
+    this.template = results.querySelector('template#result');
+
+    this.domMap = new WeakMap();
+  }
+}</code></pre>
+
+  <p>Starting with just the constructor function for a class of <code>Search</code>, we can pass in the feed and index that we have already defined. In terms of DOM, we will want access to the results div, the search form, and the predefined template. I've also put a <code>WeakMap</code> instance in there, as the DOM will be being created and destroyed on consecutive searches, and a weak map ensures that removed elements are cleared by the garbage collector and don't stick around in memory. The form will need an event listener with <code>preventDefault</code> to prevent page loads when new searches are performed. I like to take care of this in an <code>init</code> method once I know everything is properly set up.</p>
+
+  <pre class="language-javascript"><code>class Search {
+  ...  
+
+  init() {
+    this.form.addEventListener('submit', evt =&gt; {
+      evt.preventDefault();
+      
+      if (this.form.query.value.length &gt; 0) {
+        const query = this.form.query.value;
+        const url = new URL(window.location);
+        
+        url.searchParams.set('query', query);
+        history.pushState(null, '', url);
+        
+        this.form.query.value = '';
+        document.activeElement.blur();
+        
+        this.results = this.handleSearch(query);
+      }
+    });
+  } 
+}</code></pre>
+
+  <p>We prevent the default form <code>action</code>, and an arrow function preserves the <code>this</code> of the class, instead of referring to the event target as it would with a normal <code>function</code> callback. The DOM form object saves us a little work here, and we can ignore the form submission if the forms query value is empty. I set the search params on the url and push them to the history object, this allows the page to operate normally, and the user can cycle back through their previous searches, even though we are preventing page loads on form submission. Next the input value is set back to blank and the elements focus removed, before passing the query into a <code>handleSearch</code> method. Let's write that method now.</p>
+
+  <pre class="language-javascript"><code>class Search {
+  ...
+
+  handleSearch(query) {
+    this.removeResults();
+    
+    const results = this.idx.search(query);
+    this.populate = this.populateResults(results);
+    
+    const msg = `Showing ${results.length} results for "${query}"`;
+    this.resultsElem.querySelector('h2').textContent = msg;
+  }  
+}</code></pre>
+
+  <p>The <code>handleSearch</code> method calls a <code>removeResults</code> method to remove any search results currently being displayed in the DOM, then performs a search with the provided query. The results are passed into a <code>populateResults</code> method to add them  to the DOM. Finally a message is passed into the <code>h2</code> element of the results div to explain to the user just what they are looking at exactly.</p>
+
+  <pre class="language-javascript"><code>class Search {
+  ...
+
+  removeResults() {
+    const results = this.resultsElem.querySelectorAll('article');
+    results.forEach(i =&gt; i.remove());
+  }
+ 
+}</code></pre>
+
+  <p>The <code>removeResults</code> method is quite simple, yet also quite powerful when combined with the weak map instance we defined in the constructor. It requires that elements are set in to the weak map first, as we will do in the <code>populateResults</code> method. But essentially it will strip all removed elements from memory via the garbage collector.</p>
+
+  <pre class="language-javascript"><code>class Search {
+  ...
+  
+  populateResults(results) {
+    for (const result of results) {
+      const post = this.feed[result['ref']];
+      const url = post['url'] + '/';
+     
+      const clone = document.importNode(this.template.content, true);
+      this.domMap.set(clone);
+      
+      const h3 = clone.querySelector('h3 &gt; a');
+      h3.textContent = `${post['title']} [${post['blog']}]`;
+      h3.href = url;
+      const timeEl = clone.querySelector('time');
+      timeEl.textContent = post['dateString'];
+      timeEl.dateTime = post['date'];
+      clone.querySelector('p.description').textContent = post['description'];
+      clone.querySelector('article &gt; a').href = url;
+
+      this.resultsElem.appendChild(clone);
+    }
+  } 
+}</code></pre>
+
+  <p>The <code>populateResults</code> method iterates through the results, while matching the referenced text to the post it was extracted from. It clones the <code>template</code> we defined in the HTML, and adds it to the weak map instance. Then it simply completes the required DOM and appends the newly created <code>article</code> element to the results div.</p>
+
+  <p>Since the <code>getIdx</code> and <code>getFeed</code> functions are purely concerned with the search feature, I will move them into the class as well, as static methods, so that they can be executed before an instance is created - since we can't create an instance until we have the data that they both return.</p>
+
+  <pre class="language-javascript"><code>class Search{
+...
+  static async getFeed(url) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      return result;
+    } catch (error) {
+      console.log(error.message);
+      return null;
+    }
+  }
+
+
+  static getIdx(feed) {
+    const idx = lunr(function () {
+      this.ref('url');
+      this.field('title');
+      this.field('textContent');
+      
+      for (const item in feed) {
+        this.add(feed[item]);
+      }
+    })
+
+    return idx;
+  }
+}</code></pre>
+
+  <p>Now everything is set up, we can set up the page controls. Since we are working with DOM, I like to use the <code>DOMContentLoaded</code> event to ensure the script has access to everything it needs upon execution.</p>
+
+  <pre class="language-javascript"><code>document.addEventListener('DOMContentLoaded', async function() {
+  const feedUrl = '/search/feed.json';
+  const feed = await Search.getFeed(feedUrl);
+
+  if (feed !== null) {
+    const idx = Search.getIdx(feed);
+    const search = new Search(feed, idx);
+    search.init();
+
+  } else {
+    const msg = 'Something went wrong, try reloading...';
+    document.querySelector('#results h2').textContent = msg;
+  }
+
+  document.querySelectorAll('.noscript').forEach(i => {
+    i.classList.remove('noscript');
+  });
+});</code></pre>
+
+  <p>Once DOM content has loaded, the feed is fetched. If a feed is returned, instead of the <code>null</code> value that is triggered in the catch statement, then an index is created, and both values get passed into a new instance of <code>Search</code> which is then initialised to apply the search forms event listener. The <code>noscript</code> classes aren't removed until everything else has executed, so if something hangs and blocks the script, the page remains blank. Otherwise, if there's an error, a message will be displayed to the user that something has gone wrong.</p>
+  
+</section>
+
+<section id="url-based-search" title="URL Based Search Queries">
+  <h2>URL Based Search Queries</h2>
+
+  <p>We have a working search page, but we aren't quite finished. We haven't yet accounted for searches performed on the home page that are then routed to the search page via the form's action. Luckily, with the search instance, we have everything we need to achieve this in just a few lines of code.</p>
+
+  <pre class="language-javascript"><code>if (feed !== null) {
+  const idx = Search.getIdx(feed);
+  const search = new Search(feed, idx);
+  search.init();
+
+  const searchParams = new URLSearchParams(window.location.search);
+  
+  if (searchParams.size &gt; 0) {
+    const query = searchParams.get('query');
+    search.handleSearch(query);
+  }
+}</code></pre>
+
+  <p>Using the <code>URLSearchParams</code> object, it is simple to pass in the window objects location information, and use that to extract the query and perform a search with the <code>handleSearch</code> method we defined earlier. The method will take care of everything for us including the DOM manipulation.</p>
+
+</section>]]></content:encoded>
+      <enclosure url="/images/guides/search-feature-for-static-websites.webp" type="image/jpeg" length="0" />
+      <media:thumbnail url="/images/guides/search-feature-for-static-websites.webp" width="1920" height="1080" />
+      <media:content url="/images/guides/search-feature-for-static-websites.webp" type="image/jpeg" />
+    </item>
+    <item>
       <title>PHP Static Site Generator</title>
       <link>https://aaronwatts.dev/guides/php-static-site-generator/</link>
       <pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate>
@@ -2086,579 +2415,6 @@ document.addEventListener('DOMContentLoaded', populateLists)</code></pre>
       <enclosure url="/images/guides/google-calendar-appscript-api.avif" type="image/jpeg" length="0" />
       <media:thumbnail url="/images/guides/google-calendar-appscript-api.avif" width="1920" height="1080" />
       <media:content url="/images/guides/google-calendar-appscript-api.avif" type="image/jpeg" />
-    </item>
-    <item>
-      <title>Static Website - Github Pages</title>
-      <link>https://aaronwatts.dev/guides/github-pages-static-website/</link>
-      <pubDate>Sun, 09 Jun 2024 00:00:00 +0000</pubDate>
-      <description>You don't always need a full stack. When all you need to do is show information, a static website is enough. And with Github Pages, it is possible to have a fully functioning website for free, just like this one! It could just be the perfect solution for your portfolio page.</description>
-      <guid>https://aaronwatts.dev/guides/github-pages-static-website/</guid>
-      <content:encoded><![CDATA[<section id="intro" title="Intro">
-
-  <p id="description">You don't always need a full stack. When all you need to do is show information, a static website is enough. And with Github Pages, it is possible to have a fully functioning website for free, just like this one! It could just be the perfect solution for your portfolio page.</p>
-
-  <p>In fact, in 2024, static sites can do a bit more than just send information. This site, for example, has a  <s>comment section</s> on each project page (scroll down and see for yourself). There's an oceans-worth of webdev lessons and tutorials out there, but not many really talk about getting the site up, and indexed. So instead of talking about how to code a website, I thought I'd go over some of the things I've learned in  building this website and getting it bing-ready, as well as some of the interesting things you can get working on static websites today.</p>
-
-</section>
-
-<section id="cms" title="Why Not a CMS?">
-
-  <h2>Why Not a CMS?</h2>
-
-  <p>Good question. You can absolutely use a Content Management System. Github Pages even has one incorporated into it, it's called <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>. But I had a very specific vision for my website. Story time.</p>
-
-  <p>I bought my domain name a while ago. I had been learning web development, and thought I might like to do it professionally. And so, naturally I would need an online portfolio. Eventually, I changed my mind, and decided that I prefer to play with mono fonts as a hobby, so I scrapped that idea. But I kept the domain name, just in case I decided I might eventually want to do something with it. And I did, I'm doing it now, it's this site. Anyway, when I was learning all these amazing CSS and Javascript spells and incantations, two things would often happen. The first was that more code would lead to more bugs, and the other thing was that I was never satisified with a project. I would always want to improve or fix something, and nothing ever got finished.</p>
-
-  <p>Then I came across a website, just some <a href="https://motherfuckingwebsite.com/" target="_blank">motherfucking website</a>, and I realised then, that less is more. When I decided I wanted to build this website to log my guides, I decided I wanted it to follow those design principles (or lack there of). In doing very little, I wanted to acheive a responsive, hierarchical website that just worked everywhere, and loaded up <em>fast</em>. You don't get that with CMS's. And to that end, I use very little javascript on this site (even though I love javascript), it highlights my syntax, runs a filter feature on the home page, and runs the comments sections on these guides pages. I don't import fonts, and as much as possible is hosted in the website itself. The only external service is the comments because, well, static.</p>
-
-  <p>So, to keep to those design principles, I've opted to do everything myself (and also because I enjoy coding). Although, that doesn't mean things have to be difficult either. After looking at the things you need to get done to pass the bing test, we will take a look at automating some of the tedious stuff with python scripts.</p>
-
-</section>
-
-<section id="github-pages" title="Github Pages">
-
-  <h2>Github Pages</h2>
-
-  <p>So, assuming you've got a basic website built and ready to go, you will need somewhere to serve the files from. I'm not savvy enough to want to brave self hosting on a home server, so I opted for <a href="https://pages.github.com/" target="_blank">Github Pages</a>.  If you're here reading this, then chances are you either have a github account, or are familiar with the git CLI. Github Pages websites are free, though there are limitations to them, but for a portfolio page, a blog, or documentation it is ideal.</p>
-
-  <p>There are 2 different types of github pages websites. The first is the user/organisation site. This will give you a url in the format <code>&lt;username&gt;.github.io</code>, which, in itself is pretty tidy as far as free url's go. You will  be able to use advanced DNS configuration with a DNS  provider such as namecheap if you go this route, meaning it will be much easier to set up with search engines. The second is a project site. Although trickier, it is still possible to set up a custom domain in this case,  and without advanced DNS configuration, setting up with search engines will involve adding meta tags into the site headers for verification.</p>
-
-</section>
-
-<section id="custom-domain" title="Custom Domain Name">
-
-  <h2>Custom Domain Name</h2>
-
-  <p>You don't need a custom domain name. But with a DNS provider, such as <a href="https://www.namecheap.com/" target="_blank">namecheap</a>, you get the benefit of advnaced DNS configuration, making it far easier to set up SEO, using CNAME and txt records, instead of uglying up your code with unnecessary meta tags. Also, <code>&lt;yourname&gt;.com</code> looks far nicer, and more professional, than <code>&lt;yourname&gt;.github.io</code>. The process for getting custom domains set up for user and organisation pages is pretty thoroughly documented by gihtub <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site" target="_blank">here</a>. For project pages, there is a solution that worked for me over at Stack Overflow <a href="https://stackoverflow.com/a/9123911" target="_blank">here</a>.</p>
-
-</section>
-
-<section id="bing" title="Getting Bing Ready">
-
-  <h2>Getting Bing Ready</h2>
-
-  <p>Okay, so Bing is not the only search engine. But out of Bing and Google, Bing is definitely the hard-arse parent that isn't goint to tolerate any slack from you. Google is quite lax, provided your url's are all correct and your site is verified. But Bing runs a number of tests and won't index if your site fails them. The only other remaining <em>pure search engines</em> remaining today, might be Yahoo and DuckDuckGo, but both of those pull indexes off of Bing, so through the hoops we jump. There may well be more issues than what I bring up here, but assuming you're starting with something like the emmet boilerplate, you shouldn't run in to too many more than I did.</p>
-
-  <h3>H1's</h3>
-
-  <p>They tried to tell you. You didn't listen. Semantics is important. But you kept following those CSS guru's on youtube like they were bitches on heat. Now all you know about web dev is how to nest spans in divs in spans in divs to make a sidemenu icon change shape when the menu is hidden.</p>
-
-  <p>Bing wants to see a h1 on every page. Be smart and use it on the <em>main title</em> of the  <em>relevant content</em> of each page. I didn't really see the need for one on my <a href="/" target="_blank">splash page</a>, but Bing flagged it, so I had to put one in and cancel the styling on it.</p>
-
-  <h3>Alt-txt</h3>
-
-  <p>Yes, semantics is important. And yes, I regularly forget to put the alt-txt on images. Oh, fine. I just don't bother, I remember and then decide I'm too lazy to do it. Anyway, Bing pulled me on it, and now I try to be a good web dev.</p>
-
-  <h3>Meta Description</h3>
-
-  <p>SEO has changed over the years, and search engines rely less on the meta tags in html headers than they used to. However, Bing still wants a meta desription tag, it won't index a page without one. You can throw in the meta keywords lists and all other bells and whistles if you wish, but just make sure the description is in their, as it seems to be the one Bing cares about.</p>
-
-  <h3>Favicon</h3>
-
-  <p>Technically, this wasn't really an obstacle to getting indexed, but it is rumoured that it can improve your ranking in search engines, and it also get's rid of that annoying console warning. Easiest way, use one of the <a href="https://favicon.io/" target="_blank">favicon.io</a> favicon generators, and they will not only render all the files required for it, but they'll also provide the markup for the headers, as well as a <code>site.webmanifest</code> file for android users to be able to create shortcuts on their homescreen of your website - just don't forget to update the name and short name values in that file before pushing.</p>
-
-</section>
-
-<section id="sitemap" title="Sitemap">
-
-  <h2>Sitemap</h2>
-
-  <p>There are two main types of sitemap. The first is  html sitemaps, intended for users, but search engines can also crawl them to find links to all the pages on your site. The second is xml sitemaps, which you can submit directly to search engines, so they have an immediate directory of your sites urls.</p>
-
-  <p>Creating a html sitemap isn't too difficult if you have already managed to code a static website, so I'll look at the xml sitemap, as there's a bit to learn with xml if you haven't used it much before.</p>
-
-  <p><small>Note: If your site is only one page, you do not need any sitemaps.</small></p>
-
-  <p>The sitemap xml file isn't too complicated, and is a good thing to look at before moving onto RSS feeds, which are similar but have a fair bit more going on to them. Let's take a look at the sitemap for this website, and then break it down:</p>
-
-  <pre class="language-html"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
-  &lt;url&gt;
-    &lt;loc&gt;https://aaronwatts.dev/&lt;/loc&gt;
-  &lt;/url&gt;
-  &lt;url&gt;
-    &lt;loc&gt;https://aaronwatts.dev/home/&lt;/loc&gt;
-  &lt;/url&gt;
-  &lt;url&gt;
-    &lt;loc&gt;https://aaronwatts.dev/guides/gpicase/&lt;/loc&gt;
-  &lt;/url&gt;
-  &lt;url&gt;
-    &lt;loc&gt;https://aaronwatts.dev/guides/kde-plasma-bigscreen/&lt;/loc&gt;
-  &lt;/url&gt;
-  &lt;url&gt;
-    &lt;loc&gt;https://aaronwatts.dev/guides/media-keyboard/&lt;/loc&gt;
-  &lt;/url&gt;
-  &lt;url&gt;
-    &lt;loc&gt;https://aaronwatts.dev/guides/pi5-desktop/&lt;/loc&gt;
-  &lt;/url&gt;
-  &lt;url&gt;
-    &lt;loc&gt;https://aaronwatts.dev/guides/retropie-nespi-4/&lt;/loc&gt;
-  &lt;/url&gt;
-&lt;/urlset&gt;</code></pre>
-
-  <p>This should all look a little familiar if you've ever played around with svg's in the browser, as it's the same type of markup. The first line is just stating which version of xml and encoding the document is using.</p>
-
-  <pre class="language-html"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</code></pre>
-
-  <p>The next line is the opening tag for the root element, <code>&lt;urlset&gt;</code>. It's what it sounds like, a set of url's.</p>
-
-  <pre class="language-html"><code>&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
-  &lt;!-- urls go here --&gt;
-&lt;/urlset&gt;</code></pre>
-
-  <p>Nested within the <code>&lt;urlset&gt;</code> element are the <code>&lt;url&gt;</code> elements, one for each page in your website that you wish to be known to a search engines crawler. Nested within each <code>&lt;url&gt;</code> element, should be the information about each url. <code>&lt;loc&gt;</code> contains the url itself, and is the only tag that's required within the <code>&lt;url&gt;</code> tag, but you can check what other tags can be included by checking the protocol documenation at  <a href="https://sitemaps.org/protocol.html" target="_blank">sitemap.org</a>.</p>
-
-  <pre class="language-html"><code>&lt;url&gt;
-  &lt;loc&gt;https://aaronwatts.dev/&lt;/loc&gt;
-&lt;/url&gt;</code></pre>
-
-  <p>A CMS would write these out for you, and doing them by hand can become a bit boring, and also prone to human error, so we will take a look at writing scripts to build these xml files for us shortly. But first, let's look at the rss feed.</p>
-
-</section>
-
-<section id="feed" title="RSS Feed">
-
-  <h2>RSS Feed</h2>
-
-  <p>So, the following xml file contains the bare minimum for an rss feed to function in most readers. The required elements are all there. We can add more for a far better experience, but already, it is quite a bit to write each time you want to add to the feed. Further, all the required information can be gathered from within our project in some way, so before we flesh this file out to be a better feed, we would be foolish not to get some kind of automation set up to do this for us.</p>
-
-  <p>But first, let's have a quick look at what we have so far:</p>
-
-  <pre class="language-html"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;rss version="2.0"&gt;
-  &lt;channel&gt;
-    &lt;title&gt;AaronWattsDev Projects&lt;/title&gt;
-    &lt;link&gt;https://aaronwatts.dev/home&lt;/link&gt;
-    &lt;description&gt;Projects in coding, raspberry pi, linux and more&lt;/description&gt;
-    &lt;item&gt;
-      &lt;title&gt;Raspberry Pi 5 - Desktop Computer&lt;/title&gt;
-      &lt;link&gt;https://aaronwatts.dev/guides/pi5-desktop&lt;/link&gt;
-      &lt;description&gt;This is less of a guide, and more just an outline of how, and why, I'm doing it. As well as a review of how it's going. It's not here as clickbait, you might not want to do it yourself, but I'm here to say that it's working for me.&lt;/description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;KDE Plasma Bigscreen - Raspberry Pi 4&lt;/title&gt;
-      &lt;link&gt;https://aaronwatts.dev/guides/kde-plasma-bigscreen&lt;/link&gt;
-      &lt;description&gt;I built this media centre at the start of 2024. There may be easier methods of installation by now. When I built this project, existing guides mentioned an installation image on KDE's bigscreen page, however, it doesn't seem to exist currently, except for a manjaro image, and I prefer to stick to Raspberry Pi's own debian OS when I can, especially that it ensures the best compatibility with things like cases and accessories.&lt;/description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;RetroPie - RetroFlag NesPi 4 Case&lt;/title&gt;
-      &lt;link&gt;https://aaronwatts.dev/guides/retropie-nespi-4&lt;/link&gt;
-      &lt;description&gt;The Raspberry Pi 4, with Retroflag's NesPi 4 Case, running RetroPie is the ultimate retro gaming rig. Lower power consumption? Check. Light gun games? You got it. Great customisation options? Of course. Did you know you can even use a wiimote as the stylus for the Drastic Nintendo DS Emulator?? Did I hear someone say Wario Ware?&lt;/description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;Media Keyboard - Pico Controller&lt;/title&gt;
-      &lt;link&gt;https://aaronwatts.dev/guides/media-keyboard&lt;/link&gt;
-      &lt;description&gt;My keyboard doesn't include the media keys, so I built a macro keyboard to control the media on my desktop computer. It is plug'n'play and requires no configuration to work between different devices. The project can be easily tweaked to program macro's for work, steam games, and whatever else you can't be bothered to type out manually.&lt;/description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;GPi Case 2 - Compute Module 4&lt;/title&gt;
-      &lt;link&gt;https://aaronwatts.dev/guides/gpicase&lt;/link&gt;
-      &lt;description&gt;The GPi Case 2 with Raspberry Pi's Compute Module 4 is the ultimate portable gaming device. The case offers amazing functionality, and when combined with a CM4 and 64-bit Recalbox, there is little that can challenge it for a portable retro gaming experience.&lt;/description&gt;
-    &lt;/item&gt;
-  &lt;/channel&gt;
-&lt;/rss&gt;</code></pre>
-
-  <p>So, ignoring the first line, that is the same as the sitemap xml file, we can see that the root element in the rss feed is the <code>&lt;rss&gt;</code> element. The rss version is specified as an attribute, it is using rss 2.0. Within that, is the nested  <code>&lt;channel&gt;</code> element. Inside of the <code>&lt;channel&gt;</code> element, we have the feed information: <code>&lt;title&gt;</code>, <code>&lt;link&gt;</code> and <code>&lt;description&gt;</code>. This all provides the rss aggregators with the information they need about the channel itself.</p>
-
-  <pre class="language-html"><code>&lt;rss version="2.0"&gt;
-  &lt;channel&gt;
-    &lt;title&gt;AaronWattsDev Projects&lt;/title&gt;
-    &lt;link&gt;https://aaronwatts.dev/home&lt;/link&gt;
-    &lt;description&gt;Projects in coding, raspberry pi, linux and more&lt;/description&gt;
-    &lt;!-- rss items go here --&gt;
-  &lt;/channel&gt;
-&lt;/rss&gt;</code></pre>
-
-  <p>Finally, we have the rss items themselves. These each consist of an <code>&lt;item&gt;</code> element, with a nested <code>&lt;title&gt;</code>, <code>&lt;link&gt;</code> and <code>&lt;description&gt;</code> element each. What's helpful about these elements, is the information they require are all available on this sites <a href="/home">home page</a>, where each project is listed with links and descriptions. This will come in handy in a when we automate the feed.</p>
-
-  <pre class="language-html"><code>&lt;item&gt;
-  &lt;title&gt;Raspberry Pi 5 - Desktop Computer&lt;/title&gt;
-  &lt;link&gt;https://aaronwatts.dev/guides/pi5-desktop&lt;/link&gt;
-  &lt;description&gt;This is less of a guide, and more just an outline of how, and why, I'm doing it. As well as a review of how it's going. It's not here as clickbait, you might not want to do it yourself, but I'm here to say that it's working for me.&lt;/description&gt;
-&lt;/item&gt;</code></pre>
-
-</section>
-
-<section id="automating" title="Automating the Boring Stuff">
-
-  <h2>Automating the Boring Stuff</h2>
-
-  <p>One of the main benefits of using a CMS, is that you don't have to do, or even think about, most of this stuff. Not only is ammending the sitemap and rss feed another job that can be time consuming, forgotten, or even done wrong, but it's also not necessary. Even without a CMS, we can make our own lives easier with a bit of messy hacking. First let's handle the easy one, which is the sitemap. But before we begin, it's worth mentioning that a sensible directory structure will help a lot with automation, and that what I write here isn't necessarily going to work for your own sites structure, so you will need to hack around with it yourself to get it working for you. I will talk about the structure I use and how it affects or benefits the scripts I'm writing for reference.</p>
-
-  <h3>A Sitemap Generator in Python</h3>
-
-  <p>So the sitemap is essentially just a set of links to each html page in the website. Easy, my site only has two folders containing any html files at all, that's the <code>root/</code> and <code>guides/</code> directories.</p>
-
-  <pre class="language-treeview"><code>root/
-├── index.html
-├── home.html
-└── guides/
-    ├── gpicase.html
-    ├── kde-plasma-bigscreen.html
-    ├── media-keyboard.html
-    ├── pi5-desktop.html
-    └── retropie-nespie-4.html.html</code></pre>
-
-  <p>With this in mind, all we need to do, is build a <code>&lt;url&gt;</code> element for each file, append it to the root element, and then write it to a file. We can use the <code>os</code> module to probe our filesystem, and the <code>xml.etree.ElementTree</code> module parses and writes xml. Both are included in python3.</p>
-
-  <p>The following snippet will build a root element, and then append a subelement to it, and fill out the text. We also have to register the xml namespace we will be using <em>before</em> we make the root element, and set the namespace on the root element after we have created it, not doing so will result in <code>ns0</code> inserting itself within all the following elements down the tree.</p>
-
-  <pre class="language-python"><code>import xml.etree.ElementTree as ET
-
-# create the root element and set namespace
-ET.register_namespace('', 'http://www.sitemaps.org/schemas/sitemap/0.9')
-urlset = ET.Element('urlset')
-urlset.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
-
-# append a subelement to the root element
-url = ET.SubElement(urlset, 'url')
-loc = ET.SubElement(url, 'loc')
-loc.text = 'https://aaronwatts.dev/'</code></pre>
-
-  <p>We are going to have to build a lot more url's, so that may as well be extracted out to a function. We will pass the file<em>path</em> to it as a parameter, and use it to build the url itself. We will also set the default path param to an empty string, for when we need to build the index url.</p>
-
-  <pre class="language-python"><code>def build_url(path=''):
-  url = ET.SubElement(urlset, 'url')
-  loc = ET.SubElement(url, 'loc')
-  loc.text = f'{root_url}{path}'</code></pre>
-
-  <p>I'm going to keep the script simple, and just call the two files in the root directory directly, as I don't expect these to change any time soon. But the guides directory is likely to have new files going into it regularly, so for that, I will use the <code>os</code> python module to iterate through these files, and call the build file function, passing the filename with the <code>.html</code> extension truncated off.</p>
-
-  <pre class="language-python"><code>build_url()
-build_url('home/')
-
-for filename in os.listdir('guides/'):
-  build_url(f'{filename[:-5]}/')</code></pre>
-
-  <p>Finally, we just need to declare the element tree, indent it for readability, and write it to <code>sitemap.xml</code>. We can define the xml version and encoding in the write function.</p>
-
-  <pre class="language-python"><code>tree = ET.ElementTree(urlset)
-ET.indent(tree)
-tree.write('sitemap.xml', xml_declaration='version', encoding='UTF-8')</code></pre>
-
-  <p>A quick look at the finished script and you will see I have stored the base url as a string, to help in the build url function. It only gets used on the one line within the function, but it makes it easier to change later if we need to by declaring it at the start of the script</p>
-
-  <pre class="language-python"><code>import os
-import xml.etree.ElementTree as ET
-
-root_url = 'https://aaronwatts.dev/'
-
-def build_url(path=''):
-  url = ET.SubElement(urlset, 'url')
-  loc = ET.SubElement(url, 'loc')
-  loc.text = f'{root_url}{path}'
-
-ET.register_namespace('', 'http://www.sitemaps.org/schemas/sitemap/0.9')
-urlset = ET.Element('urlset')
-urlset.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
-
-build_url()
-build_url('home/')
-
-for filename in os.listdir('guides/'):
-  build_url(f'{filename[:-5]}/')
-
-tree = ET.ElementTree(urlset)
-ET.indent(tree)
-tree.write('sitemap.xml', xml_declaration='version', encoding='UTF-8')</code></pre>
-
-  <h3>A Simple RSS Generator in Python</h3>
-
-  <p>There is a bit more to do in this script. As well as url's for each page, we will need a title and a description for each project. Well, that all exists in <code>/home.html</code>, and we can use the python <code>bs4</code>, a.k.a. Beautiful Soup, module to read and parse the html file, and extract all the data we need.</p>
-
-  <p><small>Beautiful Soup is not a built-in python module, and will need to be installed, along with a parser. For more information check the <a href="https://beautiful-soup-4.readthedocs.io/en/latest/#installing-beautiful-soup" target="_blank">documentation</a>.</small></p>
-
-  <pre class="language-python"><code>from bs4 import BeautifulSoup
-
-with open('home.html') as f:
-  txt = f.read()
-  soup = BeautifulSoup(txt, 'lxml')
-
-guides = soup.select('.project')
-
-for project in guides:
-  title = project.select_one('h2').text
-  link = project.select_one('a')['href']
-  description = project.select_one('.description').text</code></pre>
-
-  <p>The next step is to build the xml. Which is essentially the same process as with the sitemap, however the elements are a little more complex for the rss elements.</p>
-
-  <pre class="language-python"><code>import xml.etree.ElementTree as ET
-from bs4 import BeautifulSoup
-
-# strings for the channel information
-base_url = 'https://aaronwatts.dev'
-title_text = 'AaronWattsDev Projects'
-description_text = 'Projects in coding, raspberry pi, linux and more'
-
-# build a single element
-# params: parent, type, text
-# returns: element
-def build_element(el_parent, el_type, el_text=''):
-  element = ET.SubElement(el_parent, el_type)
-  # leaves text blank if empty
-  if len(el_text):
-    element.text = el_text
-  return element
-
-# build rss item element
-# params: title, link, description
-def build_item(title, link, description):
-  link_text = f'{base_url}{link}'
-  rss_item = build_element(rss_channel, 'item')
-  build_element(rss_item, 'title', title)
-  build_element(rss_item, 'link', link_text)
-  # join and split to remove excess whitespace from html formatting
-  build_element(rss_item, 'description', ' '.join(description.split()))
-
-# make root element
-rss = ET.Element('rss')
-rss.set('version', '2.0')
-
-# append channel element and append channel details
-rss_channel = build_element(rss, 'channel')
-build_element(rss_channel, 'title', title_text)
-build_element(rss_channel, 'link', f'{base_url}/home')
-build_element(rss_channel, 'description', description_text)
-
-# make soup
-with open('home.html') as f:
-  txt = f.read()
-  soup = BeautifulSoup(txt, 'lxml')
-
-# parse guides from soup and build rss items with data
-guides = soup.select('.project')
-for project in guides:
-  title = project.select_one('h2').text
-  link = project.select_one('a')['href']
-  description = project.select_one('.description').text
-  build_item(title, link, description)
-
-# build and write xml tree
-tree = ET.ElementTree(rss)
-ET.indent(tree)
-tree.write('rss.xml', xml_declaration='version', encoding='UTF-8')</code></pre>
-
-  <h3>A Better RSS Feed</h3>
-
-  <p>We have the basics now for a working RSS feed, but loaded up into an aggregator, it looks a little empty compared to other RSS feeds out there. There are a few tweaks we can make to the feed to improve it. By including the atom namespace and an <code>&lt;atom:link&gt;</code> element in the channel, we can increase the rss feed's compatibility with more aggregators. We can also use <code>&lt;enclosure&gt;</code> and <code>&lt;media&gt;</code> elements to include images in the rss feed. A <code>&lt;guid&gt;</code> element can help aggregators work out if it has already received an item or not. And some aggregators use the <code>&lt;category&gt;</code> element to categorise feeds.</p>
-
-  <p>There are other elements you can include, such as dates for updates and published, but I am not yet including this information in articles, I may implement it in the near future. Check the rssboard <a href="https://www.rssboard.org/media-rss" target="_blank">media-rss documentation</a> for more quality-of-life elements around media.</p>
-
-  <pre class="language-xml"><code>&lt;?xml version='1.0' encoding='UTF-8'?&gt;
-&lt;rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/"&gt;
-  &lt;channel&gt;
-  &lt;atom:link href="https://aaronwatts.dev/feed.xml" rel="self" type="applications/rss+xml" /&gt;
-  &lt;title&gt;AaronWattsDev Projects&lt;/title&gt;
-  &lt;link&gt;https://aaronwatts.dev/home&lt;/link&gt;
-  &lt;description&gt;Projects in coding, raspberry pi, linux and more&lt;/description&gt;
-  &lt;category&gt;Technology&lt;/category&gt;
-  &lt;item&gt;
-    &lt;title&gt;Raspberry Pi 5 - Desktop Computer&lt;/title&gt;
-    &lt;link&gt;https://aaronwatts.dev/guides/pi5-desktop&lt;/link&gt;
-    &lt;description&gt;This is less of a guide, and more just an outline of how, and why, I'm doing it. As well as a review of how it's going. It's not here as clickbait, you might not want to do it yourself, but I'm here to say that it's working for me.&lt;/description&gt;
-    &lt;guid&gt;https://aaronwatts.dev/guides/pi5-desktop&lt;/guid&gt;
-    &lt;enclosure url="https://aaronwatts.dev/images/guides/pi5-desktop.jpg" length="0" type="image/jpeg" /&gt;
-    &lt;media:thumbnail url="https://aaronwatts.dev/images/guides/pi5-desktop.jpg" width="1920" height="1080" /&gt;
-    &lt;media:content type="image/jpeg" url="https://aaronwatts.dev/images/guides/pi5-desktop.jpg" /&gt;
-  &lt;/item&gt;
-  &lt;/channel&gt;
-&lt;/rss&gt;</code></pre>
-
-  <p>My design choices and project structure have influenced how I have written the script to collect all the required information to build the individual rss items. For example, I don't have any image links on the page I am scraping on - I just didn't want the page to have to load an image for every article. However, I have only one image per article, and each image has the same filename as the html file it's associated with. So by knowing the page url, the script can easily decipher the image url that's associated with it.</p>
-
-  <pre class="language-treeview"><code>root/
-├── index.html
-├── home.html
-├── guides/
-|   ├── gpicase.html
-|   └── kde-plasma-bigscreen.html
-└── images/
-    ├── gpicase.jpg
-    └── kde-plasma-bigscreen.jpg</code></pre>
-
-  <p>A different solution here could be to include a hidden element in each project on the home page that lists them, with innertext that defines an image url. Here is the final script for generating a more complex rss feed, there's a lot happening, but broken down, it's not too different from the simple rss script, it just has more jobs to do now:</p>
-
-  <pre class="language-python"><code>import xml.etree.ElementTree as ET
-from bs4 import BeautifulSoup
-
-base_url = 'https://aaronwatts.dev'
-title_text = 'AaronWattsDev Projects'
-description_text = 'Projects in coding, raspberry pi, linux and more'
-
-# builds a basic xml element, populates text, and appends to specified parent
-def build_element(el_parent, el_type, el_text=''):
-  element = ET.SubElement(el_parent, el_type)
-  if len(el_text):
-    element.text = el_text
-  return element
-
-# builds a rss item from scraped project data
-def build_item(title, link, description):
-  link_text = f'{base_url}{link}'
-  rss_item = build_element(rss_channel, 'item')
-  build_element(rss_item, 'title', title)
-  build_element(rss_item, 'link', link_text)
-  build_element(rss_item, 'description', ' '.join(description.split()))
-  build_element(rss_item, 'guid', link_text)
-  build_media(rss_item, link)
-
-# called by build_item: builds complex media elements and appends to item parent
-def build_media(el_parent, el_link):
-  img_link = f'{base_url}/images{el_link}.jpg'
-  enclosure = ET.SubElement(el_parent, 'enclosure')
-  enclosure.set('url', img_link)
-  enclosure.set('length', '0')
-  enclosure.set('type','image/jpeg')
-  media_thumbnail = ET.SubElement(el_parent, 'media:thumbnail')
-  media_thumbnail.set('url', img_link)
-  media_thumbnail.set('width', '1920')
-  media_thumbnail.set('height', '1080')
-  media_content = ET.SubElement(el_parent, 'media:content')
-  media_content.set('type', 'image/jpeg')
-  media_content.set('url', img_link)
-
-# Declare XML namespaces to be used
-ET.register_namespace('', 'http://www.w3.org/2005/Atom')
-ET.register_namespace('', 'http://search.yahoo.com/mrss/')
-
-# create root rss element and set attributes
-rss = ET.Element('rss')
-rss.set('version', '2.0')
-rss.set('xmlns:atom', 'http://www.w3.org/2005/Atom')
-rss.set('xmlns:media', 'http://search.yahoo.com/mrss/')
-
-# add necessary child elements to root element and set attributes if required
-rss_channel = build_element(rss, 'channel')
-atom_link = ET.SubElement(rss_channel, 'atom:link')
-atom_link.set('href', f'{base_url}/feed.xml')
-atom_link.set('rel', 'self')
-atom_link.set('type', 'applications/rss+xml')
-build_element(rss_channel, 'title', title_text)
-build_element(rss_channel, 'link', f'{base_url}/home')
-build_element(rss_channel, 'description', description_text)
-build_element(rss_channel, 'category', 'Technology')
-
-# parse contents of home.html
-with open('home.html') as f:
-  txt = f.read()
-  soup = BeautifulSoup(txt, 'lxml')
-
-# create and populate an item element for each project
-guides = soup.select('.project')
-for project in guides:
-  title = project.select_one('h2').text
-  link = project.select_one('a')['href']
-  description = project.select_one('.description').text
-  build_item(title, link, description)
-
-# build and write the tree
-tree = ET.ElementTree(rss)
-ET.indent(tree)
-tree.write('feed.xml', xml_declaration='version', encoding='UTF-8')</code></pre>
-
-  <h3>Further Automation</h3>
-
-  <p>We could expand on this even further. The list of guides in <code>home.html</code> could, with not much more work than we've already done, be generated from the files in the <code>guides/</code> directory. Right now I haven't implemented published dates for each article, and so I unless I handle it another way, articles will become listed in alphabetical order, and I think I would prefer to have newest appear first. We could even strip away the repeated code from each project page, such as the headers, links and style tags, and have Beautiful Soup build the pages from very simple hmtl pages that only contain the article information, the way the Jekyll builds from markdown files, but as we are working directly in html, we would have far more control over CSS and JavaScript. Then, after that, I'm not really sure what a CMS could offer that we haven't already just done ourselves. These are things I hope to look at in the near future, but for now, I can feel my pigments fading and I would like to go out into the sunlight for a while, so let's start wrapping this up.</p>
-
-  <h3>Index Page Generator</h3>
-
-  <p>Eagle eyed readers may have noticed that I have, in fact, added published dates to the guides on this site. I did also write a script that takes the exisiting guides and generates content within the <code>home.html</code> page where the full list of guides currently lives. It was not an incredibly complex script either.</p>
-
-  <p>Using the Beautiful Soup Python module, the script crawls through the <code>guides</code> directory, and scrapes the relevant data required to make project summaries and links. And, thanks to the power of Beautiful Soup, we can work with the html much like we would with the DOM, and instead of rewriting the entire page, we can simply just rewrite the contents of the element that contains the full list of guides, which in my case, is the <code>main</code> element.</p>
-
-  <pre class="language-python"><code>from bs4 import BeautifulSoup
-import os
-from datetime import date
-
-guides = []
-
-# crawl guides folder
-for f in os.scandir('guides'):
-  path_name = f'guides/{f.name}'
-  with open(path_name) as projectf:
-    project_txt = projectf.read()
-    project_soup = BeautifulSoup(project_txt, 'lxml')
-  # scrape the relevant data
-  title = project_soup.select_one('h1').text
-  intro = project_soup.select_one('p#intro').text
-  description = ' '.join(intro.split())
-  html_date = project_soup.select_one('time')
-  project_date = date.fromisoformat(html_date['datetime'])
-  keywords = project_soup.select_one('meta[name=keywords]')['content'].split(',')
-  keywords = [kw.lstrip() for kw in keywords]
-  
-  guides.append({
-    'title' : title,
-    'description' : description,
-    'keywords' : keywords,
-    'date' : project_date,
-    'datehtml' : html_date,
-    'link': f'/{path_name[:-5]}'
-  })
-
-# callback function to organise into order of date
-def date_sort(e):
-  return e['date']
-
-# sort guides by date - newest first
-guides.sort(reverse=True, key=date_sort)
-
-with open('home.html') as inf:
-  txt = inf.read()
-  soup = BeautifulSoup(txt, 'lxml')
-
-# select and clear main element
-main_element = soup.select_one('main')
-main_element.clear()
-
-# for each project, create and add the relevant html to the main element
-for project in guides:
-  project_div = soup.new_tag('div')
-  project_div['class'] = 'project'
-  project_header = soup.new_tag('h2')
-  project_header.string = project['title']
-  project_div.append(project_header)
-  project_date = soup.new_tag('time', datetime=project['datehtml']['datetime'])
-  project_date.string = project['datehtml'].text
-  project_div.append(project_date)
-  project_ul = soup.new_tag('ul')
-  project_ul['class'] = 'topic-container'
-  for topic in project['keywords']:
-    topic_li = soup.new_tag('li')
-    topic_li['class'] = 'topic'
-    topic_li.string = topic
-    project_ul.append(topic_li)
-  project_div.append(project_ul)
-  project_link = soup.new_tag('a', href=project['link'])
-  project_link.string = 'Go to project'
-  project_div.append(project_link)
-  project_description = soup.new_tag('p')
-  project_description['class'] = 'description'
-  project_description.string = project['description']
-  project_div.append(project_description)
-  main_element.append(project_div)
-
-# write changes to file home.html
-with open ('home.html', 'w') as outf:
-  outf.write(BeautifulSoup.prettify(soup))</code></pre>
-
-</section>
-
-<section id="adding-comments-section" title="Adding A Comments Section">
-
-  <h2>Adding A Comments Section</h2>
-
-  <p>This wasn't something that I was previously aware that you could do with static websites, and I'm not even sure what first brought my attention to it. But it turns out there are quite a few options here. There seems to an option or two that use github issues to serve the comments, which is actually pretty smart. But the one I chose to go with was <a href="https://cactus.chat/" target="_blank">Cactus Comments</a>.</p>
-
-  <p>Cactus Comments is free, and doesn't require users to sign in like the solutions based on github issues. It runs on <a href="https://matrix.org/" target="_blank">matrix</a>, which is a defederated chat and messaging service. And I'm a big fan of defederation. As it runs on matrix, you can use the <a href="https://element.io/" target="_blank">element</a> PC and mobile apps to get alerts of, reply to, and moderate comments (there is an arm 64-bit version for linux too, which is great now that I do all of my computing on my raspberry pi 5!).</p>
-
-  <p>I won't explain how to get started, the documentation for cactus is pretty easy to follow. At first look you'll wonder if there's stuff missing from it, as it all seems too simple, but it really is as simple as it looks!</p>
-
-</section>]]></content:encoded>
-      <enclosure url="/images/guides/github-pages-static-website.avif" type="image/jpeg" length="0" />
-      <media:thumbnail url="/images/guides/github-pages-static-website.avif" width="1920" height="1080" />
-      <media:content url="/images/guides/github-pages-static-website.avif" type="image/jpeg" />
     </item>
   </channel>
 </rss>
