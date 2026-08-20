@@ -26,11 +26,10 @@ class Search {
   constructor(feed, idx) {
     this.feed = feed;
     this.idx = idx;
-    this.searchElem = document.querySelector('search');
+
+    this.form = document.querySelector('search#search form');
     this.resultsElem = document.querySelector('#results');
     this.bash = document.querySelector('span.bash');
-
-    this.form = this.searchElem.querySelector('form');
     this.template = results.querySelector('template#result');
 
     this.domMap = new WeakMap();
@@ -54,16 +53,12 @@ class Search {
   
   handleSearch(query) {
     this.removeResults();
-    const results = this.search(query);
+    const results = this.idx.search(query);
     this.populate = this.populateResults(results);
     this.bash.textContent = `grep -lr "${query}" ~/*`;
     this.resultsElem.querySelector('h2').textContent = `Showing ${results.length} results for "${query}"`;
   }
   
-  search(query) {
-    return this.idx.search(query);
-  }
-
   populateResults(results) {
     for (const result of results) {
       const post = this.feed[result['ref']];
