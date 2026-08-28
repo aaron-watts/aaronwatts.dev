@@ -3,3 +3,4 @@ public/*
 !public/index.php
 !dist/
 legacy.*
+system/*
