@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Comments are back on my website! I had previously been using Cactus Comments to display comments from a Matrix room, but that project appears abandoned. I have a Coolify server now, so I can host a solution myself."/>
+    <meta name="keywords" content="aaronwatts.dev, website, coolify, hosting"/>
+
+    <title>AWD - Pure Comments</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+
+    <link rel="canonical" href="/blog/pure-comments"/>
+    <link href="https://aaronwatts.dev/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - All" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/blog/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Blog" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
+    <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
+
+    <meta property="og:title" content="Pure Comments"/>
+    <meta property="og:site_name" content="aaronwatts@dev"/>
+    <meta property="og:description" content="Comments are back on my website! I had previously been using Cactus Comments to display comments from a Matrix room, but that project appears abandoned. I have a Coolify server now, so I can host a solution myself."/>
+    <meta property="og:url" content="https://aaronwatts.dev/blog/pure-comments"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:article:published_time" content="2026-08-28"/>
+
+    <link rel="preload" href="/assets/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <link rel="stylesheet" href="/assets/styles/style.css">
+    <link rel="stylesheet" href="/assets/styles/comments.css">
+
+        <script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronwatts.dev/blog/pure-comments/"
+  },
+  "headline": "Pure Comments"
+  "datePublished": "2026-08-28",
+  "description": "Comments are back on my website! I had previously been using Cactus Comments to display comments from a Matrix room, but that project appears abandoned. I have a Coolify server now, so I can host a solution myself.",
+  "author": {
+    "@type": "Person",
+    "name": "aaronwatts@dev"
+  }
+}</script>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Breadcrumb">
+        <ol>
+          <li><a 
+              href="/">aaronwatts@dev</a></li><span
+              aria-hidden="true" class="term-dir"></span><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a 
+              href="/blog/">blog</a></li><li><span
+              aria-hidden="true" class="breadcrumb--seperator"></span><a
+              href="" aria-current="page">pure-comments</a></li><span
+              aria-hidden="true" class="term-priv"></span>
+        </ol>
+      </nav>
+<div class="svg-container">
+  <a href="/rss">
+    <span class="screen-reader-text">RSS Feeds</span>
+    <svg class="rss">
+      <use href="/assets/svg/svg-map.svg#rss-feed" />
+    </svg>
+  </a>
+</div>
+
+    </header>
+
+
+    <main>
+      <article>
+        <header>
+  <ul class="topic-container">
+    <li class="topic">aaronwatts.dev</li>
+    <li class="topic">website</li>
+    <li class="topic">coolify</li>
+    <li class="topic">hosting</li>
+  </ul>
+  <h1>Pure Comments</h1>
+  <time datetime="2026-08-28">28th August, 2026</time>
+</header>
+
+<p id="description">Comments are back on my website! I had previously been using Cactus Comments to display comments from a Matrix room, but that project appears abandoned. I have a Coolify server now, so I can host a solution myself.</p>
+
+<p>I'm using <a href="https://purecomments.org/">Pure Comments</a> by <a href="https://kevquirk.com">Kev Quirk</a>. Kev also makes other tools, which can be found on his <a href="https://purecommons.org/">Pure Commons</a> website. I liked his <a href="https://simplecss.org/">Simple CSS</a> <em>"framework"</em>, and I'm in a position to learn some backend stuff now that I'm running my own Coolify instance, so I thought I'd give it a whirl.</p>
+
+<p>I don't really promote my site. It's just a hobby and while I enjoy learning, I'm scared of being judged I guess. And the imposter syndrome - I am a hobbyist, so that shouldn't really bother me, but whatever .. it's fine. I'm not trying to get a job, I just like making things work. Either way, no one really left comments the last time I set it up, and maybe no one will again - but as I say I like making things that work, it's all fun for me.</p>
+
+<p>I am quite proud of myself for getting this going. In the grand scheme of things I know very little about PHP and Linux servers, but I managed to brute force a Dockerfile to set up Pure Comments on an Apache server in a container. I couldn't get persistent storage working without locking the contents of a file, which is fine until you want to update the app settings. I'm not sure if I have made a misstep in setting up Coolify or not, or if that's just how it works. Pure Comments uses SQLite, which is a pain because now I'm going to have to rig up some kind of backup strategy for the comments unless I don't mind losing them all any time that the server is redeployed.</p>
+
+<p>Apart from the pretty esoteric problems that I seem intent on creating for myself, Pure Comments is a breeze to get going. You will need to know how to set up a basic LAMP server, but after that it's idiot proof - <em>and I should know</em>. Once I got it working functionally, it was time for some styling. Or, de-styling in my case. Kev offers a default-come-example CSS file for Pure Comments. I wanted something quick so I started with his defaults, then made some changes to fit with my sites theming. My website has some terminal tropes, and the rest of it is intentionally simple, celebrating the <em>old web</em> with (close to) default colours, buttons that look like hyperlinks, and semantic HTML. Or am I just lazy.. So that meant going through the comments CSS file and quite literally roughing up any of the polish. Now my comments section looks as lazily designed as the rest of my website - and I like that!</p>
+      </article>
+    </main>
+
+    <div id="comments" class="noscript"></div>
+    <script src="https://comments.aaronwatts.dev/public/embed.js" defer></script>
+
+    <nav aria-labelledby="to-top">
+      <a href="#top" id="to-top">Back to Top</a>
+    </nav>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.noscript').forEach(function(i) {
+          i.classList.remove('noscript');
+        });
+      });
+    </script>
+<footer>
+  Made by Hand<br />Powered by Raspberry Pi
+</footer>
+      </body>
+</html>
+
