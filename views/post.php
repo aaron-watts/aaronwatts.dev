@@ -44,6 +44,7 @@
     ?>
 
     <link rel="stylesheet" href="/assets/styles/style.css">
+    <link rel="stylesheet" href="/assets/styles/comments.css">
 
         <script type="application/ld+json"><?= $jsonLd ?></script>
   </head>
@@ -83,10 +84,20 @@
       </article>
     </main>
 
+    <div id="comments" class="noscript"></div>
+    <script src="https://comments.aaronwatts.dev/public/embed.js" defer></script>
+
     <nav aria-labelledby="to-top">
       <a href="#top" id="to-top">Back to Top</a>
     </nav>
 
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.noscript').forEach(function(i) {
+          i.classList.remove('noscript');
+        });
+      });
+    </script>
 <?php require PARTIALS_PATH . 'footer.php'; ?>
     <?php
         if ($prismRequired === true) {
