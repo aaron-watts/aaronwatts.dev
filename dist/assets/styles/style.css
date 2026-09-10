@@ -37,6 +37,7 @@
     --letter-spacing: .06em;
     --line-height: 1.8em;
     --body-padding: 2.5rem;
+    --mono-font: CascadiaCode;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -159,7 +160,7 @@ button:not(.topic) {
 }
 
 code:not([class*=language-]) {
-    font-family: CascadiaCode;
+    font-family: var(--mono-font);
     font-size: .8em;
     background-color: #f5f2f0;
     color: #444;
@@ -168,7 +169,7 @@ code:not([class*=language-]) {
 
 code[class*="language-"],
 pre[class*="language-"] {
-    font-family: CascadiaCode;
+    font-family: var(--mono-font);
 }
 
 pre {
@@ -177,7 +178,7 @@ pre {
 }
 
 kbd {
-    font-family: monospace;
+    font-family: var(--mono-font);
     font-size: .9em;
     border: 1px solid var(--color);
     border-bottom: 3px solid var(--color);
@@ -466,7 +467,7 @@ svg.rss {
 }
 
 nav[aria-label='Breadcrumb'] {
-    font-family: CascadiaCode;
+    font-family: var(--mono-font);
     font-size: .9rem;
     font-weight: bold;
     letter-spacing: .09rem;

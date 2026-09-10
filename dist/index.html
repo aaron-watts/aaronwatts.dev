@@ -39,7 +39,7 @@
       }
 
       .hero {
-        font-family: CascadiaCode;
+        font-family: var(--mono-font);
         font-weight: 400;
         font-size: 2.6vw;
         letter-spacing: .4vw;
