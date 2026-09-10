@@ -1,6 +1,21 @@
 @font-face {
-    font-family: "JetBrainsMono";
-    src: url("/assets/fonts/JetBrainsMono.woff2") format('woff2');
+    font-family: "CascadiaCode";
+    src: url("/assets/fonts/CascadiaCode.woff2") format('woff2');
+}
+
+@font-face {
+    font-family: "CascadiaCode";
+    src: url("/assets/fonts/CascadiaCodeItalic.woff2") format('woff2');
+    font-style: italic;
+}
+
+/* prism contrast */
+.token.important, .token.regex, .token.variable {
+  color: #e9690c;
+}
+/* prism comments italic */
+.token.cdata, .token.comment, .token.doctype, .token.prolog {
+  font-style: italic;
 }
 
 :root {
@@ -144,7 +159,7 @@ button:not(.topic) {
 }
 
 code:not([class*=language-]) {
-    font-family: JetBrainsMono;
+    font-family: CascadiaCode;
     font-size: .8em;
     background-color: #f5f2f0;
     color: #444;
@@ -153,7 +168,7 @@ code:not([class*=language-]) {
 
 code[class*="language-"],
 pre[class*="language-"] {
-    font-family: JetBrainsMono;
+    font-family: CascadiaCode;
 }
 
 pre {
@@ -451,7 +466,7 @@ svg.rss {
 }
 
 nav[aria-label='Breadcrumb'] {
-    font-family: JetBrainsMono;
+    font-family: CascadiaCode;
     font-size: .9rem;
     font-weight: bold;
     letter-spacing: .09rem;
