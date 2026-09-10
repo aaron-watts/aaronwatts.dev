@@ -18,7 +18,7 @@
     <link href="https://aaronwatts.dev/guides/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Guides" type="application/rss+xml"/>
     <link href="https://aaronwatts.dev/tech/feed.xml" rel="alternate" title="AaronWattsDev RSS Feed - Tech" type="application/rss+xml"/>
    
-    <link as="font" crossorigin="" href="/assets/fonts/JetBrainsMono.woff2" rel="preload" type="font/woff2"/>
+    <link as="font" crossorigin="" href="/assets/fonts/CascadiaCode.woff2" rel="preload" type="font/woff2"/>
     <link href="/assets/styles/style.css" rel="stylesheet"/>
     <style>
       header > nav {
@@ -39,7 +39,7 @@
       }
 
       .hero {
-        font-family: JetBrainsMono;
+        font-family: CascadiaCode;
         font-weight: 400;
         font-size: 2.6vw;
         letter-spacing: .4vw;
