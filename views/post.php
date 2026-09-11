@@ -36,7 +36,7 @@
     <meta property="og:type" content="article"/>
     <meta property="og:article:published_time" content="<?= $date ?>"/>
 
-    <link rel="preload" href="/assets/fonts/CascadiaCode.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin />
     <?php
         if ($prismRequired === true) {
             echo '<link rel="stylesheet" href="/assets/styles/prism.css">';
