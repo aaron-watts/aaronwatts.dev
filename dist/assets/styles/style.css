@@ -3,15 +3,6 @@
     src: url("/assets/fonts/JetBrainsMono.woff2") format('woff2');
 }
 
-/* prism contrast */
-.token.important, .token.regex, .token.variable {
-  color: #e9690c;
-}
-/* prism comments italic */
-.token.cdata, .token.comment, .token.doctype, .token.prolog {
-  font-style: italic;
-}
-
 :root {
     --bg-color: #fff;
     --bg-color-dark: #f5f2f0;
@@ -51,6 +42,26 @@
         --accent-mono-light: #ccc;
         --topic-selected: #666;
     }
+}
+
+/* prism contrast */
+.token.important, .token.regex, .token.variable {
+  color: #e9690c;
+}
+/* prism comments italic */
+.token.cdata, .token.comment, .token.doctype, .token.prolog {
+  font-style: italic;
+}
+.command-line-prompt > span[data-user]::before {
+  color: var(--accent-primary);
+}
+
+::highlight(user) {
+  color: var(--accent-primary);
+}
+
+::highlight(prompt) {
+  color: var(--accent-secondary);
 }
 
 html {
