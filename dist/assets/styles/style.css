@@ -264,6 +264,10 @@ figcaption {
     text-align: center;
 }
 
+aside.wpm {
+    margin-block: 4rem 2rem;
+}
+
 p small {
     display: block;
     font-style: italic;
