@@ -78,6 +78,8 @@
     </nav>
 <?php endif; ?>
 
+    <aside class="wpm"><p><small>Estimated reading time: <?= ceil(str_word_count($content) / 200); ?> minutes</small></p></aside>
+
     <main>
       <article>
         <?= $content; ?>
