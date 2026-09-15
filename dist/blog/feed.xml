@@ -7,6 +7,34 @@
     <description>Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</description>
     <category>Technology</category>
     <item>
+      <title>Reading Times</title>
+      <link>https://aaronwatts.dev/blog/reading-times/</link>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Another day, another minor change to my website. I have added an estimated reading time to articles.</description>
+      <guid>https://aaronwatts.dev/blog/reading-times/</guid>
+      <content:encoded><![CDATA[<p id="description">Another day, another minor change to my website. I have added an estimated reading time to articles.</p>
+
+<p>It wasn't a very complex addition. Just a line of PHP. I went with a lower reading speed, I'm a slow reader and I make guides which are slower to read than generic text. If you read faster than my site's estimated reading times, then pat yourself on the back.</p>
+
+<pre class="language-php"><code>&lt;aside class="wpm"&gt;
+  &lt;p&gt;
+    &lt;small&gt;Estimated reading time: &lt;?= ceil(str_word_count($content) / 200); ?&gt; minutes&lt;/small&gt;
+  &lt;/p&gt;
+&lt;/aside&gt;</code></pre>
+
+<p>I couldn't really decide where to fit it in to the flow of the document, so I just put it in before the main article as an <code>aside</code>. I think that's the correct way to use <code>aside</code>. MDN describes it as follows:</p>
+
+<blockquote>
+  <p>The <code>&lt;aside&gt;</code> HTML element represents a portion of a document whose content is only indirectly related to the document's main content. Asides are frequently presented as sidebars or call-out boxes.</p>
+</blockquote>
+
+<p>But the only place I've really noticed them used in the wild is for adverts. I gave it a <code>wpm</code> class <em>(words per minute)</em>. If only to set a specific margin on the reading times to push it down a bit from the top of the page, as the extra information was starting to feel a little cluttered.</p>
+
+<p>The <code>small</code> inside the <code>p</code> element already has styling that suited the scenario. I think <code>small</code> works, it's not small print, but it's complimentary text that is not strictly necessary to the article itself - this is the way I use small elements for my side notes inside of articles. I had been using <code>aside</code> for side notes but I'm pretty sure that was wrong, so now it's <code>small</code>. Sometimes knowing the correct semantics in a particular situation is difficult.</p>
+
+<p>I've been busy with other projects, so a small change that get's me near my blog for a moment is always welcome. I am always looking at improvements for this site of varying scale, which I'm sure I will get to soon. But for now, back to being busy elsewhere for a little while.</p>]]></content:encoded>
+    </item>
+    <item>
       <title>Pure Comments</title>
       <link>https://aaronwatts.dev/blog/pure-comments/</link>
       <pubDate>Fri, 28 Aug 2026 00:00:00 +0000</pubDate>

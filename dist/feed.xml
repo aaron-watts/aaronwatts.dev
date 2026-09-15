@@ -7,6 +7,34 @@
     <description>The most recent content on AaronWattsDev</description>
     <category>Technology</category>
     <item>
+      <title>Reading Times</title>
+      <link>https://aaronwatts.dev/blog/reading-times/</link>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Another day, another minor change to my website. I have added an estimated reading time to articles.</description>
+      <guid>https://aaronwatts.dev/blog/reading-times/</guid>
+      <content:encoded><![CDATA[<p id="description">Another day, another minor change to my website. I have added an estimated reading time to articles.</p>
+
+<p>It wasn't a very complex addition. Just a line of PHP. I went with a lower reading speed, I'm a slow reader and I make guides which are slower to read than generic text. If you read faster than my site's estimated reading times, then pat yourself on the back.</p>
+
+<pre class="language-php"><code>&lt;aside class="wpm"&gt;
+  &lt;p&gt;
+    &lt;small&gt;Estimated reading time: &lt;?= ceil(str_word_count($content) / 200); ?&gt; minutes&lt;/small&gt;
+  &lt;/p&gt;
+&lt;/aside&gt;</code></pre>
+
+<p>I couldn't really decide where to fit it in to the flow of the document, so I just put it in before the main article as an <code>aside</code>. I think that's the correct way to use <code>aside</code>. MDN describes it as follows:</p>
+
+<blockquote>
+  <p>The <code>&lt;aside&gt;</code> HTML element represents a portion of a document whose content is only indirectly related to the document's main content. Asides are frequently presented as sidebars or call-out boxes.</p>
+</blockquote>
+
+<p>But the only place I've really noticed them used in the wild is for adverts. I gave it a <code>wpm</code> class <em>(words per minute)</em>. If only to set a specific margin on the reading times to push it down a bit from the top of the page, as the extra information was starting to feel a little cluttered.</p>
+
+<p>The <code>small</code> inside the <code>p</code> element already has styling that suited the scenario. I think <code>small</code> works, it's not small print, but it's complimentary text that is not strictly necessary to the article itself - this is the way I use small elements for my side notes inside of articles. I had been using <code>aside</code> for side notes but I'm pretty sure that was wrong, so now it's <code>small</code>. Sometimes knowing the correct semantics in a particular situation is difficult.</p>
+
+<p>I've been busy with other projects, so a small change that get's me near my blog for a moment is always welcome. I am always looking at improvements for this site of varying scale, which I'm sure I will get to soon. But for now, back to being busy elsewhere for a little while.</p>]]></content:encoded>
+    </item>
+    <item>
       <title>Pure Comments</title>
       <link>https://aaronwatts.dev/blog/pure-comments/</link>
       <pubDate>Fri, 28 Aug 2026 00:00:00 +0000</pubDate>
@@ -1006,44 +1034,6 @@ done;</code></pre>
       <enclosure url="/images/tech/nextcloud.avif" type="image/jpeg" length="0" />
       <media:thumbnail url="/images/tech/nextcloud.avif" width="1920" height="1080" />
       <media:content url="/images/tech/nextcloud.avif" type="image/jpeg" />
-    </item>
-    <item>
-      <title>Raspberry Pi</title>
-      <link>https://aaronwatts.dev/tech/raspberry-pi/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <description>Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</description>
-      <guid>https://aaronwatts.dev/tech/raspberry-pi/</guid>
-      <content:encoded><![CDATA[<p id="description">Since it's early days, the Raspberry Pi ecosystem has become huge, monolithic even. I remember picking up my first one from a UK high street store called Maplin many years ago through curiousity. It was a Raspberry Pi 2 Model B, and it didn't work. I went through a 12 month process of arguing for a replacement on warranty, and the parcel being delivered to the wrong address. I had forgotten all about it when a neighbour returned from an extended trip abroad, and brought the box to my door.</p>
-
-<p>You're probably expecting the next line to be something along the lines of <em>"I have been tinkering ever since"</em>. Well, no, actually. At that time in my life I had a penchant for the outdoors, and a not particularly well paid job working at a charity. I didn't have a dedicated computer at the time, only a Playstation 3 (as well as my retro consoles that were entirely off line at that point) that I had bought second hand. Beyond being a very underpowered Linux computer, I wasn't totally sure what this thing called a <a href="https://www.raspberrypi.com/">Raspberry Pi</a> was meant to be.</p>
-
-<p>Eventually my cirumstances changed, I moved career, got a computer, and became aquainted with the internet. I still had my collection of retro gaming consoles, and had a bit of side hustle on the go buying games and consoles at deals, restoring them if they needed it, and selling them on. I was feeding a hobby and making some money on the side, and perhaps contributing to the ridiculous prices that retro gaming would eventually hold - sorry about that.</p>
-
-<p>Naturally, the omniscient Youtube algorithm knew what I wanted to watch before I even did (<em>some</em> of the time), and I kept seeing videos of emulation. A video caught my eye, likely a guide on how to install RetroPie onto this device I had sitting in my drawer. Okay, so <em>that's</em> what that thing can do. Nice! I had most of the real world consoles, with most of the games that I wanted for them. So while I didn't run out the door to buy a USB controller, I <em>did</em> get curious to what else this machine could do. And <em>that's</em> when I began tinkering, and have been ever since.</p>
-
-<p>I understood: it might not have been powerful enough to replace a desktop computer, but it was very good at doing <em>one</em> thing, and doing it really well. To try and list all the things you could do with a Raspberry Pi would be, frankly, a little ridiculous. As I have already mentioned, the ecosystem is huge. There's heaps of talented people in the community, and resources have become immense. Some of the projects I have kept around (some of which there are <a href="/guides">guides</a> for on this website) include:</p>
-
-<ul>
-  <li><a href="/guides/retropie-nespi-4">Retro gaming console</a></li>
-  <li><a href="/guides/gpicase">Handheld retro gaming console</a></li>
-  <li><a href="/guides/kde-plasma-bigscreen">KDE Bigscreen smart TV</a></li>
-  <li>Web radio with touch screen using Volumio</li>
-</ul>
-
-<p>These are just a few I have kept around. I have also experimented with running servers and sinkholes on my Raspberry Pi 2, had Kodi and Magic Mirror running on my Pi 3, and explored various operating systems across the devices too. I haven't even mentioned the Model A or Zero devices, or the Pico Micro Controllers, or robotics, or drones, or AI, or home automation .. you get the message.</p>
-
-<p>Later, the Raspberry Pi 5 family would make desktop computing entirely comfortable. I use a Raaspberry Pi 500+ as my main computer at my desk, and a Compute Module 5, in the new <a href="https://argon40.com/en-gb/products/argon-one-up-cm5-laptop-core-system" target="_blank">Argon One Up</a> laptop sysem (which I am working at now, while I type this!). Desktop computing was an okay experience on the Raspberry Pi 4, although with the demands of modern software (particularly browsers), you needed to maintain an austere process and sacrifice a little multi-tasking.</p>
-
-<blockquote><p>We’re on a mission to put high-performance, low-cost, general-purpose computing platforms in the hands of enthusiasts and engineers all over the world.</p></blockquote>
-
-<p>Raspberry Pi is not the only Single Board Computer out there. But it is arguably the most prolific and may have had the biggest impact on hobbyist computing. Low cost, low energy, and the ability to keep reusing old hardware means that it is all potentially very sustainable. SBC's have placed a little of the power into the hands of consumers that want to tinker and play. SBC's are to software what Lego is to architecture. Except if you build a house from Lego you can't live in it, whereas if you build software or a useful device with an SBC, you can absolutely use it.</p>
-
-<blockquote><p>Raspberry Pi is an engine for creativity, learning and innovation. With over sixty million of our computers sold in the last decade, there has never been a more exciting time to build on Raspberry Pi.</p></blockquote>
-
-<p>As for tech I consider to be thoughtful, I think the Raspberry Pi is a serious contender for <em>the most</em> thoughtful tech. By proffession I am a youth worker, and occassionally a kid I work with will mention learning to code on a Raspberry Pi, and that just makes me smile!</p>]]></content:encoded>
-      <enclosure url="/images/tech/raspberry-pi.avif" type="image/jpeg" length="0" />
-      <media:thumbnail url="/images/tech/raspberry-pi.avif" width="1920" height="1080" />
-      <media:content url="/images/tech/raspberry-pi.avif" type="image/jpeg" />
     </item>
   </channel>
 </rss>
