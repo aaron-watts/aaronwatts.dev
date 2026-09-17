@@ -82,7 +82,7 @@
             </ul>
           </header>
           <p class="description"><?= $description ?></p>
-          <a href="<?= $url ?>">Read More</a>
+          <a href="<?= $url ?>" aria-label="Read more about <?= $title ?>">Read More</a>
         </article>
 <?php endforeach ?>
       </nav>
