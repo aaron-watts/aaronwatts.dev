@@ -106,9 +106,10 @@
     <main>
       <nav aria-label="Site Navigation">
         <h2>Latest</h2>
+<?php $url = '/' . $latest['blog'] . '/' . $name; ?>
         <article>
           <header>
-          <h3><a href="/<?= $latest['blog'] ?>/<?= $name ?>"><?= $title ?></a></h3>
+          <h3><a href="<?= $url ?>"><?= $title ?></a></h3>
           <time datetime="<?= $date ?>"><?= formatDate($date); ?></time>
             <ul class="topic-container">
 <?php foreach($topics as $topic): ?>
@@ -117,7 +118,7 @@
             </ul>
           </header>
           <p class="description"><?= $description ?></p>
-          <a href="/<?= $latest['blog'] ?>/<?= $name ?>">Read More</a>
+          <a href="<?= $url ?>" aria-label="Read more about <?= $title ?>">Read More</a>
         </article>
 
 <?php foreach($blogOrder as $blogName): ?>
