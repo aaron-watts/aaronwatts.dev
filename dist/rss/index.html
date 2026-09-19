@@ -38,59 +38,28 @@
 
       <h2>Latest</h2>
       <a href="/feed">https://aaronwatts.dev/feed</a>
-      <button class="noscript copy">
-        <svg class="content-copy">
-          <use href="/assets/svg/svg-map.svg#content-copy" />
-        </svg>
-      </button>
+      <button class="noscript copy" aria-label="Copy link for latest articles RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/feed">Copy Link</button>
       <p>Latest articles from all categories.</p>
 
       <h2>Blog</h2>
       <a href="/blog/feed">https://aaronwatts.dev/blog/feed</a>
-      <button class="noscript copy">
-        <svg class="content-copy">
-          <use href="/assets/svg/svg-map.svg#content-copy" />
-        </svg>
-      </button>
+      <button class="noscript copy" aria-label="Copy link for blog RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/blog/feed">Copy Link</button>
       <p>Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</p>
-
       <h2>Guides</h2>
       <a href="/guides/feed">https://aaronwatts.dev/guides/feed</a>
-      <button class="noscript copy">
-        <svg class="content-copy">
-          <use href="/assets/svg/svg-map.svg#content-copy" />
-        </svg>
-      </button>
+      <button class="noscript copy" aria-label="Copy link for guides RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/guides/feed">Copy Link</button>
       <p>Some guides on things that I have worked on where resources are either hard to find or scattered.</p>
-
       <h2>Tech</h2>
       <a href="/tech/feed">https://aaronwatts.dev/tech/feed</a>
-      <button class="noscript copy">
-        <svg class="content-copy">
-          <use href="/assets/svg/svg-map.svg#content-copy" />
-        </svg>
-      </button>
+      <button class="noscript copy" aria-label="Copy link for tech RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/tech/feed">Copy Link</button>
       <p>Technology that I consider to be <em>thoughtful</em>, where there are more meaningful priorities than exponential growth and high profit margins.</p>
+
     </main>
 
 <footer>
   Made by Hand<br />Powered by Raspberry Pi
 </footer>
 
-    <script>
-       document.addEventListener('DOMContentLoaded', init);
-
-        function init() {
-            const noscript = document.querySelectorAll('.noscript');
-            noscript.forEach(i => {
-                i.classList.remove('noscript');
-                const feedLink = i.previousElementSibling.innerText;
-                i.addEventListener('click', () => {
-                    navigator.clipboard.writeText(feedLink);
-                });
-            });
-        } 
-    </script>
-
+    <script src="/assets/scripts/copytext.js"></script>
   </body>
 </html>

@@ -309,15 +309,11 @@ header > time {
 }
 
 button.copy {
-    transition: transform ease-in-out .06s;
+    display: block;
+    margin-block: .4rem 1rem;
 
     &.noscript {
         display: none;
-    }
-
-    &:active {
-        transform: scale(1.2);
-        transition: transform linear 0s;
     }
 }
 
