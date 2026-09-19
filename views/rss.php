@@ -38,41 +38,20 @@
 
       <h2>Latest</h2>
       <a href="/feed">https://aaronwatts.dev/feed</a>
-      <button class="noscript copy">
-        <svg class="content-copy">
-          <use href="/assets/svg/svg-map.svg#content-copy" />
-        </svg>
-      </button>
+      <button class="noscript copy" aria-label="Copy link for latest articles RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/feed">Copy Link</button>
       <p>Latest articles from all categories.</p>
-<?php foreach($blogOrder as $blogName): ?>
 
+<?php foreach($blogOrder as $blogName): ?>
       <h2><?= ucfirst($blogName) ?></h2>
       <a href="/<?= $blogName ?>/feed">https://aaronwatts.dev/<?= $blogName ?>/feed</a>
-      <button class="noscript copy">
-        <svg class="content-copy">
-          <use href="/assets/svg/svg-map.svg#content-copy" />
-        </svg>
-      </button>
+      <button class="noscript copy" aria-label="Copy link for <?= $blogName ?> RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/<?= $blogName ?>/feed">Copy Link</button>
       <p><?= $blogs[$blogName] ?></p>
 <?php endforeach; ?>
+
     </main>
 
 <?php require PARTIALS_PATH . 'footer.php'; ?>
 
-    <script>
-       document.addEventListener('DOMContentLoaded', init);
-
-        function init() {
-            const noscript = document.querySelectorAll('.noscript');
-            noscript.forEach(i => {
-                i.classList.remove('noscript');
-                const feedLink = i.previousElementSibling.innerText;
-                i.addEventListener('click', () => {
-                    navigator.clipboard.writeText(feedLink);
-                });
-            });
-        } 
-    </script>
-
+    <script src="/assets/scripts/copytext.js"></script>
   </body>
 </html>
