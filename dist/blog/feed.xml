@@ -7,6 +7,68 @@
     <description>Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</description>
     <category>Technology</category>
     <item>
+      <title>Do We Really Need Icons?</title>
+      <link>https://aaronwatts.dev/blog/do-we-really-need-icons/</link>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
+      <description>I added buttons to copy this sites RSS feed URL's recently. I just threw it together quickly and put "add user feedback" on my to-do list. As is the done thing, I used a nice looking copy icon from the material icon set by Google Fonts. That's the way it's done, I've seen it a million times already, no arguments from me. I've been crossing some of the small tasks off my to-do list this week. I made it to the copy button user feedback in my to-do notes file, and while I was working through the task, I began to have second thoughts about the entire design choice.</description>
+      <guid>https://aaronwatts.dev/blog/do-we-really-need-icons/</guid>
+      <content:encoded><![CDATA[<p id="description">I added buttons to copy this sites RSS feed URL's recently. I just threw it together quickly and put "add user feedback" on my to-do list. As is the done thing, I used a nice looking copy icon from the material icon set by Google Fonts. That's the way it's done, I've seen it a million times already, no arguments from me. I've been crossing some of the small tasks off my to-do list this week. I made it to the <em>copy button user feedback</em> in my to-do notes file, and while I was working through the task, I began to have second thoughts about the entire design choice.</p>
+
+<p>After adding the icons and a very rushed animation to indicate that a clicking of an icon had indeed happened, I intended to switch the copy icon to a success tick with a timeout, and add nested <code>div</code> with an attribute of <code>popover</code> with a corresponding value of <code>hint</code>. All very standard stuff, and also ubiquitous. If you haven't coded this yourself, there can be little doubt that you have encountered it many, many times. It's just the done thing. The HTML for the tooltip popover hints had impressed me, I did wonder why there isn't a native <code>popover</code> element, but the existing standards do make a <code>div</code> extremely versatile for this purpose, simply using attributes.</p>
+
+<p>However, as soon as I started with JavaScript I began to lose heart. For however seamless the HTML appeared to be, the JavaScript was anything but. To attach a tooltip to a button, I had to write no less than 4, that's four, event listeners just to achieve basic hover and focus functionality. That is before adding in any conditional logic or anything else. I reconsidered what it was I was trying to achieve...</p>
+
+<p>I had used icons in place of text, mainly to reduce visual clutter. But I think there's also an assumption that icons are the <em>"universal language"</em> - even though the standard <em>paste</em> from clipboard button icon has changed enough times in my lifetime that if I see a copy icon and a paste icon next to each other with no additional context, I have to actually <em>think</em> about which is which. They are not necessarily universal without context. If I showed 50 icons to my dear, old mother, and asked her to guess what each one means, I don't think she'd get even 10 of them correct. They might be language-agnostic (in the global sense, not the coding sense), but icons certainly do rely on context - especially as they become more and more simple in design. I'd argue it is contextual understanding that <em>allows</em> the icon to even exist in the first place.</p>
+
+<p>That's not to say icons are just bad. When using Google Maps to get directions for example, it is quite obvious that the button with the car icon will give you directions for driving and the bicycle icon will give you directions for cycling. But for something that is a concept with no physical representation, such as copy or paste, icons become more ambiguous. It would be proper to provide a tooltip hint for such an icon. Or, stay with me here, we just don't use an icon. The tooltip text can just be the button text.</p>
+
+<p>So that's what I did. I've designed my website to consider users not having JavaScript enabled, so there is a hyperlink for each feed that a user can right click to select copy link. The "Copy Link" buttons rely on JavaScript, so they are hidden with a class of <code>noscript</code> until JavaScript is detected. Despite the sin of styling my buttons to look like hyperlinks, I really do care about accessibility, and I try to make sure the text to a button is indicative of the task it performs. I've also added aria-labels as the buttons all read the same text, and an aria-live attribute set to assertive - which changes to off while it waits for the timeout to reset the text. I've included a data-copytext property so I can avoid navigating between siblings to get data in the JavaScript.</p>
+
+<pre class="language-html"><code>&lt;h2&gt;Latest&lt;/h2&gt;
+&lt;a href="/feed"&gt;https://aaronwatts.dev/feed&lt;/a&gt;
+
+&lt;button 
+  class="noscript"
+  aria-label="Copy link for latest articles RSS feed"
+  aria-live="assertive"
+  data-copytext="https://aaronwatts.dev/feed"
+&gt;Copy Link&lt;/button&gt;
+
+&lt;p&gt;Latest articles from all categories.&lt;/p&gt;</code></pre>
+
+<p>Thanks to the simple design the JavaScript is minimal. Once the DOM content has loaded, an <code>init</code> function unhides all the script dependent HTML elements, makes an array of all the copy buttons, then adds an event listener to each. In the event listener, the value collected from <code>data-copytext</code> is written to the clipboard, the buttons text content and aria live values are updated and the button is blurred from focus, and finally a timeout waits 3 seconds to reset the button back to its previous state.</p>
+
+<pre class="language-javascript"><code>document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+  const noscript = document.querySelectorAll('.noscript');
+  noscript.forEach(i =&gt; i.classList.remove('noscript'));
+
+  const copyBtns = document.querySelectorAll('button[data-copytext]');
+
+  copyBtns.forEach(btn =&gt; {
+    btn.addEventListener('click', () =&gt; {
+      const copyText = btn.dataset.copytext;
+      
+      navigator.clipboard.writeText(copyText);
+      
+      btn.textContent = "Link Copied!";
+      btn.ariaLive = 'off';
+      btn.blur();
+      
+      setTimeout(function() {
+        btn.textContent = "Copy Link";
+        btn.ariaLive = 'assertive';
+      }, 3000);
+    });
+  });
+}</code></pre>
+
+<p>I change the aria-live value to prevent screen readers from being interrupted when the text content gets reset - it doesn't really need a notification, but the feedback for the initial click is valuable. I'm not really sure if this is how it will play out in practise, but I hope that I've made a sensible UX pattern for everyone.</p>
+
+<p>I'm still using an icon (with screenreader text) for the link to the RSS page, however RSS is niche and I expect that most people using it will know what the icon looks like. I'm not here to say you shouldn't be using icons and you are breaking the internet and that is very bad. But I do think it's worth appreciating how much simpler I was able to make things for myself by avoiding the aesthetically simple solution. Poetic! So next time you are considering doing the done thing, it might be worth asking: does the done thing need to be done?</p>]]></content:encoded>
+    </item>
+    <item>
       <title>Reading Times</title>
       <link>https://aaronwatts.dev/blog/reading-times/</link>
       <pubDate>Tue, 15 Sep 2026 00:00:00 +0000</pubDate>

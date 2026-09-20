@@ -308,9 +308,13 @@ header > time {
     font-variant-numeric: ordinal;
 }
 
-button.copy {
+button[data-copytext] {
     display: block;
     margin-block: .4rem 1rem;
+
+    &[aria-live="off"] {
+        color: var(--accent-secondary);
+    }
 
     &.noscript {
         display: none;
