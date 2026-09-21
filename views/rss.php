@@ -37,14 +37,14 @@
       </header>
 
       <h2>Latest</h2>
-      <a href="/feed">https://aaronwatts.dev/feed</a>
-      <button class="noscript" aria-label="Copy link for latest articles RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/feed">Copy Link</button>
+      <a href="/feed.xml">https://aaronwatts.dev/feed.xml</a>
+      <button class="noscript" aria-label="Copy link for latest articles RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/feed.xml">Copy Link</button>
       <p>Latest articles from all categories.</p>
 
 <?php foreach($blogOrder as $blogName): ?>
       <h2><?= ucfirst($blogName) ?></h2>
-      <a href="/<?= $blogName ?>/feed">https://aaronwatts.dev/<?= $blogName ?>/feed</a>
-      <button class="noscript" aria-label="Copy link for <?= $blogName ?> RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/<?= $blogName ?>/feed">Copy Link</button>
+      <a href="/<?= $blogName ?>/feed.xml">https://aaronwatts.dev/<?= $blogName ?>/feed.xml</a>
+      <button class="noscript" aria-label="Copy link for <?= $blogName ?> RSS feed" aria-live="assertive" data-copytext="https://aaronwatts.dev/<?= $blogName ?>/feed.xml">Copy Link</button>
       <p><?= $blogs[$blogName] ?></p>
 <?php endforeach; ?>
 
