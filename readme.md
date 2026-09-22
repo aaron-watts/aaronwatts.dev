@@ -1,16 +1,14 @@
-# aaron-watts.github.io
+# [aaronwatts.dev](https://aaronwatts.dev)
 
-## aaronwatts.dev
+[My website](https://aaronwatts.dev) that I use to explore and learn about web standards. Including a short-form [blog](https://aaronwatts.dev/blog), longer [guides](https://aaronwatts.dev/guides), and brief [tech reviews](https://aaronwatts.dev/tech).
 
-My website that I use to explore and learn about web standards. Including a short-form blog, longer guides, and brief tech reviews.
-
-### Latest Article
+## Latest Article
 
 <div id="latest">
-    [2026-09-20 | Do We Really Need Icons?](https://aaronwatts.dev/blog/do-we-really-need-icons/)
+    [2026-09-20 | **Do We Really Need Icons?**](https://aaronwatts.dev/blog/do-we-really-need-icons/)
 </div>
 
-### RSS Feeds
+## RSS Feeds
 
 - [All/Latest Articles](https://aaronwatts.dev/feed.xml)
 
@@ -20,19 +18,20 @@ My website that I use to explore and learn about web standards. Including a shor
 
 - [Tech](https://aaronwatts.dev/tech/feed.xml)
 
-### Uses
+## Uses
 
-- [PrismJS](https://prismjs.com/) Syntax Highlighting
-- [LunrJS](https://lunrjs.com/) Static Search
-- [PureComments](https://purecomments.org/) Commenting System
+- [**PrismJS**](https://prismjs.com/) Syntax Highlighting
+- [**LunrJS**](https://lunrjs.com/) Static Search
+- [**PureComments**](https://purecomments.org/) Commenting System
 
-### Hosting
+## Hosting
 
 Hosted using [Coolify](https://coolify.io/) via Cloudflare ZeroTrust on a Raspberry Pi 4
 
-### Build Dependencies
+## Build Dependencies
 
 - php
 - php-cli
 - php-xml
+- php-date
 - ~minify~ (Not currently implemented)
