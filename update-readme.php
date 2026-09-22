@@ -14,7 +14,7 @@ $content = file_get_contents($file);
 
 $pattern = '/(<div\s+id="latest"[^>]*>).*?(<\/div>)/s';
 
-$newContent = '[' . date_format($pubDate, 'Y-m-d') . ' | ' . $title . '](' . $link . ')';
+$newContent = '<a href="' . $link . '">' . date_format($pubDate, 'Y-m-d') . ' | ' . $title . '</a>';
 
 $content = preg_replace(
   $pattern,

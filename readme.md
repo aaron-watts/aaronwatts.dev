@@ -5,7 +5,7 @@
 ## Latest Article
 
 <div id="latest">
-    [2026-09-20 | Do We Really Need Icons?](https://aaronwatts.dev/blog/do-we-really-need-icons/)
+    <a href="https://aaronwatts.dev/blog/do-we-really-need-icons/">2026-09-20 | Do We Really Need Icons?</a>
 </div>
 
 ## RSS Feeds
