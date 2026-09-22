@@ -60,3 +60,6 @@ do
   fi;
 done;
 
+# Update Readme
+php update-readme.php
+
