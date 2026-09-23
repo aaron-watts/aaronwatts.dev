@@ -1,9 +1,6 @@
 #comments {
-  --comments-text: #212121;
-  --comments-bg: #fafafa;
   --comments-accent-bg: #f5f7ff;
   --comments-accent: #0d47a1;
-  --comments-accent-hover: #1266e2;
   --comments-border: #898ea4;
   --comments-success: #1b5e20;
   --comments-error: #b71c1c;
@@ -16,11 +13,8 @@
 
 @media (prefers-color-scheme: dark) {
   #comments {
-    --comments-text: #DCDCDC;
-    --comments-bg: #222;
     --comments-accent-bg: #1A1A1A;
     --comments-accent: #88C0D0;
-    --comments-accent-hover: #78A9B6;
     --comments-border: #DCDCDC;
     --comments-success: #A3BE8C;
     --comments-error: #AA8A80;
@@ -158,15 +152,8 @@
 
 #comments form input,
 #comments form textarea {
-  width: 100%;
-  box-sizing: border-box;
   margin-top: 0.35rem;
   margin-bottom: 1rem;
-  padding: 0.6rem;
-  font: inherit;
-  font-weight: 400;
-  color: inherit;
-  background: var(--bg-color);
 }
 
 #comments .form-status {

@@ -327,22 +327,28 @@ search#search.noscript,
   display: none;
 }
 
+input[type="text"],
+input[type="email"],
+input[type="url"],
+textarea {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  color: inherit;
+  background: var(--bg-color);
+  padding: .6rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font: inherit;
+}
+
 search#search {
   width: 100%;
   margin-block: 1.5rem 3rem;
-
-  & input {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 100%;
-    border: 1px solid var(--border-color);
-    color: var(--accent-mono-light);
-    background: var(--bg-color);
-    padding: .6rem;
-    font-size: 1rem;
-    font-weight: 400;
-  }
+  position: relative;
 
   & button {
     font-size: 1.2rem;
@@ -471,10 +477,6 @@ svg.rss {
     height: 3rem;
 }
 
-.github-icon {
-   transform: scale(1.3);
-}
-
 nav[aria-label='Breadcrumb'] {
     font-family: var(--mono-font);
     font-size: .9rem;
@@ -554,7 +556,6 @@ nav[aria-label='Breadcrumb'] {
     pre {
         margin-inline: .1em !important;
         font-size: .8em !important;
-
     }
 }
 
