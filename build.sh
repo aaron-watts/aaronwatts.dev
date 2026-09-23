@@ -56,8 +56,20 @@ do
       cp -R "$name" "$BUILD_DIR";
     elif [ -f "$name" ]; then
       cp "$name" "$BUILD_DIR";
+#      if [[ $name =~ \.css$ ]]; then
+#        echo 'minify -o "${BUILD_DIR}/${name}" "${BUILD_DIR}/${name}"'
     fi
   fi;
+done;
+
+# minify css and js files
+for name in "${BUILD_DIR}"/assets/styles/*;
+do
+  minify -o "$name" "$name";
+done;
+for name in "${BUILD_DIR}"/assets/scripts/*;
+do
+  minify -o "$name" "$name";
 done;
 
 # Update Readme
