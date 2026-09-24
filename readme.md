@@ -34,4 +34,5 @@ Hosted using [Coolify](https://coolify.io/) via Cloudflare ZeroTrust on a Raspbe
 - php-cli
 - php-xml
 - php-date
-- ~minify~ (Not currently implemented)
+- minify
+
