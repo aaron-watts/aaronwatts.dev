@@ -141,6 +141,21 @@ function postController(array $url): void
     require APP_PATH . 'helpers.php';
     $blog = $url['params'][0];
     $post = $url['params'][1];
+    $feed = getBlogPosts($blog);
+    uasort($feed, "newestPost");
+    
+    $keys = array_keys($feed);
+    $currentPage = $blog . '/' . $post;
+    $currentPageKey = array_search($currentPage, $keys);
+    $nextArticle = $feed[$keys[$currentPageKey - 1]];
+    $prevArticle = $feed[$keys[$currentPageKey + 1]];
+    if ($nextArticle !== null) {
+      $nextInfo = getPostInfo($nextArticle['dom']);
+    }
+    if ($prevArticle !== null) {
+      $prevInfo = getPostInfo($prevArticle['dom']);
+    }
+
     $src = SRC_PATH . $blog . DIRECTORY_SEPARATOR . $post . '.html';
     $content = getPost($blog, $post);
     $dom = Dom\HTMLDocument::createFromString($content);
