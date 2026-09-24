@@ -93,6 +93,22 @@
       <a href="#top" id="to-top">Back to Top</a>
     </nav>
 
+    <nav aria-label="More Articles">
+<?php if ($nextArticle !== null): ?>
+      <div class="next">
+        <p>Next</p>
+        <p><a href="<?= '/' . $nextArticle['blog'] . '/' . $nextArticle['postName'] . '/' ?>" rel="next"><?= $nextInfo['title'] ?></a></p>
+      </div>
+<?php endif ?>
+
+<?php if ($prevArticle !== null): ?>
+      <div class="prev">
+        <p>Previous</p>
+        <p><a href="<?= '/' . $prevArticle['blog'] . '/' . $prevArticle['postName'] . '/' ?>" rel="prev"><?= $prevInfo['title'] ?></a></p>
+      </div>
+<?php endif ?>
+    </nav>
+
     <script>
       window.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.noscript').forEach(function(i) {
