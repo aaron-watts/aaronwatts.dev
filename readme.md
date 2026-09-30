@@ -5,7 +5,7 @@
 ## Latest Article
 
 <div id="latest">
-    <a href="https://aaronwatts.dev/blog/do-we-really-need-icons/">2026-09-20 | Do We Really Need Icons?</a>
+    <a href="https://aaronwatts.dev/blog/i-had-a-job-interview/">2026-09-30 | I Had A Job Interview</a>
 </div>
 
 ## RSS Feeds
