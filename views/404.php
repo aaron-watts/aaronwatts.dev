@@ -41,12 +41,35 @@
     <img src="/images/404.jpg" alt="Missing Image">
     <p>
       It looks like the page you're looking for does not exist.
-      Return to the <a href="/">home page</a> to find what you
-      are looking for.
+      Return to the <a href="/">home page</a> or look at the useful
+      links below.
     </p>
-    <nav aria-labelledby="home">
-      <a href="/" id="home">Go to home page</a>
-    </nav>
+      <nav aria-label="Site Navigation">
+        <h2>Latest</h2>
+<?php $url = '/' . $latest['blog'] . '/' . $name; ?>
+        <article>
+          <header>
+          <h3><a href="<?= $url ?>"><?= $title ?></a></h3>
+          <time datetime="<?= $date ?>"><?= formatDate($date); ?></time>
+            <ul class="topic-container">
+<?php foreach($topics as $topic): ?>
+              <li class="topic"><?= $topic->textContent ?></li>
+<?php endforeach; ?>
+            </ul>
+          </header>
+          <p class="description"><?= $description ?></p>
+          <a href="<?= $url ?>" aria-label="Read more about <?= $title ?>">Read More</a>
+        </article>
+
+<?php foreach($blogOrder as $blogName): ?>
+        <div class="blog--wrapper">
+          <h2><a href="/<?= $blogName ?>"><?= ucfirst($blogName) ?></a></h2>
+          <p><?= $blogs[$blogName] ?></p>
+          <a href="/<?= $blogName ?>">Go to <?= $blogName ?></a>
+        </div>
+<?php endforeach ?>
+
+      </nav>
   </main>
 
 <?php require PARTIALS_PATH . 'footer.php'; ?>

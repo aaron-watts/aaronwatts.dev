@@ -208,6 +208,32 @@ function homePageController(): void
 
 function pageNotFoundController(): void
 {
+    $configs = include CONFIG_PATH . 'config.php';
+    require APP_PATH . 'helpers.php';
+    $blogOrder = $configs['blogOrder'];
+    
+    $blogs = array();
+    $posts = array();
+
+    foreach ($configs['blogs'] as $blog => $blogDesc) {
+        $posts += [...getBlogPosts($blog)];
+        $blogs[$blog] = $blogDesc;
+    }
+    
+    uasort($posts, "newestPost");
+    [
+        'name' => $name,
+        'latest' => $latest
+    ] = getNewestPost($posts);
+
+    $postInfo = getPostInfo($latest['dom']);
+    [
+        'title' => $title,
+        'description' => $description,
+        'date' => $date,
+        'topics' => $topics,
+    ] = $postInfo;
+    
     require VIEWS_PATH . '404.php';
 }
 
