@@ -7,6 +7,22 @@
     <description>The most recent content on AaronWattsDev</description>
     <category>Technology</category>
     <item>
+      <title>My Website</title>
+      <link>https://aaronwatts.dev/blog/my-website/</link>
+      <pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate>
+      <description>I've been working a lot on this website over the last few years in terms of both content and features. I think I may have finally reached a landmark where I don't have much left to do in terms of features.</description>
+      <guid>https://aaronwatts.dev/blog/my-website/</guid>
+      <content:encoded><![CDATA[<p id="description">I've been working a lot on this website over the last few years in terms of both content and features. I think I may have finally reached a landmark where I don't have much left to do in terms of features.</p>
+
+<p>That's not to say I won't find excuses to tinker with and improve the site more in the future. But I think I may have ticked every box that I intended to. This website does everything that a blogging website ought to now, or at least, everything that I had any interest in learning and/or implementing.</p>
+
+<p>Now, there is always improvements that can be made. And while I'm happy with the style and structure of my website now, I may change my mind or decide I want to try something new later on down the line. I watch other tech bloggers who seem to enjoy revamping their entire CSS folder periodically. I think that's great, they clearly enjoy digging into the grit and playing with it. I'm quite lazy in that respect. Less is more: it might be more of an excuse than an ethos in my case. Nonetheless, I do prefer to keep things simple whenever I am able to do so. I used to draw a lot, and I really got in to simple yet detailed India ink drawings, with just one or two water colour pencils washed in to a few select parts of a drawing to make it pop. I do like simplicity.</p>
+
+<p>The main reason I started this website was specifically the <a href="/guides/">guides</a> section. Where I log things that I've worked on that don't already have a simple-to-follow guide that I've been able to find. Lots of things I work on do have guides, so naturally the post cycle in that section can sometimes be a little slow — so I added the <a href="/tech/">tech</a> section to add a little meat to the site. I'm glad I pulled the <a href="/blog/">blog</a> section in to this site instead of keeping it on a different site; I didn't really think I'd have much to blog about originally so I thought I'd keep it as an isolated project for a little while. But as it turns out I enjoy writing and it helps me organise my thoughts. For some extra code-centric content I'm thinking I may blog about some specific features of this site that I particularly like. But that will happen as and when, and now that I have this project at a place that I'm happy with I'm going to concentrate on some other things for a little while.</p>
+
+<p>I will still be uploading content here, but I want to get back to learning PHP — which itself may lead to an overhaul of this site's build code. Some bloggers like making things look good, I like making things work good. And also I barely started learning PHP before I got excited and built myself an entire CMS with it, so I don't doubt that there's a lot of improvements that can be made to my codebase. I've also had a pin in learning about iCal and ICS. I know, super nerdy. I really like learning about the lesser thought-of components that make the internet such a useful and interesting tool, and learning the RSS 2.0 spec and figuring out how to implement it from scratch in my website might be one of the most enjoyable things I've done at a computer. There are tools to do it for you, but that's just not what I'm here for, I want to get my hands dirty and enjoy myself!</p>]]></content:encoded>
+    </item>
+    <item>
       <title>I Had A Job Interview</title>
       <link>https://aaronwatts.dev/blog/i-had-a-job-interview/</link>
       <pubDate>Wed, 30 Sep 2026 00:00:00 +0000</pubDate>
@@ -532,43 +548,6 @@ const results = idx.search(query);</code></pre>
     &lt;?php require PARTIALS_PATH . 'header.php' ?&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>]]></content:encoded>
-    </item>
-    <item>
-      <title>Hello, World!</title>
-      <link>https://aaronwatts.dev/blog/hello-world/</link>
-      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
-      <description>My blog has been abandoned. Welcome to my blog. I have just rebuilt this website's site management tools using PHP. I had intended to import my blog reel from a Publii site that I was using for blogging, with this site featuring more topical posts. But I have decided I will start anew here. Blog reels can fill up fast, after all.</description>
-      <guid>https://aaronwatts.dev/blog/hello-world/</guid>
-      <content:encoded><![CDATA[<p id="description">My blog has been abandoned. Welcome to my blog. I have just rebuilt this website's site management tools using PHP. I had intended to import my blog reel from a Publii site that I was using for blogging, with this site featuring more <em>topical</em> posts. But I have decided I will start anew here. Blog reels can fill up fast, after all.</p>
-
-<p>I've stopped using Publii, for now the site still <a href="https://blog.aaronwatts.dev">still exists</a>, although I may delete the repository at some point and just let my Cloudflare DNS redirect here. I looked to see if there was an easy way to export from Publii, and came across another recent-ish <a href="https://www.gregwalsh.com/exporting-publii-to-markdown-to-jekyll/">post by Greg Walsh</a>, about him making a similar decision. I'm pleased he's kept a Simple-ish design similar to the default Publii one. I really liked it, I've taken a little inspiration from it myself for this site, but not too much. I was a little surprised how complex the proccess of exporting from Publii was, considering it was part of their brand that your work should be <em>yours</em>. I suppose in every other sense of the word it is. Hopefully they make exporting easier in a later release.</p>
-
-<p>I was going to make a PHP scraper to dump the data into files and be done with it. But then I decided it might disturb the context of some of the posts, particularly where I mention my other website that is now this website. I had intended on exploring Publii more as well, but as I use a Raspberry Pi for computing, I was stuck on an older, unofficial release. I have an Intel device with the current version installed. But I'm not going to boot that up for one single task alone - although admittedly I will do that to play Sonic Mania on Steam.</p>
-
-<p>I don't often use pictures for my blog - so I must remember to adjust the static site generator not to expect them ... and, done! It was just a simple case of adjusting a line in the PHP:</p>
-
-<pre class="language-php"><code>// Old
-$imgUrl = $dom-&gt;querySelector('img')-&gt;getAttribute('src');
-
-// New
-$img = $dom-&gt;querySelector('img');
-$imgUrl = $img !== null ? $img-&gt;getAttribute('src') : "";</code></pre>
-
-<p>And one in the <code>feed.php</code> template:</p>
-
-<pre class="language-php"><code>&lt;!-- Old --&gt;
-&lt;enclosure url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" length="0" /&gt;
-&lt;media:thumbnail url="&lt;?= $imgUrl ?&gt;" width="1920" height="1080" /&gt;
-&lt;media:content url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" /&gt;
-
-&lt;!-- New --&gt;
-&lt;?php if (strlen($imgUrl) &gt; 0): ?&gt;
-  &lt;enclosure url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" length="0" /&gt;
-  &lt;media:thumbnail url="&lt;?= $imgUrl ?&gt;" width="1920" height="1080" /&gt;
-  &lt;media:content url="&lt;?= $imgUrl ?&gt;" type="image/jpeg" /&gt;
-&lt;?php endif; ?&gt;</code></pre>
-
-<p>Oh yeah, and I can include XML in my RSS feed on this site's version of my blog - which I couldn't in Publii due to the way it handled it's Atom feed. So expect more of that. Take that Publii!</p>]]></content:encoded>
     </item>
   </channel>
 </rss>

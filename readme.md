@@ -5,7 +5,7 @@
 ## Latest Article
 
 <div id="latest">
-    <a href="https://aaronwatts.dev/blog/i-had-a-job-interview/">2026-09-30 | I Had A Job Interview</a>
+    <a href="https://aaronwatts.dev/blog/my-website/">2026-10-07 | My Website</a>
 </div>
 
 ## RSS Feeds

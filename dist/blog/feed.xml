@@ -7,6 +7,22 @@
     <description>Topics will likely fall into the realm of nerdery, with hobbyist programming and web development,  tech gadgets, and maybe video games and books.</description>
     <category>Technology</category>
     <item>
+      <title>My Website</title>
+      <link>https://aaronwatts.dev/blog/my-website/</link>
+      <pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate>
+      <description>I've been working a lot on this website over the last few years in terms of both content and features. I think I may have finally reached a landmark where I don't have much left to do in terms of features.</description>
+      <guid>https://aaronwatts.dev/blog/my-website/</guid>
+      <content:encoded><![CDATA[<p id="description">I've been working a lot on this website over the last few years in terms of both content and features. I think I may have finally reached a landmark where I don't have much left to do in terms of features.</p>
+
+<p>That's not to say I won't find excuses to tinker with and improve the site more in the future. But I think I may have ticked every box that I intended to. This website does everything that a blogging website ought to now, or at least, everything that I had any interest in learning and/or implementing.</p>
+
+<p>Now, there is always improvements that can be made. And while I'm happy with the style and structure of my website now, I may change my mind or decide I want to try something new later on down the line. I watch other tech bloggers who seem to enjoy revamping their entire CSS folder periodically. I think that's great, they clearly enjoy digging into the grit and playing with it. I'm quite lazy in that respect. Less is more: it might be more of an excuse than an ethos in my case. Nonetheless, I do prefer to keep things simple whenever I am able to do so. I used to draw a lot, and I really got in to simple yet detailed India ink drawings, with just one or two water colour pencils washed in to a few select parts of a drawing to make it pop. I do like simplicity.</p>
+
+<p>The main reason I started this website was specifically the <a href="/guides/">guides</a> section. Where I log things that I've worked on that don't already have a simple-to-follow guide that I've been able to find. Lots of things I work on do have guides, so naturally the post cycle in that section can sometimes be a little slow — so I added the <a href="/tech/">tech</a> section to add a little meat to the site. I'm glad I pulled the <a href="/blog/">blog</a> section in to this site instead of keeping it on a different site; I didn't really think I'd have much to blog about originally so I thought I'd keep it as an isolated project for a little while. But as it turns out I enjoy writing and it helps me organise my thoughts. For some extra code-centric content I'm thinking I may blog about some specific features of this site that I particularly like. But that will happen as and when, and now that I have this project at a place that I'm happy with I'm going to concentrate on some other things for a little while.</p>
+
+<p>I will still be uploading content here, but I want to get back to learning PHP — which itself may lead to an overhaul of this site's build code. Some bloggers like making things look good, I like making things work good. And also I barely started learning PHP before I got excited and built myself an entire CMS with it, so I don't doubt that there's a lot of improvements that can be made to my codebase. I've also had a pin in learning about iCal and ICS. I know, super nerdy. I really like learning about the lesser thought-of components that make the internet such a useful and interesting tool, and learning the RSS 2.0 spec and figuring out how to implement it from scratch in my website might be one of the most enjoyable things I've done at a computer. There are tools to do it for you, but that's just not what I'm here for, I want to get my hands dirty and enjoy myself!</p>]]></content:encoded>
+    </item>
+    <item>
       <title>I Had A Job Interview</title>
       <link>https://aaronwatts.dev/blog/i-had-a-job-interview/</link>
       <pubDate>Wed, 30 Sep 2026 00:00:00 +0000</pubDate>
